@@ -2,6 +2,7 @@
 import type { ReactNode } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { PageTransition } from "@/components/layout/PageTransition";
 import "@fontsource-variable/azeret-mono";
 import "@fontsource-variable/outfit";
 import "./globals.css";
@@ -16,11 +17,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <a href="#main" className="skip">Skip to content</a>
-        <div className="site-frame">
+        <PageTransition>
           <Header />
           <main id="main" className="wrap">{children}</main>
           <Footer />
-        </div>
+        </PageTransition>
       </body>
     </html>
   );

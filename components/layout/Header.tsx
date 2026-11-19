@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿import { PageLink as Link } from "@/components/layout/PageTransition";
 import Image from "next/image";
 import Navigation from "./Navigation";
 

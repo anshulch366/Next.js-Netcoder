@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageLink as Link } from "@/components/layout/PageTransition";
 import { notFound } from "next/navigation";
 import { courses } from "@/data/courses";
 import { lessons, lessonsFor } from "@/data/lessons";

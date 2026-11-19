@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageLink as Link } from "@/components/layout/PageTransition";
 import type { Topic } from "@/types/course";
 import { courses } from "@/data/courses";
 import { resources } from "@/data/resources";

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { PageLink as Link } from "@/components/layout/PageTransition";
 import { courses } from "@/data/courses";
 import { lessonsFor } from "@/data/lessons";
 import CourseProgress from "@/components/courses/CourseProgress";

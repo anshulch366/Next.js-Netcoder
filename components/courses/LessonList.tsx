@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageLink as Link } from "@/components/layout/PageTransition";
 import type { Lesson } from "@/types/lesson";
 
 export default function LessonList({ lessons }: { lessons: Lesson[] }) {

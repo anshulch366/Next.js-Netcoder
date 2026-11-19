@@ -72,6 +72,14 @@ summary {
   background: #191716;
 }
 
+.site-frame[aria-busy="true"] {
+  filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-frame[aria-busy="true"] { transition: filter 90ms ease-out; }
+}
+
 .wrap {
   width: min(1160px, 88%);
   margin-inline: auto;

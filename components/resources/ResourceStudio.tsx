@@ -4,9 +4,10 @@ import { useState } from "react";
 import { learningLanguages } from "@/data/learning-resources";
 import styles from "./ResourceStudio.module.css";
 
-export default function ResourceStudio() {
-  const [languageId, setLanguageId] = useState("html");
-  const [lessonId, setLessonId] = useState(learningLanguages[0].lessons[0].id);
+export default function ResourceStudio({ initialSubject }: { initialSubject?: string }) {
+  const startingLanguage = learningLanguages.find((item) => item.id === initialSubject) ?? learningLanguages[0];
+  const [languageId, setLanguageId] = useState(startingLanguage.id);
+  const [lessonId, setLessonId] = useState(startingLanguage.lessons[0].id);
   const [topicSearch, setTopicSearch] = useState("");
   const [quizChoices, setQuizChoices] = useState<Record<number, number | null>>({});
   const [submittedQuizzes, setSubmittedQuizzes] = useState<Record<number, boolean>>({});
@@ -26,6 +27,9 @@ export default function ResourceStudio() {
   function selectLanguage(id: string) {
     const nextLanguage = learningLanguages.find((item) => item.id === id);
     if (!nextLanguage) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("subject", id);
+    window.history.replaceState(null, "", url);
     setLanguageId(nextLanguage.id);
     setLessonId(nextLanguage.lessons[0].id);
     setTopicSearch("");

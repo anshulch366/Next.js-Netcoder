@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿import { PageLink as Link } from "@/components/layout/PageTransition";
 import styles from "./home.module.css";
 
 export const metadata = { title: "Welcome" };
