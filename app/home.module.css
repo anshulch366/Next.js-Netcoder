@@ -1,0 +1,228 @@
+﻿:global(html):has(.home) {
+  color-scheme: light;
+  background: #f9f9f8;
+  overflow: clip;
+}
+
+:global(body):has(.home) {
+  /* The 928 × 659 artboard has 65px side gutters and 27px vertical gutters. */
+  --unit: min(calc(100vw / 516), calc(100dvh / 366));
+  --ink: #20201f;
+  --muted: #555350;
+  --line: #d6d2cf;
+  --accent: #FF5532;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: clip;
+  padding-block: 4.1dvh 3.9dvh;
+  background: radial-gradient(ellipse 88% 65% at 50% 105%, var(--accent) 38%, #ff977f 65%, transparent 100%), #f9f9f8;
+}
+
+:global(.site-frame):has(.home) {
+  width: min(86%, calc(550 * var(--unit)));
+  height: 100%;
+  min-height: 0;
+  margin-inline: auto;
+  border: 1px solid #d1cecb;
+  border-radius: calc(29 * var(--unit));
+  background: linear-gradient(180deg, #fff 0%, #fdfcfb 34%, #fcf6f2 70%, #f9e4da 100%);
+}
+
+:global(.site-frame):has(.home) :global(.wrap) { width: 83.3%; }
+:global(.site-frame):has(.home) header { border: 0; }
+:global(.site-frame):has(.home) footer,
+:global(.site-frame):has(.home) :global(.wordmark) { display: none; }
+
+:global(.site-frame):has(.home) :global(.bar) {
+  min-height: 0;
+  padding-top: calc(29 * var(--unit));
+}
+
+/* The empty slot is ready for the logo image in Header.tsx. */
+:global(.site-frame):has(.home) :global(.home-logo-slot) {
+  display: block;
+  width: clamp(108px, 13vw, 168px);
+  height: min(48px, calc(17 * var(--unit)));
+}
+
+:global(.home-logo-slot) img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+:global(.site-frame):has(.home) :global(.menu-trigger) {
+  width: calc(17 * var(--unit));
+  height: calc(17 * var(--unit));
+  justify-content: center;
+  padding: 0;
+  gap: calc(1.4 * var(--unit));
+  border: 1px solid var(--line);
+  border-radius: calc(4 * var(--unit));
+  color: var(--ink);
+  background: #efeeec;
+}
+:global(.site-frame):has(.home) :global(.menu-trigger) span {
+  width: calc(6.4 * var(--unit));
+  height: max(1px, calc(.6 * var(--unit)));
+}
+:global(.site-frame):has(.home) :global(.menu-trigger) span:nth-child(2) {
+  width: calc(4.5 * var(--unit));
+  margin-left: calc(1.4 * var(--unit));
+}
+:global(.site-frame):has(.home) nav {
+  max-height: calc(100dvh - 5.5rem);
+  overflow-y: auto;
+  border-color: var(--line);
+  color: var(--ink);
+  background: white;
+}
+:global(.site-frame):has(.home) :global(.menu-trigger):hover,
+:global(.site-frame):has(.home) nav a:hover,
+:global(.site-frame):has(.home) nav a[aria-current] { background: #f8eae4; }
+:global(body):has(.home) :focus-visible { outline-color: #653a2e; }
+
+:global(.site-frame):has(.home) main {
+  display: grid;
+  align-content: center;
+  min-height: 0;
+  padding: 0;
+}
+
+.home { width: 100%; }
+.intro { text-align: center; }
+.welcome {
+  display: inline-block;
+  vertical-align: top;
+  padding: .42em 1em;
+  border: 1px solid #bbb8b4;
+  border-radius: .6em;
+  color: var(--muted);
+  font-size: calc(4.4 * var(--unit));
+  line-height: 1.25;
+}
+.intro { line-height: 1; font-size: calc(5 * var(--unit)); }
+.intro h1 {
+  margin: calc(5 * var(--unit)) 0 calc(3 * var(--unit));
+  font: 700 calc(25 * var(--unit))/1.06 var(--heading-font);
+  letter-spacing: 0;
+}
+.intro h1 span { display: block; }
+.intro p {
+  max-width: 45ch;
+  margin: 0 auto;
+  color: #393837;
+  font-size: calc(7.5 * var(--unit));
+  line-height: 1.24;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(7 * var(--unit));
+  margin-top: calc(14 * var(--unit));
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  min-height: calc(127 * var(--unit));
+  padding: calc(14 * var(--unit));
+  border: 1px solid var(--line);
+  border-radius: calc(15 * var(--unit));
+  background: #faf9f8;
+}
+.card h2 {
+  font: 700 calc(12 * var(--unit))/1.15 var(--heading-font);
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.card p, .card ul {
+  color: var(--muted);
+  font-size: calc(5.35 * var(--unit));
+  line-height: 1.26;
+}
+.description { margin: .46em 0 0; }
+.features h3 {
+  margin: 1.2em 0 .36em;
+  font: 650 calc(6.4 * var(--unit))/1.25 var(--heading-font);
+  letter-spacing: 0;
+}
+.card ul { margin: 0 0 1.5em; padding-left: 1.4em; }
+.action {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: calc(14.5 * var(--unit));
+  margin-top: auto;
+  border: 1px solid var(--line);
+  border-radius: calc(4.5 * var(--unit));
+  background: white;
+  color: var(--ink);
+  font: 700 calc(5.6 * var(--unit))/1.2 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .025em;
+}
+.card:first-child .action { border-color: var(--accent); background: var(--accent); }
+.action:hover { text-decoration: none; filter: brightness(.96); }
+
+.detailsButton { display: none; }
+.popover {
+  width: min(24rem, 90vw);
+  max-height: 85dvh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 16px 48px #18181829;
+}
+.popover::backdrop { background: #18181840; }
+.popover button {
+  min-height: 40px;
+  padding-inline: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .6rem;
+  background: #faf9f8;
+  color: var(--ink);
+}
+
+/* Narrow portrait screens keep the same paths in a single, fixed-height view. */
+@media (max-width: 42rem) and (orientation: portrait) {
+  :global(.site-frame):has(.home) { width: 91%; }
+  :global(.site-frame):has(.home) :global(.wrap) { width: 89%; }
+  :global(.site-frame):has(.home) :global(.bar) { padding-top: 1rem; }
+  :global(.site-frame):has(.home) :global(.home-logo-slot) { height: 32px; }
+  :global(.site-frame):has(.home) :global(.menu-trigger) { width: 40px; height: 40px; gap: 3px; border-radius: 8px; }
+  :global(.site-frame):has(.home) :global(.menu-trigger) span { width: 15px; height: 1.5px; }
+  :global(.site-frame):has(.home) :global(.menu-trigger) span:nth-child(2) { width: 11px; margin-left: 3px; }
+  .welcome { font-size: .7rem; }
+  .intro h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); margin-block: .35rem; }
+  .intro p { font-size: .95rem; }
+  .choices { grid-template-columns: 1fr; gap: .6rem; margin-top: .85rem; }
+  .card { padding: .8rem 1rem; min-height: 0; border-radius: 1rem; }
+  .card h2 { font-size: 1.2rem; }
+  .card p, .card ul { font-size: .9rem; }
+  .features { display: none; }
+  .detailsButton {
+    display: block;
+    min-height: 32px;
+    margin-bottom: .25rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: .88rem;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+  }
+  .action { min-height: 42px; font-size: .85rem; border-radius: .5rem; }
+}
+
+@media (max-width: 42rem) and (orientation: portrait) and (max-height: 44rem) {
+  .description { display: none; }
+}
