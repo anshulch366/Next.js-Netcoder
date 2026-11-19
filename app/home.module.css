@@ -99,9 +99,10 @@
   display: inline-block;
   vertical-align: top;
   padding: .42em 1em;
-  border: 1px solid #bbb8b4;
+  /* border: 1px solid #bbb8b4; */
   border-radius: .6em;
-  color: var(--muted);
+  color: white;
+  background-color: #FF5532;
   font-size: calc(4.4 * var(--unit));
   line-height: 1.25;
 }
@@ -159,15 +160,14 @@
   width: 100%;
   min-height: calc(14.5 * var(--unit));
   margin-top: auto;
-  border: 1px solid var(--line);
+  border: 1px solid var(--accent);
   border-radius: calc(4.5 * var(--unit));
-  background: white;
-  color: var(--ink);
+  background: var(--accent);
+  color: white;
   font: 700 calc(5.6 * var(--unit))/1.2 var(--mono);
   text-transform: uppercase;
   letter-spacing: .025em;
 }
-.card:first-child .action { border-color: var(--accent); background: var(--accent); }
 .action:hover { text-decoration: none; filter: brightness(.96); }
 
 .detailsButton { display: none; }
