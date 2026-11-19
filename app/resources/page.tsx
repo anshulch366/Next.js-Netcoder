@@ -1,2 +1,7 @@
 export const metadata = { title: "Resource library" };
-export { Resources as default } from "@/app/MainPages";
+
+import ResourceStudio from "@/components/resources/ResourceStudio";
+
+export default function ResourcesPage() {
+	return <ResourceStudio />;
+}

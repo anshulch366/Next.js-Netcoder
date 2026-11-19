@@ -15,8 +15,13 @@ export default function Header() {
           />
         </div>
         <Link href="/" className="wordmark" aria-label="Netcoder Technology home">
-          <span aria-hidden="true">netc<i />der</span>
-          <small aria-hidden="true">Technology</small>
+          <Image
+            src="/images/logo/logo.png"
+            alt=""
+            width={400}
+            height={160}
+            priority
+          />
         </Link>
         <Navigation />
       </div>

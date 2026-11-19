@@ -1,0 +1,212 @@
+"use client";
+
+import { useState } from "react";
+import { learningLanguages } from "@/data/learning-resources";
+import styles from "./ResourceStudio.module.css";
+
+export default function ResourceStudio() {
+  const [languageId, setLanguageId] = useState("html");
+  const [lessonId, setLessonId] = useState(learningLanguages[0].lessons[0].id);
+  const [topicSearch, setTopicSearch] = useState("");
+  const [quizChoices, setQuizChoices] = useState<Record<number, number | null>>({});
+  const [submittedQuizzes, setSubmittedQuizzes] = useState<Record<number, boolean>>({});
+  const [copiedExample, setCopiedExample] = useState<number | null>(null);
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+
+  const language = learningLanguages.find((item) => item.id === languageId) ?? learningLanguages[0];
+  const lesson = language.lessons.find((item) => item.id === lessonId) ?? language.lessons[0];
+  const lessonKey = `${language.id}:${lesson.id}`;
+  const examples = lesson.examples ?? [{ title: "Example", code: lesson.example }];
+  const quizzes = lesson.quizzes ?? [lesson.quiz];
+  const activeIndex = language.lessons.findIndex((item) => item.id === lesson.id);
+  const visibleLessons = language.lessons.filter((item) => item.title.toLowerCase().includes(topicSearch.trim().toLowerCase()));
+  const totalLessons = learningLanguages.reduce((total, item) => total + item.lessons.length, 0);
+  const progress = Math.round((completedLessons.length / totalLessons) * 100);
+
+  function selectLanguage(id: string) {
+    const nextLanguage = learningLanguages.find((item) => item.id === id);
+    if (!nextLanguage) return;
+    setLanguageId(nextLanguage.id);
+    setLessonId(nextLanguage.lessons[0].id);
+    setTopicSearch("");
+    resetQuiz();
+  }
+
+  function resetQuiz() {
+    setQuizChoices({});
+    setSubmittedQuizzes({});
+  }
+
+  function selectLesson(id: string) {
+    setLessonId(id);
+    resetQuiz();
+    setCopiedExample(null);
+  }
+
+  function moveLesson(direction: -1 | 1) {
+    const next = language.lessons[activeIndex + direction];
+    if (next) selectLesson(next.id);
+  }
+
+  function toggleCompleted() {
+    setCompletedLessons((current) => current.includes(lessonKey)
+      ? current.filter((key) => key !== lessonKey)
+      : [...current, lessonKey]);
+  }
+
+  async function copyExample(index: number, code: string) {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedExample(index);
+      window.setTimeout(() => setCopiedExample(null), 1800);
+    } catch {
+      setCopiedExample(null);
+    }
+  }
+
+  return (
+    <div className={styles.studio}>
+      <div className={styles.kickerRow}>
+        <div className={styles.libraryMark}><span aria-hidden="true">N</span><span>Netcoder <b>Learning Library</b></span></div>
+        <div className={styles.progressSummary} aria-label={`${completedLessons.length} of ${totalLessons} lessons complete`}>
+          <span>{completedLessons.length}/{totalLessons} lessons</span>
+          <span className={styles.progressTrack}><span style={{ width: `${progress}%` }} /></span>
+        </div>
+      </div>
+
+      <section className={styles.hero} aria-labelledby="library-title">
+        <p className={styles.eyebrow}>LEARN · PRACTICE · BUILD</p>
+        <h1 id="library-title">A clearer path to <span>what’s next.</span></h1>
+        <p className={styles.heroCopy}>Practical, bite-sized guides for the tools behind the web. Pick a subject, explore a topic, and learn by doing.</p>
+      </section>
+
+      <nav className={styles.languageNav} aria-label="Choose a technology">
+        <div className={styles.languageNavLabel}>EXPLORE</div>
+        <div className={styles.languageList}>
+          {learningLanguages.map((item) => (
+            <button
+              className={`${styles.languageButton} ${language.id === item.id ? styles.languageActive : ""}`}
+              type="button"
+              key={item.id}
+              onClick={() => selectLanguage(item.id)}
+              aria-pressed={language.id === item.id}
+            >
+              {item.label}<span>{item.lessons.length}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      <div className={styles.learningLayout}>
+        <aside className={styles.sidebar} aria-label={`${language.label} topics`}>
+          <div className={styles.sidebarHeader}>
+            <div><p className={styles.sidebarEyebrow}>{language.category}</p><h2>{language.label} path</h2></div>
+            <span className={styles.topicCount}>{language.lessons.length}</span>
+          </div>
+          <label className={styles.searchLabel} htmlFor="topic-search">FIND A TOPIC</label>
+          <div className={styles.searchBox}>
+            <span aria-hidden="true">⌕</span>
+            <input id="topic-search" type="search" placeholder="Search topics" value={topicSearch} onChange={(event) => setTopicSearch(event.target.value)} />
+            <kbd>/</kbd>
+          </div>
+          <nav className={styles.topicNav} aria-label={`${language.label} lesson list`}>
+            {visibleLessons.map((item) => {
+              const itemKey = `${language.id}:${item.id}`;
+              const isComplete = completedLessons.includes(itemKey);
+              return (
+                <button
+                  className={`${styles.topicButton} ${lesson.id === item.id ? styles.topicActive : ""}`}
+                  type="button"
+                  key={item.id}
+                  onClick={() => selectLesson(item.id)}
+                  aria-current={lesson.id === item.id ? "step" : undefined}
+                >
+                  <span className={styles.topicNumber}>{isComplete ? "✓" : String(language.lessons.indexOf(item) + 1).padStart(2, "0")}</span>
+                  <span>{item.title}</span>
+                  {lesson.id === item.id && <span className={styles.topicArrow} aria-hidden="true">›</span>}
+                </button>
+              );
+            })}
+            {visibleLessons.length === 0 && <p className={styles.emptySearch}>No topics match “{topicSearch}”.</p>}
+          </nav>
+          <a className={styles.docsCard} href={language.docs} target="_blank" rel="noreferrer">
+            <span className={styles.docsIcon} aria-hidden="true">↗</span>
+            <span><b>Official documentation</b><small>Go deeper with {language.label}</small></span>
+          </a>
+        </aside>
+
+        <section className={styles.lessonMain} aria-label={`${language.label} lesson`}>
+          <div className={styles.breadcrumb}><span>Library</span><span aria-hidden="true">/</span><span>{language.label}</span><span aria-hidden="true">/</span><span>{lesson.title}</span></div>
+          <article className={styles.lessonArticle}>
+            <header className={styles.lessonHeader}>
+              <div className={styles.lessonMeta}><span className={styles.languageTag}>{language.label}</span><span>LESSON {String(activeIndex + 1).padStart(2, "0")} <i>·</i> {language.lessons.length} TOPICS</span></div>
+              <h2>{lesson.title}</h2>
+              <p>{lesson.summary}</p>
+            </header>
+
+            <section className={styles.guideSection} aria-labelledby="key-ideas">
+              <h3 id="key-ideas"><span className={styles.sectionIcon}>✳</span> Key ideas</h3>
+              {lesson.content.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <div className={styles.tip}><span aria-hidden="true">✦</span><p><b>Pro tip</b> Build one small example of your own after reading. Changing a value and observing the result is one of the fastest ways to make a concept stick.</p></div>
+            </section>
+
+            <section className={styles.exampleSection} aria-labelledby="example-title">
+              <div className={styles.sectionHeading}>
+                <div><h3 id="example-title"><span className={styles.sectionIcon}>⌘</span> Worked examples</h3><p>{examples.length} practical patterns to try.</p></div>
+              </div>
+              <div className={styles.examplesList}>
+                {examples.map((example, index) => (
+                  <div className={styles.exampleItem} key={`${example.title}-${index}`}>
+                    <div className={styles.exampleItemHeading}><h4>{example.title}</h4><button className={styles.copyButton} type="button" onClick={() => copyExample(index, example.code)} aria-label={`Copy ${example.title}`}>{copiedExample === index ? "✓ Copied" : "Copy code"}</button></div>
+                    <div className={styles.codeWindow}>
+                      <div className={styles.codeTop}><span><i /><i /><i /></span><span>{language.label.toLowerCase()} · example</span><span>{String(index + 1).padStart(2, "0")}</span></div>
+                      <pre><code>{example.code}</code></pre>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className={styles.quizSection} aria-labelledby="quiz-title">
+              <div className={styles.quizHeading}><span className={styles.quizIcon}>?</span><div><p className={styles.sidebarEyebrow}>QUICK CHECK</p><h3 id="quiz-title">Test your understanding · {quizzes.length} questions</h3></div></div>
+              {quizzes.map((quiz, quizIndex) => {
+                const choice = quizChoices[quizIndex] ?? null;
+                const submitted = submittedQuizzes[quizIndex] ?? false;
+                return (
+                  <div className={styles.quizQuestion} key={`${quiz.question}-${quizIndex}`}>
+                    <p className={styles.question}><span>{String(quizIndex + 1).padStart(2, "0")}</span>{quiz.question}</p>
+                    <div className={styles.answerList} role="group" aria-label={`Question ${quizIndex + 1} answer choices`}>
+                      {quiz.options.map((option, optionIndex) => {
+                        const isCorrect = submitted && optionIndex === quiz.answer;
+                        const isWrong = submitted && choice === optionIndex && optionIndex !== quiz.answer;
+                        return (
+                          <button className={`${styles.answerOption} ${choice === optionIndex ? styles.answerSelected : ""} ${isCorrect ? styles.answerCorrect : ""} ${isWrong ? styles.answerWrong : ""}`} type="button" key={option} onClick={() => { setQuizChoices((current) => ({ ...current, [quizIndex]: optionIndex })); setSubmittedQuizzes((current) => ({ ...current, [quizIndex]: false })); }} aria-pressed={choice === optionIndex}>
+                            <span className={styles.radioMark}>{choice === optionIndex ? "●" : ""}</span>{option}
+                            {isCorrect && <span className={styles.answerStatus}>Correct answer</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className={styles.quizFooter}>
+                      {submitted ? <p className={choice === quiz.answer ? styles.correctFeedback : styles.wrongFeedback} role="status">{choice === quiz.answer ? "Nice work! " : "Not quite. "}{quiz.explanation}</p> : <p>Choose an answer, then check your understanding.</p>}
+                      <button className={styles.checkButton} type="button" disabled={choice === null} onClick={() => setSubmittedQuizzes((current) => ({ ...current, [quizIndex]: true }))}>{submitted ? "Check again" : "Check answer"}</button>
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+
+            <div className={styles.lessonActions}>
+              <button className={`${styles.completeButton} ${completedLessons.includes(lessonKey) ? styles.completedButton : ""}`} type="button" onClick={toggleCompleted}>{completedLessons.includes(lessonKey) ? "✓ Completed" : "Mark as complete"}</button>
+              <div className={styles.stepActions}>
+                <button type="button" onClick={() => moveLesson(-1)} disabled={activeIndex === 0}>← Previous</button>
+                <button className={styles.nextButton} type="button" onClick={() => moveLesson(1)} disabled={activeIndex === language.lessons.length - 1}>Next topic <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+      <footer className={styles.studioFooter}><span>Thoughtful guides for curious builders.</span><span>Made for learning, by Netcoder Technology <b>✳</b></span></footer>
+    </div>
+  );
+}
