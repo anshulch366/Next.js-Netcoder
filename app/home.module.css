@@ -41,6 +41,7 @@
 
 /* The empty slot is ready for the logo image in Header.tsx. */
 :global(.site-frame):has(.home) :global(.home-logo-slot) {
+  position: relative;
   display: block;
   width: clamp(108px, 13vw, 168px);
   height: min(48px, calc(17 * var(--unit)));
