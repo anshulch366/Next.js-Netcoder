@@ -107,6 +107,25 @@
 .docsCard small { margin-top: .13rem; color: #8d837a; font-size: .64rem; }
 
 .lessonMain { min-width: 0; }
+.chapterPicker { margin-bottom: .9rem; }
+.chapterPicker select {
+  width: 100%;
+  min-height: 40px;
+  padding: .35rem .5rem;
+  border: 1px solid var(--border);
+  border-radius: .45rem;
+  background: var(--soft);
+  color: var(--text);
+  font: inherit;
+  font-size: .85rem;
+}
+.topicLevel { display: block; margin-top: .18rem; color: #71665e; font-size: .68rem; font-weight: 450; }
+.lessonArticle .chapterMeta { margin: .8rem 0 .25rem; color: #95391f; font-size: .84rem; font-weight: 600; }
+.lessonHeader h2 { scroll-margin-top: 1.5rem; }
+.exampleItem .exampleResult { margin: .55rem 0 .9rem; font-size: .86rem; line-height: 1.55; }
+.exampleResult b { color: var(--text); margin-right: .35rem; }
+.furtherReading { margin-block: 1rem; font-size: .85rem; }
+.furtherReading a { color: #96391f; text-decoration: underline; }
 .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin: .18rem 0 1.55rem; color: #9b928a; font-size: .72rem; }
 .breadcrumb span:last-child { color: #504942; font-weight: 600; }
 .lessonArticle { max-width: 800px; }

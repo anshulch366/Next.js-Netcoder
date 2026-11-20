@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { learningLanguages } from "@/data/learning-resources";
 import styles from "./ResourceStudio.module.css";
 
@@ -13,6 +13,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
   const [submittedQuizzes, setSubmittedQuizzes] = useState<Record<number, boolean>>({});
   const [copiedExample, setCopiedExample] = useState<number | null>(null);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const lessonHeading = useRef<HTMLHeadingElement>(null);
 
   const language = learningLanguages.find((item) => item.id === languageId) ?? learningLanguages[0];
   const lesson = language.lessons.find((item) => item.id === lessonId) ?? language.lessons[0];
@@ -20,7 +21,13 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
   const examples = lesson.examples ?? [{ title: "Example", code: lesson.example }];
   const quizzes = lesson.quizzes ?? [lesson.quiz];
   const activeIndex = language.lessons.findIndex((item) => item.id === lesson.id);
-  const visibleLessons = language.lessons.filter((item) => item.title.toLowerCase().includes(topicSearch.trim().toLowerCase()));
+  const sections = [...new Set(language.lessons.flatMap(item => item.section ? [item.section] : []))];
+  const query = topicSearch.trim().toLowerCase();
+  const visibleLessons = language.lessons.filter(item => {
+    if (!query) return item.section === lesson.section;
+    const terms = [item.title, item.section, item.level, ...item.examples?.map(example => example.title) ?? []];
+    return terms.join(" ").toLowerCase().includes(query);
+  });
   const totalLessons = learningLanguages.reduce((total, item) => total + item.lessons.length, 0);
   const progress = Math.round((completedLessons.length / totalLessons) * 100);
 
@@ -33,6 +40,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
     setLanguageId(nextLanguage.id);
     setLessonId(nextLanguage.lessons[0].id);
     setTopicSearch("");
+    setCopiedExample(null);
     resetQuiz();
   }
 
@@ -45,11 +53,20 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
     setLessonId(id);
     resetQuiz();
     setCopiedExample(null);
+    if (sections.length) {
+      requestAnimationFrame(() => {
+        lessonHeading.current?.focus({ preventScroll: true });
+        lessonHeading.current?.scrollIntoView({ block: "start" });
+      });
+    }
   }
 
   function moveLesson(direction: -1 | 1) {
     const next = language.lessons[activeIndex + direction];
-    if (next) selectLesson(next.id);
+    if (next) {
+      setTopicSearch("");
+      selectLesson(next.id);
+    }
   }
 
   function toggleCompleted() {
@@ -107,6 +124,20 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
             <div><p className={styles.sidebarEyebrow}>{language.category}</p><h2>{language.label} path</h2></div>
             <span className={styles.topicCount}>{language.lessons.length}</span>
           </div>
+          {lesson.section && (
+            <div className={styles.chapterPicker}>
+              <label className={styles.searchLabel} htmlFor="chapter-select">CHAPTER</label>
+              <select id="chapter-select" value={lesson.section} onChange={event => {
+                const first = language.lessons.find(item => item.section === event.target.value);
+                if (first) {
+                  setTopicSearch("");
+                  selectLesson(first.id);
+                }
+              }}>
+                {sections.map(section => <option key={section}>{section}</option>)}
+              </select>
+            </div>
+          )}
           <label className={styles.searchLabel} htmlFor="topic-search">FIND A TOPIC</label>
           <div className={styles.searchBox}>
             <span aria-hidden="true">⌕</span>
@@ -126,7 +157,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
                   aria-current={lesson.id === item.id ? "step" : undefined}
                 >
                   <span className={styles.topicNumber}>{isComplete ? "✓" : String(language.lessons.indexOf(item) + 1).padStart(2, "0")}</span>
-                  <span>{item.title}</span>
+                  <span>{item.title}{item.section && <small className={styles.topicLevel}>{item.level}{query && ` · ${item.section}`}</small>}</span>
                   {lesson.id === item.id && <span className={styles.topicArrow} aria-hidden="true">›</span>}
                 </button>
               );
@@ -144,7 +175,8 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
           <article className={styles.lessonArticle}>
             <header className={styles.lessonHeader}>
               <div className={styles.lessonMeta}><span className={styles.languageTag}>{language.label}</span><span>LESSON {String(activeIndex + 1).padStart(2, "0")} <i>·</i> {language.lessons.length} TOPICS</span></div>
-              <h2>{lesson.title}</h2>
+              {lesson.section && <p className={styles.chapterMeta}>{lesson.section} · {lesson.level}</p>}
+              <h2 ref={lessonHeading} tabIndex={-1}>{lesson.title}</h2>
               <p>{lesson.summary}</p>
             </header>
 
@@ -166,6 +198,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
                       <div className={styles.codeTop}><span><i /><i /><i /></span><span>{language.label.toLowerCase()} · example</span><span>{String(index + 1).padStart(2, "0")}</span></div>
                       <pre><code>{example.code}</code></pre>
                     </div>
+                    {example.result && <p className={styles.exampleResult}><b>Expected result</b> {example.result}</p>}
                   </div>
                 ))}
               </div>
@@ -200,6 +233,14 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
               })}
             </section>
 
+            {language.id === "html" && lesson.section && (
+              <p className={styles.furtherReading}>Further reading · <a href="https://www.w3schools.com/html/">W3Schools HTML tutorial</a> · <a href="https://html.spec.whatwg.org/multipage/indices.html">HTML Standard reference</a></p>
+            )}
+            {lesson.reading && (
+              <p className={styles.furtherReading}>Further reading · <a href={lesson.reading.url}>{lesson.reading.title}</a>
+                {lesson.section === "CSS Sass" && <> · <a href="https://sass-lang.com/documentation/">Sass documentation</a></>}
+              </p>
+            )}
             <div className={styles.lessonActions}>
               <button className={`${styles.completeButton} ${completedLessons.includes(lessonKey) ? styles.completedButton : ""}`} type="button" onClick={toggleCompleted}>{completedLessons.includes(lessonKey) ? "✓ Completed" : "Mark as complete"}</button>
               <div className={styles.stepActions}>

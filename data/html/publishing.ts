@@ -1,0 +1,70 @@
+import { chapter } from "../resource-chapter";
+
+export const publishing = chapter("HTML Tutorial", [
+  {
+    id: "formatting", title: "Formatting, revisions and annotations", level: "Beginner",
+    summary: "Mark up a studio notice without losing the meaning of its typography.",
+    content: ["Begin with a plain paragraph. Identify what each special piece of text means before adding a tag. A search match, a correction, a title and a chemical formula all have different meanings.",
+      "These snippets belong in body. Compare the default appearance, then inspect the elements in developer tools. A stylesheet can change their appearance independently of the underlying markup."],
+    examples: [
+      { title: "Highlight a search match", code: "<p>Showing results for <mark>etching</mark> paper.</p>", result: "Mark identifies text relevant to the reader's current activity." },
+      { title: "Show a corrected price", code: "<p>Workshop fee: <del>₹500</del> <ins>₹450</ins>.</p>", result: "Del records the removed price and ins identifies its replacement." },
+      { title: "Set a chemical formula", code: "<p>Clean the plate with H<sub>2</sub>O.</p>", result: "The 2 is a subscript belonging to hydrogen." },
+      { title: "Write a square unit", code: "<p>Each plate has an area of 25 cm<sup>2</sup>.</p>", result: "The superscript indicates square centimetres." },
+      { title: "Name a creative work", code: "<p>The print <cite>After the Rain</cite> uses two inks.</p>", result: "Cite marks the title of the work." },
+      { title: "Leave an editorial note", code: "<!-- Confirm the final room number before publishing. -->\n<p>Meet in the lobby.</p>", result: "The comment is absent from the rendered paragraph but remains visible in the source." },
+    ],
+    quizzes: [
+      { question: "Which element fits a matched search term?", options: ["del","mark","sup"], answer: 1, explanation: "Mark identifies text relevant to the reader's current activity." },
+      { question: "Where does the newly inserted price belong?", options: ["del","cite","ins"], answer: 2, explanation: "Del records the removed price and ins identifies its replacement." },
+      { question: "Which element puts the 2 in its chemical position?", options: ["sub","sup","small"], answer: 0, explanation: "The 2 is a subscript belonging to hydrogen." },
+      { question: "Which tag represents the exponent?", options: ["sub","sup","var"], answer: 1, explanation: "The superscript indicates square centimetres." },
+      { question: "Which text belongs in cite here?", options: ["The visitor's name","The print dimensions","After the Rain"], answer: 2, explanation: "Cite marks the title of the work." },
+      { question: "Where can a visitor still read this comment?", options: ["In the page source","Only in a private server log","In the visible paragraph"], answer: 0, explanation: "The comment is absent from the rendered paragraph but remains visible in the source." },
+    ],
+  },
+  {
+    id: "asset-links", title: "Favicons, downloads and image maps", level: "Intermediate",
+    summary: "Connect page assets and make a picture useful for navigation.",
+    content: ["Keep related HTML and media in a small folder tree. Test paths from the actual page URL, especially after moving a page into a subdirectory. Use descriptive text for file links and image-only links.",
+      "An image map defines clickable regions using coordinates from the displayed image. For this exercise keep the image at the stated size and supply ordinary text links as a convenient alternative."],
+    examples: [
+      { title: "Set a tab icon", code: "<link rel=\"icon\" href=\"/icons/studio.svg\" type=\"image/svg+xml\">", result: "A compatible browser can use the SVG asset as the tab icon." },
+      { title: "Open a new context", code: "<a href=\"https://example.org/exhibits\" target=\"_blank\" rel=\"noopener\">Exhibit catalogue (opens in new tab)</a>", result: "The browser opens another browsing context and the label communicates the change." },
+      { title: "Name an image-only link", code: "<a href=\"/schedule\"><img src=\"calendar.svg\" alt=\"Workshop schedule\"></a>", result: "The alternative text names the destination for someone who cannot see the icon." },
+      { title: "Connect an image map", code: "<img src=\"rooms.png\" width=\"300\" height=\"150\" alt=\"Plan of two studios\" usemap=\"#rooms\">\n<map name=\"rooms\"><area shape=\"rect\" coords=\"0,0,145,150\" href=\"studio-a.html\" alt=\"Studio A\"></map>", result: "The rectangular left-hand region links to Studio A because usemap matches the map name." },
+      { title: "Define a circular hotspot", code: "<map name=\"presses\"><area shape=\"circle\" coords=\"85,60,18\" href=\"press.html\" alt=\"Main press\"></map>\n<img src=\"equipment.png\" usemap=\"#presses\" width=\"200\" height=\"120\" alt=\"Equipment plan\">", result: "The hotspot has centre (85,60) and radius 18 pixels." },
+      { title: "Provide an alternate route", code: "<nav aria-label=\"Studio rooms\"><a href=\"studio-a.html\">Studio A details</a> · <a href=\"press.html\">Main press details</a></nav>", result: "The destinations remain reachable through text links alongside the map." },
+    ],
+    quizzes: [
+      { question: "Which rel value identifies a favicon?", options: ["author","alternate","icon"], answer: 2, explanation: "A compatible browser can use the SVG asset as the tab icon." },
+      { question: "Which attribute requests a new browsing context?", options: ["target=\"_blank\"","download","rel=\"icon\""], answer: 0, explanation: "The browser opens another browsing context and the label communicates the change." },
+      { question: "Which alt suits a calendar icon linking to the schedule?", options: ["Blue pixels","Workshop schedule","An empty string with no other label"], answer: 1, explanation: "The alternative text names the destination for someone who cannot see the icon." },
+      { question: "Which value connects the picture to map name=rooms?", options: ["rooms.png","rect","#rooms"], answer: 2, explanation: "The rectangular left-hand region links to Studio A because usemap matches the map name." },
+      { question: "Which coordinate is the radius of a circle hotspot?", options: ["The third","The first","The second"], answer: 0, explanation: "The hotspot has centre (85,60) and radius 18 pixels." },
+      { question: "Why include ordinary links next to the plan?", options: ["They change the image dimensions","They provide another way to reach each destination","They automatically calculate coordinates"], answer: 1, explanation: "The destinations remain reachable through text links alongside the map." },
+    ],
+  },
+  {
+    id: "table-layout", title: "Complex tables and accessible headers", level: "Advanced",
+    summary: "Represent grouped data while keeping individual values understandable.",
+    content: ["Start with one clear header per column. Add groups only when the dataset genuinely has another level, such as morning and evening slots under each day. Keep the same logical number of columns after spanning cells.",
+      "Use scope for simple relationships. With multi-level headers, explicit id and headers values can associate a data cell with all its labels. Check the group boundaries when adding a new row."],
+    examples: [
+      { title: "Separate headings and data", code: "<table><caption>Seats available</caption>\n<thead><tr><th scope=\"col\">Room</th><th scope=\"col\">Seats</th></tr></thead>\n<tbody><tr><td>A</td><td>4</td></tr></tbody></table>", result: "The header row and data records occupy different row groups." },
+      { title: "Group repeated rows", code: "<table><tbody>\n<tr><th scope=\"rowgroup\" rowspan=\"2\">Friday</th><td>Morning</td></tr>\n<tr><td>Evening</td></tr></tbody></table>", result: "The Friday cell extends vertically across both records." },
+      { title: "Define a column group", code: "<table><colgroup><col><col span=\"2\" style=\"background:#fff0df\"></colgroup>\n<tr><th>Day</th><th>Booked</th><th>Free</th></tr></table>", result: "The second col applies its background to two columns." },
+      { title: "Associate multiple headers", code: "<table><tr><th id=\"fri\" colspan=\"2\">Friday</th></tr>\n<tr><th id=\"am\">AM</th><th id=\"pm\">PM</th></tr>\n<tr><td headers=\"fri am\">6</td><td headers=\"fri pm\">8</td></tr></table>", result: "The 8 cell explicitly identifies Friday and PM as its headers." },
+      { title: "Summarise a column", code: "<table><thead><tr><th>Batch</th><th>Sheets</th></tr></thead>\n<tbody><tr><td>Blue</td><td>8</td></tr></tbody>\n<tfoot><tr><th scope=\"row\">Total</th><td>8</td></tr></tfoot></table>", result: "Tfoot groups the summary row separately from the data records." },
+      { title: "Control borders with CSS", code: "<table style=\"border-collapse:collapse\"><tr>\n<th style=\"border:1px solid\">Day</th><td style=\"border:1px solid\">Friday</td>\n</tr></table>", result: "Adjacent borders collapse into a shared border on this table." },
+    ],
+    quizzes: [
+      { question: "Which element groups the data records?", options: ["tbody","thead","caption"], answer: 0, explanation: "The header row and data records occupy different row groups." },
+      { question: "Which attribute controls the vertical span?", options: ["colspan","rowspan","scope alone"], answer: 1, explanation: "The Friday cell extends vertically across both records." },
+      { question: "What does span=2 on col represent?", options: ["Two rows","A two-pixel gutter","Two adjacent columns"], answer: 2, explanation: "The second col applies its background to two columns." },
+      { question: "Which labels belong to the cell containing 8?", options: ["Friday and PM","Friday and AM","AM and PM"], answer: 0, explanation: "The 8 cell explicitly identifies Friday and PM as its headers." },
+      { question: "Which row group suits the final total?", options: ["caption","tfoot","colgroup"], answer: 1, explanation: "Tfoot groups the summary row separately from the data records." },
+      { question: "Which declaration combines neighbouring cell borders?", options: ["caption-side: bottom","text-align: center","border-collapse: collapse"], answer: 2, explanation: "Adjacent borders collapse into a shared border on this table." },
+    ],
+  },
+]);

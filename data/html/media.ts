@@ -1,0 +1,70 @@
+import { chapter } from "../resource-chapter";
+
+export const media = chapter("HTML Media", [
+  {
+    id: "images", title: "Images, alternatives and responsive sources", level: "Beginner",
+    summary: "Deliver the right picture with useful text when a picture cannot be seen.",
+    content: ["For these snippets, supply image files at the paths shown. Choose alternative text by asking what the reader would miss without the image. A purely decorative image can have an empty alt.",
+      "For responsive images, srcset describes available files and sizes describes their expected display width. Picture adds conditional source selection when the composition or format should change."],
+    examples: [
+      { title: "Describe an informative image", code: "<img src=\"ink-proof.jpg\" alt=\"Blue ink covers the edges but leaves a pale centre\">", result: "The alternative describes the evidence a printmaker needs to assess the proof." },
+      { title: "Silence a decoration", code: "<img src=\"flourish.svg\" alt=\"\">", result: "An empty alternative lets assistive technology skip a purely decorative flourish." },
+      { title: "Reserve image space", code: "<img src=\"poster.jpg\" width=\"600\" height=\"900\" style=\"max-width:100%;height:auto\" alt=\"Print exchange poster\">", result: "The dimensions reserve a 2:3 ratio while the CSS allows the picture to shrink." },
+      { title: "Add a visible caption", code: "<figure><img src=\"proof.jpg\" alt=\"Two overlapping ink layers\">\n<figcaption>Proof after the second pass.</figcaption></figure>", result: "Figcaption supplies visible context for the figure." },
+      { title: "Offer width candidates", code: "<img src=\"bench-640.jpg\" srcset=\"bench-320.jpg 320w, bench-640.jpg 640w\"\n     sizes=\"(max-width: 600px) 90vw, 320px\" alt=\"Tools laid out on a bench\">", result: "The browser uses the estimated display width and display density to choose a candidate." },
+      { title: "Change the crop", code: "<picture>\n  <source media=\"(max-width: 600px)\" srcset=\"hands-close.jpg\">\n  <img src=\"whole-bench.jpg\" alt=\"Hands pulling a proof from the press\">\n</picture>", result: "A narrow screen gets the close crop. The img supplies the fallback and common alternative text." },
+    ],
+    quizzes: [
+      { question: "Which alternative best serves this diagnostic image?", options: ["Describe the pale centre and covered edges","Write image.jpg","Omit alt"], answer: 0, explanation: "The alternative describes the evidence a printmaker needs to assess the proof." },
+      { question: "Which alt suits a decorative flourish?", options: ["Decorative image named flourish.svg","An empty string","The page heading"], answer: 1, explanation: "An empty alternative lets assistive technology skip a purely decorative flourish." },
+      { question: "Why include intrinsic dimensions?", options: ["To disable resizing","To supply a caption","To reserve proportions before loading"], answer: 2, explanation: "The dimensions reserve a 2:3 ratio while the CSS allows the picture to shrink." },
+      { question: "Which element holds the visible figure caption?", options: ["figcaption","alt","legend"], answer: 0, explanation: "Figcaption supplies visible context for the figure." },
+      { question: "What does 640w describe?", options: ["A required viewport width","The source image's intrinsic width","A fixed CSS width"], answer: 1, explanation: "The browser uses the estimated display width and display density to choose a candidate." },
+      { question: "Where does the shared alternative belong?", options: ["On picture","On every source","On img"], answer: 2, explanation: "A narrow screen gets the close crop. The img supplies the fallback and common alternative text." },
+    ],
+  },
+  {
+    id: "players", title: "Audio and video players", level: "Intermediate",
+    summary: "Publish a playable recording, with controls and alternatives.",
+    content: ["Place your own recording, poster and text files beside the HTML, using the filenames below. A container such as MP4 can carry different codecs, so test the actual files in the browsers you support.",
+      "Let listeners start playback themselves. Captions identify dialogue and meaningful sounds. A transcript also gives readers a text route through a recording."],
+    examples: [
+      { title: "Play an interview", code: "<audio src=\"ink-interview.mp3\" controls></audio>", result: "The browser shows its native audio controls." },
+      { title: "Display a poster", code: "<video src=\"press.mp4\" controls poster=\"press-cover.jpg\" width=\"360\"></video>", result: "The poster appears before the first video frame is available." },
+      { title: "Try alternate media sources", code: "<video controls>\n  <source src=\"demo.webm\" type=\"video/webm\">\n  <source src=\"demo.mp4\" type=\"video/mp4\">\n</video>", result: "The player considers sources in order until it finds one it can play." },
+      { title: "Request a light preload", code: "<audio src=\"talk.mp3\" controls preload=\"metadata\"></audio>", result: "The browser receives a hint to fetch metadata such as duration before playback." },
+      { title: "Attach English captions", code: "<video src=\"demo.mp4\" controls>\n  <track kind=\"captions\" src=\"demo-en.vtt\" srclang=\"en\" label=\"English\" default>\n</video>", result: "The track makes a timed caption resource available in the player." },
+      { title: "Provide a transcript", code: "<audio src=\"interview.mp3\" controls></audio>\n<p><a href=\"interview-transcript.html\">Read the interview transcript</a></p>", result: "The transcript remains available even when playback works." },
+    ],
+    quizzes: [
+      { question: "Which attribute exposes the native controls?", options: ["preload","controls","poster"], answer: 1, explanation: "The browser shows its native audio controls." },
+      { question: "Which attribute supplies the initial still image?", options: ["cover","track","poster"], answer: 2, explanation: "The poster appears before the first video frame is available." },
+      { question: "Why offer two source elements?", options: ["To provide compatible alternatives","To play both files in sequence","To add chapters"], answer: 0, explanation: "The player considers sources in order until it finds one it can play." },
+      { question: "Is preload=metadata a guaranteed download limit?", options: ["Yes, exactly one kilobyte","No, it is a browser hint","Yes, it prevents later playback"], answer: 1, explanation: "The browser receives a hint to fetch metadata such as duration before playback." },
+      { question: "Which file supplies the timed text?", options: ["demo.mp4","A poster JPEG","demo-en.vtt"], answer: 2, explanation: "The track makes a timed caption resource available in the player." },
+      { question: "Where should an always-visible transcript link go?", options: ["Outside the audio element","Only inside audio fallback content","Inside the src attribute"], answer: 0, explanation: "The transcript remains available even when playback works." },
+    ],
+  },
+  {
+    id: "embeds", title: "Embeds, YouTube and playback events", level: "Advanced",
+    summary: "Integrate an external player or respond to a local recording.",
+    content: ["An iframe hosts a separate document. Give it a useful title and use the provider's embed endpoint. A YouTube watch URL or a channel URL is different from an embed URL. Replace VIDEO_ID below with the id of a video that permits embedding.",
+      "A video you control exposes events and playback properties to your page script. Put each script after its player. For a third-party iframe use the provider's supported API when you need playback control."],
+    examples: [
+      { title: "Embed a single YouTube video", code: "<iframe title=\"Two-colour print demonstration\"\n  src=\"https://www.youtube-nocookie.com/embed/VIDEO_ID\" allowfullscreen></iframe>", result: "Replacing VIDEO_ID with an embeddable video id loads that player's document." },
+      { title: "Make an embed responsive", code: "<iframe title=\"Studio demonstration\" loading=\"lazy\"\n  style=\"width:100%;aspect-ratio:16/9;border:0\"\n  src=\"https://www.youtube-nocookie.com/embed/VIDEO_ID\"></iframe>", result: "The frame keeps a 16:9 ratio as its width changes. Lazy loading can defer offscreen work." },
+      { title: "Link to the original video", code: "<p><a href=\"https://www.youtube.com/watch?v=VIDEO_ID\">Watch the print demonstration on YouTube</a></p>", result: "A normal link offers a route to playback when an embed is unavailable." },
+      { title: "Write a timed caption cue", code: "WEBVTT\n\n00:00:02.000 --> 00:00:05.000\n[Roller turns] Spread the ink evenly.", result: "Save this as a .vtt file. The text displays during the three-second cue." },
+      { title: "Read the duration", code: "<video id=\"film\" controls src=\"demo.mp4\"></video>\n<output id=\"length\"></output>\n<script>\n  const film = document.querySelector(\"#film\");\n  film.addEventListener(\"loadedmetadata\", () => {\n    document.querySelector(\"#length\").textContent = Math.round(film.duration) + \" seconds\";\n  });\n</script>", result: "For a finite recording, loadedmetadata makes its duration available in seconds." },
+      { title: "Signal completion", code: "<video id=\"lesson\" controls src=\"demo.mp4\"></video>\n<p id=\"message\" role=\"status\"></p>\n<script>\n  document.querySelector(\"#lesson\").addEventListener(\"ended\", () => {\n    document.querySelector(\"#message\").textContent = \"Recording finished.\";\n  });\n</script>", result: "Playing this non-looping video to its end updates the status paragraph." },
+    ],
+    quizzes: [
+      { question: "Which URL format belongs in this iframe?", options: ["/embed/VIDEO_ID","/@channel","/results?search_query=ink"], answer: 0, explanation: "Replacing VIDEO_ID with an embeddable video id loads that player's document." },
+      { question: "Which setting maintains proportions?", options: ["loading","aspect-ratio","title"], answer: 1, explanation: "The frame keeps a 16:9 ratio as its width changes. Lazy loading can defer offscreen work." },
+      { question: "What remains usable if framing is blocked?", options: ["An empty track","Changing iframe height","A regular video link"], answer: 2, explanation: "A normal link offers a route to playback when an embed is unavailable." },
+      { question: "When does this cue disappear?", options: ["At five seconds","After two minutes","At the beginning of playback"], answer: 0, explanation: "Save this as a .vtt file. The text displays during the three-second cue." },
+      { question: "Which event indicates the duration metadata is available?", options: ["click","loadedmetadata","volumechange"], answer: 1, explanation: "For a finite recording, loadedmetadata makes its duration available in seconds." },
+      { question: "Which event signals the end of playback?", options: ["pause","timeupdate","ended"], answer: 2, explanation: "Playing this non-looping video to its end updates the status paragraph." },
+    ],
+  },
+]);

@@ -1,0 +1,70 @@
+import { chapter } from "../resource-chapter";
+
+export const graphics = chapter("HTML Graphics & Graphs", [
+  {
+    id: "svg", title: "Drawing with SVG", level: "Beginner",
+    summary: "Draw a scalable symbol from shapes and coordinates.",
+    content: ["Inline SVG puts drawing elements into the document. The viewBox describes an internal coordinate system. In these examples x increases to the right and y increases downwards.",
+      "Copy a whole example into the body of an HTML file. Double the width on the outer svg and watch the drawing scale without changing the shape coordinates."],
+    examples: [
+      { title: "Place a circular marker", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Registration mark\">\n  <circle cx=\"120\" cy=\"60\" r=\"16\" fill=\"tomato\"/>\n</svg>", result: "The marker is centred at (120,60) and its diameter is 32 units." },
+      { title: "Draw a rounded ticket", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Ticket\">\n  <rect x=\"10\" y=\"25\" width=\"200\" height=\"70\" rx=\"12\" fill=\"coral\"/>\n</svg>", result: "rx rounds the corners while width and height set the ticket's dimensions." },
+      { title: "Add a guide line", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Diagonal guide\">\n  <line x1=\"15\" y1=\"100\" x2=\"220\" y2=\"15\" stroke=\"navy\" stroke-width=\"3\"/>\n</svg>", result: "The line rises to the right because its final y is smaller." },
+      { title: "Join measured points", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Three readings\">\n  <polyline points=\"10,80 100,30 210,65\" fill=\"none\" stroke=\"teal\"/>\n</svg>", result: "Polyline joins the points in order and leaves the ends open." },
+      { title: "Draw a closed emblem", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Triangular stamp\">\n  <polygon points=\"120,10 210,100 30,100\" fill=\"orange\"/>\n</svg>", result: "Polygon connects the last vertex back to the first." },
+      { title: "Move two shapes together", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Paired ink marks\">\n  <g transform=\"translate(40 20)\" fill=\"purple\">\n    <circle cx=\"10\" cy=\"20\" r=\"8\"/><circle cx=\"40\" cy=\"20\" r=\"8\"/>\n  </g>\n</svg>", result: "The group shifts both centres 40 units right and 20 down." },
+    ],
+    quizzes: [
+      { question: "Which attribute doubles to give the diameter?", options: ["r","cx","cy"], answer: 0, explanation: "The marker is centred at (120,60) and its diameter is 32 units." },
+      { question: "What does rx change on this rectangle?", options: ["Horizontal position","Corner rounding","Stroke opacity"], answer: 1, explanation: "rx rounds the corners while width and height set the ticket's dimensions." },
+      { question: "Which change would make this line horizontal?", options: ["Set x2 equal to x1","Set stroke-width to zero","Set y2 equal to y1"], answer: 2, explanation: "The line rises to the right because its final y is smaller." },
+      { question: "Which element connects points without closing the outline?", options: ["polyline","polygon","circle"], answer: 0, explanation: "Polyline joins the points in order and leaves the ends open." },
+      { question: "What closes a polygon here?", options: ["Repeating the first point is mandatory","The element closes the shape automatically","The fill colour creates a new vertex"], answer: 1, explanation: "Polygon connects the last vertex back to the first." },
+      { question: "Which element applies one transform to both marks?", options: ["title","defs alone","g"], answer: 2, explanation: "The group shifts both centres 40 units right and 20 down." },
+    ],
+  },
+  {
+    id: "canvas", title: "Drawing with Canvas 2D", level: "Intermediate",
+    summary: "Paint and erase pixels on a browser drawing surface.",
+    content: ["Canvas starts as a blank bitmap. Set its drawing dimensions with width and height attributes and obtain a 2D context after the element exists. Paint commands run in order.",
+      "Changing fillStyle affects later fills. A path records geometry until you stroke or fill it. Each example below is a separate document fragment, so paste one at a time."],
+    examples: [
+      { title: "Paint a colour swatch", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.fillStyle = \"coral\";\n  ctx.fillRect(15, 20, 80, 45);\n</script>", result: "The rectangle starts at (15,20) and spans 80 by 45 pixels." },
+      { title: "Outline a sample", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.strokeStyle = \"teal\";\n  ctx.lineWidth = 4;\n  ctx.strokeRect(20, 15, 100, 70);\n</script>", result: "Only the rectangle's border is painted." },
+      { title: "Cut out a window", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.fillRect(10, 10, 90, 90);\n  ctx.clearRect(30, 30, 50, 50);\n</script>", result: "The second call makes a transparent window in the filled square." },
+      { title: "Stroke an open path", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.beginPath();\n  ctx.moveTo(10, 90);\n  ctx.lineTo(100, 30);\n  ctx.lineTo(210, 55);\n  ctx.stroke();\n</script>", result: "The stroke paints two connected segments after their points are defined." },
+      { title: "Paint a circular seal", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.beginPath();\n  ctx.arc(80, 60, 25, 0, 2 * Math.PI);\n  ctx.fill();\n</script>", result: "The arc spans a full turn in radians and fill paints the disk." },
+      { title: "Isolate a transform", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  ctx.save();\n  ctx.translate(50, 20);\n  ctx.fillRect(0, 0, 25, 25);\n  ctx.restore();\n  ctx.strokeRect(0, 0, 25, 25);\n</script>", result: "The filled square moves. Restoring the state puts the outline back at the original origin." },
+    ],
+    quizzes: [
+      { question: "What do the last two fillRect arguments specify?", options: ["Width and height","End coordinates","Canvas size"], answer: 0, explanation: "The rectangle starts at (15,20) and spans 80 by 45 pixels." },
+      { question: "Which call draws a rectangle outline?", options: ["fillRect","strokeRect","clearRect"], answer: 1, explanation: "Only the rectangle's border is painted." },
+      { question: "What does clearRect leave behind?", options: ["White paint","The previous fill colour","Transparent pixels"], answer: 2, explanation: "The second call makes a transparent window in the filled square." },
+      { question: "Which call actually paints this path?", options: ["stroke()","moveTo()","beginPath()"], answer: 0, explanation: "The stroke paints two connected segments after their points are defined." },
+      { question: "How many radians describe the full circle?", options: ["180","2π","360"], answer: 1, explanation: "The arc spans a full turn in radians and fill paints the disk." },
+      { question: "What does restore recover here?", options: ["The original blank pixels","The element's HTML","The previous drawing state"], answer: 2, explanation: "The filled square moves. Restoring the state puts the outline back at the original origin." },
+    ],
+  },
+  {
+    id: "charts", title: "Accessible charts and data scales", level: "Advanced",
+    summary: "Turn weekly print counts into a chart readers can verify.",
+    content: ["Write down the units and choose a scale before drawing marks. Use the same baseline and scale for every bar. In SVG, a taller bar starts at a smaller y value when the baseline is fixed.",
+      "A text summary explains the trend and a table exposes exact values. Include both when the chart supports a decision. Colour can reinforce a label, but a reader should be able to identify every series without it."],
+    examples: [
+      { title: "Keep source values visible", code: "<table><caption>Prints per day</caption>\n<tr><th>Day</th><th>Prints</th></tr>\n<tr><th scope=\"row\">Mon</th><td>6</td></tr>\n<tr><th scope=\"row\">Tue</th><td>9</td></tr></table>", result: "The data table lets a reader retrieve an exact count for each day." },
+      { title: "Use a common baseline", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Monday six prints, Tuesday nine\">\n  <rect x=\"25\" y=\"40\" width=\"35\" height=\"60\" fill=\"teal\"/>\n  <rect x=\"90\" y=\"10\" width=\"35\" height=\"90\" fill=\"coral\"/>\n</svg>", result: "Both bars end at y=100. Ten drawing units represent one print." },
+      { title: "Convert data into y positions", code: "<canvas id=\"plot\" width=\"240\" height=\"120\">Print sample</canvas>\n<script>\n  const ctx = document.querySelector(\"#plot\").getContext(\"2d\");\n  const counts = [6, 9, 4];\n  counts.forEach((count, day) => {\n    const height = count * 10;\n    ctx.fillRect(20 + day * 55, 100 - height, 35, height);\n  });\n</script>", result: "The third bar starts at y=60 and ends at the same baseline as the others." },
+      { title: "Explain a trend in words", code: "<figure>\n  <svg viewBox=\"0 0 100 50\" role=\"img\" aria-label=\"Counts: 6, 9, 4\"><polyline points=\"5,20 50,5 95,30\" fill=\"none\" stroke=\"teal\"/></svg>\n  <figcaption>Tuesday peaked at nine prints before Wednesday fell to four.</figcaption>\n</figure>", result: "The caption communicates the takeaway even when the shape is hard to read." },
+      { title: "Distinguish two series", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Solid booked slots, dashed available slots\">\n  <path d=\"M10 85 L220 30\" stroke=\"navy\"/>\n  <path d=\"M10 60 L220 15\" stroke=\"navy\" stroke-dasharray=\"6 4\"/>\n</svg>", result: "Dashes provide a second cue beyond colour. A matching legend should name each line." },
+      { title: "Label the unit on the axis", code: "<svg viewBox=\"0 0 240 120\" width=\"240\" role=\"img\"\n     aria-label=\"Scale measured in prints\">\n  <text x=\"8\" y=\"18\" font-size=\"14\">Prints per day</text>\n  <path d=\"M24 30 V95 H220\" stroke=\"black\" fill=\"none\"/>\n</svg>", result: "The unit tells a reader that values represent daily print counts." },
+    ],
+    quizzes: [
+      { question: "Where should a reader find the exact count?", options: ["In the labelled table cell","Only in the shade of orange","Only in the chart width"], answer: 0, explanation: "The data table lets a reader retrieve an exact count for each day." },
+      { question: "At this scale, how tall is a bar for 8 prints?", options: ["8 units","80 units","100 units"], answer: 1, explanation: "Both bars end at y=100. Ten drawing units represent one print." },
+      { question: "Why calculate 100 minus height?", options: ["To normalise the width","To reverse the days","To keep each bar on the shared baseline"], answer: 2, explanation: "The third bar starts at y=60 and ends at the same baseline as the others." },
+      { question: "Which text explains the significance of the trend?", options: ["The figcaption","The viewBox","The stroke value"], answer: 0, explanation: "The caption communicates the takeaway even when the shape is hard to read." },
+      { question: "Which property differentiates these same-colour lines?", options: ["viewBox","stroke-dasharray","stroke-opacity alone"], answer: 1, explanation: "Dashes provide a second cue beyond colour. A matching legend should name each line." },
+      { question: "Which label makes the measure clear?", options: ["Results","Blue line","Prints per day"], answer: 2, explanation: "The unit tells a reader that values represent daily print counts." },
+    ],
+  },
+]);

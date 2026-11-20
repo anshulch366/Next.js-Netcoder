@@ -4,7 +4,9 @@ export interface LearningLesson {
   summary: string;
   content: string[];
   example: string;
-  examples?: { title: string; code: string }[];
+  examples?: { title: string; code: string; result?: string }[];
+  section?: string;
+  reading?: { title: string; url: string };
   quiz: {
     question: string;
     options: string[];
@@ -30,6 +32,8 @@ export interface LearningLanguage {
 }
 
 import { extendedLearningLanguages } from "./extended-learning-resources";
+import { htmlLessons } from "./html";
+import { cssLessons } from "./css";
 
 const coreLearningLanguages: LearningLanguage[] = [
   {
@@ -38,62 +42,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "Markup",
     description: "Structure pages with accessible, meaningful elements.",
     docs: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-    lessons: [
-      {
-        id: "document", title: "Document structure", summary: "Build a valid page and give browsers the metadata they need.",
-        content: ["HTML describes the structure and meaning of web content. A document starts with a doctype, then a root <html> element containing metadata in <head> and visible content in <body>.", "Set the document language and a useful page title. These details help assistive technology, search engines, and browser tabs."],
-        example: "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>My first page</title>\n  </head>\n  <body>\n    <h1>Hello, web!</h1>\n  </body>\n</html>",
-        examples: [
-          { title: "Minimal valid document", code: "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Field notes</title>\n</head>\n<body>\n  <h1>Welcome</h1>\n</body>\n</html>" },
-          { title: "Responsive page metadata", code: "<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Learning HTML | Netcoder</title>\n</head>" },
-          { title: "Connect an external stylesheet", code: "<head>\n  <meta charset=\"utf-8\">\n  <title>Course page</title>\n  <link rel=\"stylesheet\" href=\"/styles/course.css\">\n</head>" },
-          { title: "Add a description for search previews", code: "<head>\n  <title>CSS foundations</title>\n  <meta name=\"description\" content=\"Learn layout, color, and responsive CSS.\">\n</head>" },
-          { title: "Declare page language and main content", code: "<html lang=\"en\">\n<body>\n  <header><a href=\"/\">Netcoder</a></header>\n  <main><h1>HTML foundations</h1></main>\n</body>\n</html>" },
-        ],
-        quiz: { question: "Where does the page's visible content belong?", options: ["Inside <head>", "Inside <body>", "Inside <title>"], answer: 1, explanation: "The body contains content rendered as part of the page." },
-        quizzes: [
-          { question: "Where does visible page content belong?", options: ["Inside <head>", "Inside <body>", "Inside <title>"], answer: 1, explanation: "The body contains content rendered as part of the page." },
-          { question: "Which attribute sets the document's primary language?", options: ["lang on <html>", "charset on <body>", "name on <title>"], answer: 0, explanation: "The lang attribute on the root html element communicates the document language." },
-          { question: "What is the purpose of the viewport meta tag?", options: ["Help pages use the device viewport on mobile", "Load JavaScript automatically", "Add a visible heading"], answer: 0, explanation: "The viewport declaration helps browsers size the layout to the device width." },
-        ],
-      },
-      {
-        id: "semantic", title: "Semantic elements", summary: "Choose elements for what content means, not just how it looks.",
-        content: ["Semantic elements communicate a page's structure to browsers and assistive technologies. Use <header>, <nav>, <main>, <article>, and <footer> to describe major regions.", "Use headings in a logical hierarchy. A semantic element often provides useful behavior and accessibility without extra scripting."],
-        example: "<article>\n  <header>\n    <h2>Getting started</h2>\n    <p>A short introduction to the topic.</p>\n  </header>\n  <p>Write the main article content here.</p>\n</article>",
-        examples: [
-          { title: "Page landmarks", code: "<header><a href=\"/\">Site name</a></header>\n<nav aria-label=\"Main\"><a href=\"/courses\">Courses</a></nav>\n<main><h1>Courses</h1></main>\n<footer>© 2026 Netcoder</footer>" },
-          { title: "Article with a heading", code: "<article>\n  <h2>Responsive design</h2>\n  <p>Layouts adapt to their available space.</p>\n</article>" },
-          { title: "A section with a descriptive heading", code: "<section aria-labelledby=\"faq-title\">\n  <h2 id=\"faq-title\">Questions</h2>\n  <p>Find answers to common questions.</p>\n</section>" },
-          { title: "A description list for terms", code: "<dl>\n  <dt>HTML</dt><dd>Structures web content.</dd>\n  <dt>CSS</dt><dd>Styles web content.</dd>\n</dl>" },
-          { title: "An accessible navigation landmark", code: "<nav aria-label=\"Course topics\">\n  <a href=\"#structure\">Structure</a>\n  <a href=\"#forms\">Forms</a>\n</nav>" },
-        ],
-        quiz: { question: "Which element should identify the main content of a page?", options: ["<main>", "<span>", "<b>"], answer: 0, explanation: "Use one <main> landmark for the page's primary content." },
-        quizzes: [
-          { question: "Which element identifies the page's primary content?", options: ["<main>", "<span>", "<b>"], answer: 0, explanation: "The main landmark identifies the central content of a page." },
-          { question: "Which element is appropriate for a self-contained article?", options: ["<article>", "<i>", "<br>"], answer: 0, explanation: "Article represents a self-contained composition that can stand on its own." },
-          { question: "Why use heading levels in a logical order?", options: ["To communicate the content outline", "To make every heading the same size", "To replace all landmarks"], answer: 0, explanation: "A logical heading hierarchy helps readers understand and navigate the page structure." },
-        ],
-      },
-      {
-        id: "forms", title: "Forms and inputs", summary: "Collect user input with labels, suitable controls, and validation.",
-        content: ["Pair every input with a visible <label>. Matching the label's for attribute to the input id makes the control easier to understand and activate.", "Choose an input type that matches the data, such as email or number. Native constraints like required provide helpful baseline validation."],
-        example: "<form>\n  <label for=\"email\">Email address</label>\n  <input id=\"email\" name=\"email\" type=\"email\" required>\n  <button type=\"submit\">Join newsletter</button>\n</form>",
-        examples: [
-          { title: "Label and email input", code: "<label for=\"email\">Email address</label>\n<input id=\"email\" name=\"email\" type=\"email\" required>" },
-          { title: "Group related controls", code: "<fieldset>\n  <legend>Choose a level</legend>\n  <label><input type=\"radio\" name=\"level\" value=\"beginner\"> Beginner</label>\n  <label><input type=\"radio\" name=\"level\" value=\"advanced\"> Advanced</label>\n</fieldset>" },
-          { title: "Use a helpful autocomplete hint", code: "<label for=\"full-name\">Full name</label>\n<input id=\"full-name\" name=\"name\" autocomplete=\"name\" required>" },
-          { title: "Provide a select menu", code: "<label for=\"track\">Learning track</label>\n<select id=\"track\" name=\"track\" required>\n  <option value=\"\">Choose a track</option>\n  <option value=\"web\">Web development</option>\n</select>" },
-          { title: "Show a form-level submit action", code: "<form action=\"/subscribe\" method=\"post\">\n  <label for=\"updates\">Email for updates</label>\n  <input id=\"updates\" name=\"email\" type=\"email\" required>\n  <button type=\"submit\">Subscribe</button>\n</form>" },
-        ],
-        quiz: { question: "How is a label explicitly connected to an input?", options: ["label's for matches input id", "label's name matches input type", "input is placed after a button"], answer: 0, explanation: "The label's for value should match the input's id." },
-        quizzes: [
-          { question: "How is a label explicitly associated with an input?", options: ["The label's for matches the input id", "The label's name matches input type", "The input follows a button"], answer: 0, explanation: "Matching for and id creates an explicit accessible association." },
-          { question: "Which input type provides basic email-format validation?", options: ["email", "text-only", "submit"], answer: 0, explanation: "The email type provides browser-level format checks, but server validation is still required." },
-          { question: "Should browser validation replace server-side validation?", options: ["No, validate submitted data on the server too", "Yes, always", "Only when a form has a label"], answer: 0, explanation: "Client-side checks can be bypassed, so the server must validate submitted data." },
-        ],
-      },
-    ],
+    lessons: htmlLessons,
   },
   {
     id: "css",
@@ -101,11 +50,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "Styling",
     description: "Create clear, responsive layouts and polished visual systems.",
     docs: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-    lessons: [
-      { id: "selectors", title: "Selectors and cascade", summary: "Target elements and understand which declaration wins.", content: ["A CSS rule combines a selector with declarations. Selectors can target elements, classes, attributes, and relationships between elements.", "When rules conflict, the cascade considers origin, importance, specificity, and source order. Prefer small, reusable classes over increasingly specific selectors."], example: "/* A reusable component style */\n.notice {\n  color: #382018;\n  background: #fff3ec;\n  border: 1px solid #f3c7b7;\n}\n\n.notice strong {\n  color: #c64020;\n}", quiz: { question: "Which selector targets elements with class='card'?", options: ["#card", ".card", "card()"], answer: 1, explanation: "A dot prefix selects a class in CSS." } },
-      { id: "box-model", title: "The box model", summary: "Control content, padding, borders, and spacing predictably.", content: ["Every element is a box made from content, padding, border, and margin. Padding adds room inside the border; margin separates neighboring boxes.", "The border-box sizing model makes declared widths include padding and border, which is usually easier for layouts."], example: "*, *::before, *::after {\n  box-sizing: border-box;\n}\n\n.card {\n  width: min(100%, 32rem);\n  padding: 1.5rem;\n  border: 1px solid #e5d8d1;\n  margin-inline: auto;\n}", quiz: { question: "Which property adds space inside an element's border?", options: ["margin", "padding", "outline"], answer: 1, explanation: "Padding is the inner spacing between content and border." } },
-      { id: "responsive", title: "Responsive layouts", summary: "Let content adapt gracefully across screen sizes.", content: ["Responsive design starts with flexible layouts. CSS Grid and Flexbox arrange content without hard-coding every screen width.", "Media queries are useful when the design needs a breakpoint. Prefer content-driven breakpoints and test with keyboard, zoom, and narrow viewports."], example: ".course-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));\n  gap: 1rem;\n}\n\n@media (max-width: 40rem) {\n  .page { padding: 1rem; }\n}", quiz: { question: "Which CSS feature is designed for two-dimensional layouts?", options: ["CSS Grid", "text-decoration", "font-style"], answer: 0, explanation: "Grid supports rows and columns for two-dimensional layout." } },
-    ],
+    lessons: cssLessons,
   },
   {
     id: "javascript",

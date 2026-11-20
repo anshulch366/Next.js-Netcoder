@@ -1,0 +1,70 @@
+import { chapter } from "../resource-chapter";
+
+export const projects = chapter("HTML Examples", [
+  {
+    id: "event-page", title: "Build a workshop announcement", level: "Beginner",
+    summary: "Assemble a complete event page from six small edits.",
+    content: ["Use a plain-text editor to save the first example as event.html. Add examples two to six inside main, below the h1, then reload after each edit. Together they form an announcement a visitor can read and act on.",
+      "Test the finished page with a keyboard. Follow the materials link, check the list and try the email link. Replace the demonstration address with an address you own before publishing."],
+    examples: [
+      { title: "Start with a named page", code: "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Open print evening</title></head>\n<body><main><h1>Open print evening</h1></main></body></html>", result: "The announcement has a page title, heading and one main content area." },
+      { title: "Introduce the activity", code: "<p>Carve a small stamp, roll it with ink and print a postcard to take home.</p>", result: "A visitor learns what they will make before reading the logistics." },
+      { title: "Mark up the date", code: "<p>Join us on <time datetime=\"2027-04-16\">16 April 2027</time>.</p>", result: "The visible date is easy to read and the attribute supplies an ISO date." },
+      { title: "Add a jump link", code: "<p><a href=\"#kit\">Check what to bring</a></p>", result: "Once the next example is present, this link leads to the kit section." },
+      { title: "List the kit", code: "<h2 id=\"kit\">What to bring</h2>\n<ul><li>An apron</li><li>A folder for wet prints</li></ul>", result: "The jump destination contains two materials whose order is unimportant." },
+      { title: "Provide a booking contact", code: "<p><a href=\"mailto:bookings@example.org?subject=Print%20evening\">Ask about a place</a></p>", result: "The mail app can open with Print evening as its subject." },
+    ],
+    quizzes: [
+      { question: "Where will the following announcement snippets go?", options: ["Between title tags","Inside main after h1","Before the doctype"], answer: 1, explanation: "The announcement has a page title, heading and one main content area." },
+      { question: "Which opening helps a visitor decide whether to attend?", options: ["A hidden code comment","Only a filename","A concrete description of the activity"], answer: 2, explanation: "A visitor learns what they will make before reading the logistics." },
+      { question: "Which is a valid machine-readable date for this event?", options: ["2027-04-16","16th April","04-16-27"], answer: 0, explanation: "The visible date is easy to read and the attribute supplies an ISO date." },
+      { question: "Which id must the materials heading use?", options: ["#kit","kit","materials.html"], answer: 1, explanation: "Once the next example is present, this link leads to the kit section." },
+      { question: "Why is ul suitable for these materials?", options: ["They must be packed in sequence","They define terms","They can be packed in either order"], answer: 2, explanation: "The jump destination contains two materials whose order is unimportant." },
+      { question: "What does %20 represent in the subject?", options: ["A space","A percent discount","A new recipient"], answer: 0, explanation: "The mail app can open with Print evening as its subject." },
+    ],
+  },
+  {
+    id: "signup-project", title: "Build an accessible booking form", level: "Intermediate",
+    summary: "Assemble and inspect a form before connecting it to a booking service.",
+    content: ["Save the starter as an HTML document or paste it into body. Insert the next five snippets inside the form. For this local exercise GET makes the submitted fields visible in the address bar. Use fictional details.",
+      "Test once with empty fields and once with valid entries. Try keyboard navigation, clicking labels and submitting with a different radio choice. Notice which names appear in the URL."],
+    examples: [
+      { title: "Set up a test form", code: "<form method=\"get\" aria-labelledby=\"booking-title\">\n  <h2 id=\"booking-title\">Reserve a print session</h2>\n  <!-- Add the fields here. -->\n</form>", result: "The heading supplies the accessible form name. Submitting targets the current page." },
+      { title: "Tie a hint to a field", code: "<label for=\"alias\">Display name</label>\n<input id=\"alias\" name=\"guest\" required aria-describedby=\"alias-hint\">\n<p id=\"alias-hint\">Use a fictional name for this exercise.</p>", result: "The hint supplements the accessible name and required prevents an empty submission." },
+      { title: "Group two time slots", code: "<fieldset><legend>Session</legend>\n<label><input type=\"radio\" name=\"slot\" value=\"am\" required> Morning</label>\n<label><input type=\"radio\" name=\"slot\" value=\"pm\"> Afternoon</label>\n</fieldset>", result: "The legend names the group and selecting Afternoon sends slot=pm." },
+      { title: "Limit the reservation size", code: "<label>Places <input type=\"number\" name=\"places\" min=\"1\" max=\"3\" value=\"1\" required></label>", result: "A booking for four places fails browser validation." },
+      { title: "Offer optional equipment", code: "<label><input type=\"checkbox\" name=\"loan\" value=\"roller\"> Borrow a roller</label>", result: "Checking the box adds loan=roller. Leaving it unchecked omits loan." },
+      { title: "Submit the test booking", code: "<button type=\"submit\" name=\"intent\" value=\"reserve\">Reserve places</button>", result: "Activating the button includes intent=reserve alongside the valid fields." },
+    ],
+    quizzes: [
+      { question: "Where can you inspect this exercise's successful field values?", options: ["Only in a cookie","Inside the page title","In the URL query"], answer: 2, explanation: "The heading supplies the accessible form name. Submitting targets the current page." },
+      { question: "What connects the extra instruction to the input?", options: ["aria-describedby","placeholder","formaction"], answer: 0, explanation: "The hint supplements the accessible name and required prevents an empty submission." },
+      { question: "What value is sent for Afternoon?", options: ["Afternoon","pm","slot"], answer: 1, explanation: "The legend names the group and selecting Afternoon sends slot=pm." },
+      { question: "Which request fails the stated upper bound?", options: ["3 places","1 place","4 places"], answer: 2, explanation: "A booking for four places fails browser validation." },
+      { question: "What is submitted when the box stays unchecked?", options: ["No loan entry","loan=false","loan=roller"], answer: 0, explanation: "Checking the box adds loan=roller. Leaving it unchecked omits loan." },
+      { question: "Which entry identifies the action the user activated?", options: ["type=submit","intent=reserve","button=Reserve places"], answer: 1, explanation: "Activating the button includes intent=reserve alongside the valid fields." },
+    ],
+  },
+  {
+    id: "dashboard-project", title: "Build a live print-count dashboard", level: "Advanced",
+    summary: "Combine a form, an SVG bar and a text summary into one working page.",
+    content: ["Paste the first five fragments in order into the same body. Add the final script last. Enter a number between 0 and 20, submit it and compare the bar with the text summary.",
+      "The chart uses a fixed scale of ten SVG units per print. The textual count gives an exact reading. Test zero, the maximum and an out-of-range value to check both ends of the scale."],
+    examples: [
+      { title: "Name the dashboard", code: "<main id=\"dashboard\"><h1>Print run monitor</h1></main>", result: "Place the following controls and chart inside this main region." },
+      { title: "Collect a bounded reading", code: "<form id=\"reading\"><label>Finished prints <input id=\"count\" type=\"number\" min=\"0\" max=\"20\" step=\"1\" required></label>\n<button>Update chart</button></form>", result: "The browser accepts whole counts between 0 and 20 before submit fires." },
+      { title: "Create a scalable horizontal bar", code: "<svg viewBox=\"0 0 200 24\" width=\"200\" aria-hidden=\"true\">\n  <rect width=\"200\" height=\"24\" fill=\"#eee\"/>\n  <rect id=\"bar\" width=\"0\" height=\"24\" fill=\"#a43c18\"/>\n</svg>", result: "The background shows the full range. The coloured bar starts at zero and the summary provides its accessible equivalent." },
+      { title: "Add the exact text value", code: "<p id=\"summary\" role=\"status\">0 of 20 prints finished.</p>", result: "The initial text matches the empty bar and can announce subsequent changes." },
+      { title: "Identify the units", code: "<p>One full bar represents 20 finished prints in this run.</p>", result: "A reader can interpret a half-width bar as ten prints." },
+      { title: "Wire up the form", code: "<script>\n  const form = document.querySelector(\"#reading\");\n  form.addEventListener(\"submit\", event => {\n    event.preventDefault();\n    const count = document.querySelector(\"#count\").valueAsNumber;\n    document.querySelector(\"#bar\").setAttribute(\"width\", String(count * 10));\n    document.querySelector(\"#summary\").textContent = count + \" of 20 prints finished.\";\n  });\n</script>", result: "Submitting 12 sets the rectangle width to 120 and the summary to 12 of 20." },
+    ],
+    quizzes: [
+      { question: "Which element should contain the primary dashboard task?", options: ["head","aside","main"], answer: 2, explanation: "Place the following controls and chart inside this main region." },
+      { question: "What prevents 21 from passing the form's native checks?", options: ["max=\"20\"","step=\"1\"","type=\"number\" alone"], answer: 0, explanation: "The browser accepts whole counts between 0 and 20 before submit fires." },
+      { question: "Why does the coloured bar start invisible?", options: ["Its height is zero","Its width is zero","The viewBox clips all rectangles"], answer: 1, explanation: "The background shows the full range. The coloured bar starts at zero and the summary provides its accessible equivalent." },
+      { question: "Which text matches the initial chart?", options: ["20 of 20","10 of 20","0 of 20"], answer: 2, explanation: "The initial text matches the empty bar and can announce subsequent changes." },
+      { question: "How many prints does half the bar represent?", options: ["10","20","5"], answer: 0, explanation: "A reader can interpret a half-width bar as ten prints." },
+      { question: "Why prevent the default submit here?", options: ["To disable numeric validation","To update this chart without a page navigation","To clear the input"], answer: 1, explanation: "Submitting 12 sets the rectangle width to 120 and the summary to 12 of 20." },
+    ],
+  },
+]);
