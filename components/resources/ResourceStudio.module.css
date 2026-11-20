@@ -20,9 +20,6 @@
 :global(.site-frame):has(.studio) :global(.wordmark) { color: #292521; }
 :global(.site-frame):has(.studio) :global(.menu-trigger) { color: #292521; border-color: #e7ddd6; background: #fff8f4; }
 :global(.site-frame):has(.studio) :global(.menu-trigger:hover) { background: #ffede5; }
-:global(.site-frame):has(.studio) :global(.menu nav) { border-color: #e8e2dc; color: #292521; background: #fff; box-shadow: 0 12px 32px #3423171c; }
-:global(.site-frame):has(.studio) :global(.menu nav a:hover),
-:global(.site-frame):has(.studio) :global(.menu nav a[aria-current]) { background: #fff0e9; }
 :global(.site-frame):has(.studio) main { padding-block: 0 2.5rem; }
 :global(.site-frame):has(.studio) footer { border-color: #eee8e2; }
 :global(.site-frame):has(.studio) :global(.foot) { color: #716b65; }

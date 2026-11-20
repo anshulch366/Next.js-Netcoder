@@ -29,8 +29,8 @@
 .socials { display: flex; align-items: center; gap: .55rem; }
 .socialLink { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #fff9; border-radius: 6px; background: #fff; color: #fa5636; transition: transform .15s, background .15s; }
 .socialLink:hover { transform: translateY(-2px); background: #fff1ec; text-decoration: none; }
-.socialLink svg { width: 18px; height: 18px; fill: currentColor; }
-.socialLink .strokeIcon { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.socialLink svg { width: 18px; height: 18px; }
+.socialLink { fill: currentColor; }
 
 @media (max-width: 760px) {
   .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 2rem; }

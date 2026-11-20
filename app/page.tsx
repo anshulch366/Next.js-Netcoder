@@ -8,7 +8,7 @@ const paths = [
     title: "Want to Learn",
     description: "Build practical skills through industry-focused courses, hands-on projects, and real-world training.",
     items: ["Professional Courses", "Industrial Training", "Hands-On Projects", "Career-Focused Learning"],
-    href: "/courses",
+    href: "/learning",
     action: "Explore Learning",
   },
   {

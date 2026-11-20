@@ -74,16 +74,7 @@
   width: calc(4.5 * var(--unit));
   margin-left: calc(1.4 * var(--unit));
 }
-:global(.site-frame):has(.home) nav {
-  max-height: calc(100dvh - 5.5rem);
-  overflow-y: auto;
-  border-color: var(--line);
-  color: var(--ink);
-  background: white;
-}
-:global(.site-frame):has(.home) :global(.menu-trigger):hover,
-:global(.site-frame):has(.home) nav a:hover,
-:global(.site-frame):has(.home) nav a[aria-current] { background: #f8eae4; }
+:global(.site-frame):has(.home) :global(.menu-trigger):hover { background: #f8eae4; }
 :global(body):has(.home) :focus-visible { outline-color: #653a2e; }
 
 :global(.site-frame):has(.home) main {

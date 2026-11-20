@@ -2,6 +2,7 @@
 import type { ReactNode } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SiteLayout from "@/components/layout/SiteLayout";
 import { PageTransition } from "@/components/layout/PageTransition";
 import "@fontsource-variable/azeret-mono";
 import "@fontsource-variable/outfit";
@@ -18,9 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <a href="#main" className="skip">Skip to content</a>
         <PageTransition>
-          <Header />
-          <main id="main" className="wrap">{children}</main>
-          <Footer />
+          <SiteLayout header={<Header />} footer={<Footer />}>{children}</SiteLayout>
         </PageTransition>
       </body>
     </html>

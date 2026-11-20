@@ -133,11 +133,6 @@ header {
   height: auto;
 }
 
-.menu {
-  position: relative;
-  z-index: 2;
-}
-
 .menu-trigger {
   display: grid;
   justify-items: start;
@@ -166,30 +161,6 @@ header {
 .menu-trigger span:nth-child(2) {
   width: 12px;
   margin-left: 4px;
-}
-
-.menu nav {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  min-width: 12rem;
-  padding: .4rem;
-  border: 1px solid var(--line);
-  background: #26211f;
-  border-radius: .8rem;
-  box-shadow: 0 8px 24px #0006;
-}
-
-.menu nav a {
-  display: block;
-  padding: .55rem .8rem;
-  border-radius: .45rem;
-}
-
-.menu nav a:hover,
-.menu nav a[aria-current] {
-  background: #47312a;
-  text-decoration: none;
 }
 
 h1,
