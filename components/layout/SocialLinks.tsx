@@ -1,7 +1,7 @@
 const socials = [
-  { label: "Facebook", href: "https://www.facebook.com/netcodertechnology/", icon: "facebook" },
-  { label: "Instagram", href: "https://www.instagram.com/netcodertechnology/", icon: "instagram" },
-  { label: "YouTube", href: "https://www.youtube.com/@netcodertechnology", icon: "youtube" },
+  { label: "Facebook", href: "https://www.facebook.com/share/1A4aHPyWvY/?mibextid=wwXIfr", icon: "facebook" },
+  { label: "Instagram", href: "https://www.instagram.com/netcodertechnology?knvt=ZHBiYWxrdXN2ampw", icon: "instagram" },
+  { label: "YouTube", href: "https://youtube.com/@netcodertechnology?si=97WqnXpOxecOeqL7", icon: "youtube" },
 ];
 
 export default function SocialLinks({ className, linkClassName }: { className: string; linkClassName: string }) {

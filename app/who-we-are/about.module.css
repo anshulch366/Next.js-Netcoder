@@ -1,0 +1,106 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+  padding-block: clamp(2.5rem, 5vw, 4.75rem);
+}
+
+.hero .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin: 0 0 1.1rem;
+  color: #9d361c;
+  font: 650 .75rem/1.4 var(--heading-font);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 2px;
+  background: var(--orange);
+}
+
+.hero h1 {
+  font: 650 clamp(3.6rem, 7vw, 6.35rem)/.99 var(--body-font);
+  letter-spacing: -.06em;
+}
+
+.hero h1 span { display: block; color: #e54b28; }
+.intro { max-width: 43ch; margin: 1.35rem 0 0; font-size: clamp(1.05rem, 1.5vw, 1.22rem); }
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin: 2rem 0 0;
+}
+
+.facts dt {
+  margin-bottom: .18rem;
+  color: var(--subtle);
+  font: 500 .72rem/1.5 var(--heading-font);
+}
+
+.facts dd { margin: 0; font-weight: 600; }
+
+.art {
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 2vw, 2rem);
+  border: 1px solid #f2ddd1;
+  border-radius: 1.5rem;
+  background-color: #fff4ec;
+  background-image: radial-gradient(#e9cfc0 .8px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.art img {
+  display: block;
+  width: 100%;
+  height: clamp(17rem, 28vw, 24rem);
+  object-fit: contain;
+}
+
+.work {
+  padding-block: clamp(2rem, 4vw, 3.5rem) 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.work h2 {
+  margin-bottom: 1.4rem;
+  font: 650 clamp(2rem, 3.4vw, 3rem)/1.1 var(--body-font);
+  letter-spacing: -.045em;
+}
+
+.paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.paths article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.3rem, 2.5vw, 2.25rem);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.paths h3 { font: 600 clamp(1.45rem, 2vw, 1.8rem)/1.2 var(--body-font); }
+.paths p { max-width: 49ch; margin: .65rem 0 1rem; }
+.paths a {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 44px;
+  margin-top: auto;
+  color: #a3391f;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .hero, .paths { grid-template-columns: 1fr; }
+  .hero { gap: 1.75rem; }
+  .art img { height: clamp(13rem, 52vw, 19rem); }
+  .facts { margin-top: 1.4rem; }
+}

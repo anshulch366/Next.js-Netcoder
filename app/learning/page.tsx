@@ -67,7 +67,8 @@ export default function LearningPage() {
       </section>
       <section className={s.formats} aria-labelledby="formats-heading">
         <h2 id="formats-heading">Choose How You Want To Learn</h2>
-        <Photo file="Choose How You Want to Learn image" size="(max-width: 700px) 90vw, 15vw" className={s.formatPhoto} />
+        {/* The landscape photo fills the portrait slot by height before its sides are cropped. */}
+        <Photo file="Choose How You Want to Learn image" size="(max-width: 500px) 82vw, (max-width: 760px) 900px, 750px" className={s.formatPhoto} />
         {formats.map(format => <article className={s.format} key={format.title}>
           <div className={s.formatIcon}><Icon path={format.icon} /></div>
           <div><h3>{format.title}</h3><p>{format.text}</p>
