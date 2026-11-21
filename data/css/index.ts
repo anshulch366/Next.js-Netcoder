@@ -52,6 +52,6 @@ const studyLessons = [
 ];
 
 export const cssLessons: LearningLesson[] = [
-  ...studyLessons.map(lesson => ({ ...lesson, contentLanguage: "hi-Latn" })),
+  ...studyLessons,
   ...workshops,
 ];
