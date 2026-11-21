@@ -1,7 +1,13 @@
 ﻿import { PageLink as Link } from "@/components/layout/PageTransition";
 import styles from "./home.module.css";
 
-export const metadata = { title: "Welcome" };
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/",
+  "Coding Courses, Industrial Training and Digital Services",
+  "Explore Netcoder’s coding courses and hands-on training, or find a team for web development, UI/UX, branding and digital marketing.",
+);
 
 const paths = [
   {

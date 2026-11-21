@@ -1,22 +1,32 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { learningLanguages } from "@/data/learning-resources";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type { LearningLesson } from "@/data/learning-resources";
+import { resourceHref, type ResourceSubject, type SubjectLink } from "@/data/resource-navigation";
 import styles from "./ResourceStudio.module.css";
 
-export default function ResourceStudio({ initialSubject }: { initialSubject?: string }) {
-  const startingLanguage = learningLanguages.find((item) => item.id === initialSubject) ?? learningLanguages[0];
-  const [languageId, setLanguageId] = useState(startingLanguage.id);
-  const [lessonId, setLessonId] = useState(startingLanguage.lessons[0].id);
+type StudioProps = {
+  subjects: SubjectLink[];
+  language: ResourceSubject;
+  lesson: LearningLesson;
+  directory?: { subject: string; chapters: { title: string; href: string }[] }[];
+};
+
+export default function ResourceStudio(props: StudioProps) {
+  return <LessonView key={props.language.id + ":" + props.lesson.id} {...props} />;
+}
+
+function LessonView({ subjects, language, lesson, directory }: StudioProps) {
+  const router = useRouter();
+  const LibraryTitle = directory ? "h1" : "p";
+  const LessonTitle = directory ? "h2" : "h1";
   const [topicSearch, setTopicSearch] = useState("");
   const [quizChoices, setQuizChoices] = useState<Record<number, number | null>>({});
   const [submittedQuizzes, setSubmittedQuizzes] = useState<Record<number, boolean>>({});
   const [copiedExample, setCopiedExample] = useState<number | null>(null);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const lessonHeading = useRef<HTMLHeadingElement>(null);
-
-  const language = learningLanguages.find((item) => item.id === languageId) ?? learningLanguages[0];
-  const lesson = language.lessons.find((item) => item.id === lessonId) ?? language.lessons[0];
   const lessonKey = `${language.id}:${lesson.id}`;
   const examples = lesson.examples ?? [{ title: "Example", code: lesson.example }];
   const quizzes = lesson.quizzes ?? [lesson.quiz];
@@ -25,54 +35,29 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
   const query = topicSearch.trim().toLowerCase();
   const visibleLessons = language.lessons.filter(item => {
     if (!query) return item.section === lesson.section;
-    const terms = [item.title, item.section, item.level, ...item.examples?.map(example => example.title) ?? []];
+    const terms = [item.title, item.section, item.level, ...item.exampleTitles];
     return terms.join(" ").toLowerCase().includes(query);
   });
-  const totalLessons = learningLanguages.reduce((total, item) => total + item.lessons.length, 0);
+  const totalLessons = subjects.reduce((total, item) => total + item.count, 0);
   const progress = Math.round((completedLessons.length / totalLessons) * 100);
 
-  function selectLanguage(id: string) {
-    const nextLanguage = learningLanguages.find((item) => item.id === id);
-    if (!nextLanguage) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("subject", id);
-    window.history.replaceState(null, "", url);
-    setLanguageId(nextLanguage.id);
-    setLessonId(nextLanguage.lessons[0].id);
-    setTopicSearch("");
-    setCopiedExample(null);
-    resetQuiz();
+  function topicHref(id: string) {
+    return resourceHref(language.id, id) + "#lesson-title";
   }
 
-  function resetQuiz() {
-    setQuizChoices({});
-    setSubmittedQuizzes({});
-  }
-
-  function selectLesson(id: string) {
-    setLessonId(id);
-    resetQuiz();
-    setCopiedExample(null);
-    if (sections.length) {
-      requestAnimationFrame(() => {
-        lessonHeading.current?.focus({ preventScroll: true });
-        lessonHeading.current?.scrollIntoView({ block: "start" });
-      });
-    }
-  }
-
-  function moveLesson(direction: -1 | 1) {
-    const next = language.lessons[activeIndex + direction];
-    if (next) {
-      setTopicSearch("");
-      selectLesson(next.id);
-    }
-  }
+  useEffect(() => {
+    try {
+      const saved: unknown = JSON.parse(sessionStorage.getItem("resource-completion") ?? "[]");
+      if (Array.isArray(saved)) setCompletedLessons(saved.filter(key => typeof key === "string"));
+    } catch { /* Storage may be unavailable. */ }
+  }, []);
 
   function toggleCompleted() {
-    setCompletedLessons((current) => current.includes(lessonKey)
-      ? current.filter((key) => key !== lessonKey)
-      : [...current, lessonKey]);
+    const next = completedLessons.includes(lessonKey)
+      ? completedLessons.filter(key => key !== lessonKey)
+      : [...completedLessons, lessonKey];
+    setCompletedLessons(next);
+    try { sessionStorage.setItem("resource-completion", JSON.stringify(next)); } catch { /* Optional storage. */ }
   }
 
   async function copyExample(index: number, code: string) {
@@ -97,23 +82,33 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
 
       <section className={styles.hero} aria-labelledby="library-title">
         <p className={styles.eyebrow}>LEARN · PRACTICE · BUILD</p>
-        <h1 id="library-title">A clearer path to <span>what’s next.</span></h1>
+        <LibraryTitle className={styles.libraryTitle} id="library-title">Netcoder <span>Learning Library</span></LibraryTitle>
         <p className={styles.heroCopy}>Practical, bite-sized guides for the tools behind the web. Pick a subject, explore a topic, and learn by doing.</p>
       </section>
+
+      {directory && <details className={styles.directory}>
+        <summary>Browse subjects and chapters</summary>
+        <nav aria-label="Library chapters">
+          {directory.map(group => <section key={group.subject}>
+            <h2>{group.subject}</h2>
+            <ul>{group.chapters.map(chapter => <li key={chapter.href}><Link prefetch={false} href={chapter.href}>{chapter.title}</Link></li>)}</ul>
+          </section>)}
+        </nav>
+      </details>}
 
       <nav className={styles.languageNav} aria-label="Choose a technology">
         <div className={styles.languageNavLabel}>EXPLORE</div>
         <div className={styles.languageList}>
-          {learningLanguages.map((item) => (
-            <button
+          {subjects.map((item) => (
+            <Link
               className={`${styles.languageButton} ${language.id === item.id ? styles.languageActive : ""}`}
-              type="button"
               key={item.id}
-              onClick={() => selectLanguage(item.id)}
-              aria-pressed={language.id === item.id}
+              href={resourceHref(item.id)}
+              prefetch={false}
+              aria-current={language.id === item.id ? "true" : undefined}
             >
-              {item.label}<span>{item.lessons.length}</span>
-            </button>
+              {item.label}<span>{item.count}</span>
+            </Link>
           ))}
         </div>
       </nav>
@@ -131,7 +126,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
                 const first = language.lessons.find(item => item.section === event.target.value);
                 if (first) {
                   setTopicSearch("");
-                  selectLesson(first.id);
+                  router.push(topicHref(first.id));
                 }
               }}>
                 {sections.map(section => <option key={section}>{section}</option>)}
@@ -149,17 +144,17 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
               const itemKey = `${language.id}:${item.id}`;
               const isComplete = completedLessons.includes(itemKey);
               return (
-                <button
+                <Link
                   className={`${styles.topicButton} ${lesson.id === item.id ? styles.topicActive : ""}`}
-                  type="button"
                   key={item.id}
-                  onClick={() => selectLesson(item.id)}
+                  href={topicHref(item.id)}
+                  prefetch={false}
                   aria-current={lesson.id === item.id ? "step" : undefined}
                 >
                   <span className={styles.topicNumber}>{isComplete ? "✓" : String(language.lessons.indexOf(item) + 1).padStart(2, "0")}</span>
                   <span>{item.title}{item.section && <small className={styles.topicLevel}>{item.level}{query && ` · ${item.section}`}</small>}</span>
                   {lesson.id === item.id && <span className={styles.topicArrow} aria-hidden="true">›</span>}
-                </button>
+                </Link>
               );
             })}
             {visibleLessons.length === 0 && <p className={styles.emptySearch}>No topics match “{topicSearch}”.</p>}
@@ -176,13 +171,13 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
             <header className={styles.lessonHeader}>
               <div className={styles.lessonMeta}><span className={styles.languageTag}>{language.label}</span><span>LESSON {String(activeIndex + 1).padStart(2, "0")} <i>·</i> {language.lessons.length} TOPICS</span></div>
               {lesson.section && <p className={styles.chapterMeta}>{lesson.section} · {lesson.level}</p>}
-              <h2 ref={lessonHeading} tabIndex={-1}>{lesson.title}</h2>
-              <p>{lesson.summary}</p>
+              <LessonTitle className={styles.lessonTitle} id="lesson-title" tabIndex={-1}>{lesson.title}</LessonTitle>
+              <p lang={lesson.contentLanguage}>{lesson.summary}</p>
             </header>
 
             <section className={styles.guideSection} aria-labelledby="key-ideas">
               <h3 id="key-ideas"><span className={styles.sectionIcon}>✳</span> Key ideas</h3>
-              {lesson.content.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {lesson.content.map((paragraph) => <p lang={lesson.contentLanguage} key={paragraph}>{paragraph}</p>)}
               <div className={styles.tip}><span aria-hidden="true">✦</span><p><b>Pro tip</b> Build one small example of your own after reading. Changing a value and observing the result is one of the fastest ways to make a concept stick.</p></div>
             </section>
 
@@ -198,7 +193,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
                       <div className={styles.codeTop}><span><i /><i /><i /></span><span>{language.label.toLowerCase()} · example</span><span>{String(index + 1).padStart(2, "0")}</span></div>
                       <pre><code>{example.code}</code></pre>
                     </div>
-                    {example.result && <p className={styles.exampleResult}><b>Expected result</b> {example.result}</p>}
+                    {example.result && <p className={styles.exampleResult}><b>Expected result</b> <span lang={lesson.contentLanguage}>{example.result}</span></p>}
                   </div>
                 ))}
               </div>
@@ -211,8 +206,8 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
                 const submitted = submittedQuizzes[quizIndex] ?? false;
                 return (
                   <div className={styles.quizQuestion} key={`${quiz.question}-${quizIndex}`}>
-                    <p className={styles.question}><span>{String(quizIndex + 1).padStart(2, "0")}</span>{quiz.question}</p>
-                    <div className={styles.answerList} role="group" aria-label={`Question ${quizIndex + 1} answer choices`}>
+                    <p lang={lesson.contentLanguage} className={styles.question}><span>{String(quizIndex + 1).padStart(2, "0")}</span>{quiz.question}</p>
+                    <div lang={lesson.contentLanguage} className={styles.answerList} role="group" aria-label={`Question ${quizIndex + 1} answer choices`}>
                       {quiz.options.map((option, optionIndex) => {
                         const isCorrect = submitted && optionIndex === quiz.answer;
                         const isWrong = submitted && choice === optionIndex && optionIndex !== quiz.answer;
@@ -233,7 +228,7 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
               })}
             </section>
 
-            {language.id === "html" && lesson.section && (
+            {language.id === "html" && lesson.section && !lesson.reading && (
               <p className={styles.furtherReading}>Further reading · <a href="https://www.w3schools.com/html/">W3Schools HTML tutorial</a> · <a href="https://html.spec.whatwg.org/multipage/indices.html">HTML Standard reference</a></p>
             )}
             {lesson.reading && (
@@ -244,8 +239,8 @@ export default function ResourceStudio({ initialSubject }: { initialSubject?: st
             <div className={styles.lessonActions}>
               <button className={`${styles.completeButton} ${completedLessons.includes(lessonKey) ? styles.completedButton : ""}`} type="button" onClick={toggleCompleted}>{completedLessons.includes(lessonKey) ? "✓ Completed" : "Mark as complete"}</button>
               <div className={styles.stepActions}>
-                <button type="button" onClick={() => moveLesson(-1)} disabled={activeIndex === 0}>← Previous</button>
-                <button className={styles.nextButton} type="button" onClick={() => moveLesson(1)} disabled={activeIndex === language.lessons.length - 1}>Next topic <span aria-hidden="true">→</span></button>
+                {activeIndex > 0 && <Link prefetch={false} rel="prev" href={topicHref(language.lessons[activeIndex - 1].id)}>← Previous</Link>}
+                {activeIndex + 1 < language.lessons.length && <Link className={styles.nextButton} prefetch={false} rel="next" href={topicHref(language.lessons[activeIndex + 1].id)}>Next topic <span aria-hidden="true">→</span></Link>}
               </div>
             </div>
           </article>

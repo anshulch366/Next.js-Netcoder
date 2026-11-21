@@ -4,10 +4,13 @@ import CareerDomains from "./CareerDomains";
 import { contact, demo, industrial } from "./programs";
 import s from "./learning.module.css";
 
-export const metadata = {
-  title: "Learning",
-  description: "Explore online courses, on-campus programs and industrial training at Netcoder Technology.",
-};
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/learning",
+  "Online Courses and Industrial Training in Dharamshala",
+  "Explore online courses, on-campus programs and project-based industrial training at Netcoder Technology in Dharamshala.",
+);
 
 const formats = [
   { title: "Online Learning", text: "Learn from anywhere, at your pace", tags: ["Flexible schedule", "Live + recorded sessions"], action: "Explore Online", href: "/courses", icon: "M9 18h6m-5 3h4M8 14a6 6 0 1 1 8 0l-1 2H9z" },

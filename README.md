@@ -20,6 +20,8 @@ npm start
 
 Run `npm run typecheck` for a standalone TypeScript check.
 
+Production canonical links, social previews and the sitemap use `https://www.netcoder.in` by default. Set `SITE_URL` to the public origin before building for a different domain.
+
 ## Where to edit
 
 | File or folder | Purpose |

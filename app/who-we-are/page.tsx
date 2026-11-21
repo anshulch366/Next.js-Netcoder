@@ -3,10 +3,13 @@ import { PageLink } from "@/components/layout/PageTransition";
 import library from "@/components/resources/ResourceStudio.module.css";
 import styles from "./about.module.css";
 
-export const metadata = {
-  title: "Who We Are",
-  description: "Meet Netcoder Technology, a training institute and digital services team based in Dharamshala, Himachal Pradesh.",
-};
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/who-we-are",
+  "About Netcoder Technology in Dharamshala",
+  "Meet the Dharamshala team behind Netcoder’s technology training and digital services. Learn about its founder, teaching approach and work with businesses.",
+);
 
 export default function WhoWeArePage() {
   return (

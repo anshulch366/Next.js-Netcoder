@@ -1,6 +1,6 @@
 import type { LearningLesson } from "./learning-resources";
 
-type ChapterTopic = Pick<LearningLesson, "id" | "title" | "summary" | "content"> & {
+type ChapterTopic = Pick<LearningLesson, "id" | "title" | "summary" | "content" | "reading"> & {
   level: NonNullable<LearningLesson["level"]>;
   examples: { title: string; code: string; result: string }[];
   quizzes: LearningLesson["quiz"][];

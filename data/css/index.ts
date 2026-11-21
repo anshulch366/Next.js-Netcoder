@@ -10,6 +10,18 @@ import { cert } from "./cert";
 import { sass } from "./sass";
 import { projects } from "./projects";
 import { references } from "./references";
+import { basics } from "./study/basics";
+import { flow } from "./study/flow";
+import { interfaces } from "./study/interfaces";
+import { effects } from "./study/effects";
+import { advancedTools } from "./study/advancedTools";
+import { flexLessons } from "./study/flexLessons";
+import { gridLessons } from "./study/gridLessons";
+import { rwdLessons } from "./study/rwdLessons";
+import { certLesson } from "./study/certLesson";
+import { sassLesson } from "./study/sassLesson";
+import { practiceLessons } from "./study/practiceLessons";
+import { referenceLessons } from "./study/referenceLessons";
 
 const chapters = [
   { topics: [...tutorial, ...interfaceStyles], title: "W3Schools CSS tutorial", url: "https://www.w3schools.com/css/" },
@@ -24,9 +36,22 @@ const chapters = [
 ];
 
 const levels = ["Beginner", "Intermediate", "Advanced"] as const;
-export const cssLessons: LearningLesson[] = chapters.flatMap(({ topics, title, url }) =>
+const workshops = chapters.flatMap(({ topics, title, url }) =>
   levels.flatMap(level => topics.filter(topic => topic.level === level).map(topic => ({
     ...topic,
+    section: "Extra practice · CSS workshops",
     reading: { title, url },
   }))),
 );
+
+const studyLessons = [
+  ...basics, ...flow, ...interfaces,
+  ...effects, ...advancedTools,
+  ...flexLessons, ...gridLessons, ...rwdLessons,
+  ...certLesson, ...sassLesson, ...practiceLessons, ...referenceLessons,
+];
+
+export const cssLessons: LearningLesson[] = [
+  ...studyLessons.map(lesson => ({ ...lesson, contentLanguage: "hi-Latn" })),
+  ...workshops,
+];

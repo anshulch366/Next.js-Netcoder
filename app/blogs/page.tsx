@@ -1,10 +1,13 @@
 import { PageLink as Link } from "@/components/layout/PageTransition";
 import styles from "./blogs.module.css";
 
-export const metadata = {
-  title: "Blogs",
-  description: "Read Netcoder’s practical project notes, starting with a reading group’s first SQL report.",
-};
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/blogs",
+  "Coding Project Notes and SQL Articles",
+  "Follow a reading group’s first SQL report and see how a loan register becomes a practical data project.",
+);
 
 export default function BlogsPage() {
   return (

@@ -3,6 +3,15 @@ import { notFound } from "next/navigation";
 import { courses } from "@/data/courses";
 import { lessons, lessonsFor } from "@/data/lessons";
 import { CompletionButton } from "@/components/courses/CourseProgress";
+import { pageMetadata } from "@/app/site-metadata";
+
+export async function generateMetadata({ params }: PageProps<"/courses/[courseSlug]/lessons/[lessonSlug]">) {
+  const { courseSlug, lessonSlug } = await params;
+  const lesson = lessons.find(item => item.course === courseSlug && item.slug === lessonSlug);
+  if (!lesson) notFound();
+  const course = courses.find(item => item.slug === lesson.course)!;
+  return pageMetadata(`/courses/${courseSlug}/lessons/${lessonSlug}`, `${lesson.title} · ${course.language}`, lesson.explanation);
+}
 
 export function generateStaticParams() {
   return lessons.map((lesson) => ({ courseSlug: lesson.course, lessonSlug: lesson.slug }));

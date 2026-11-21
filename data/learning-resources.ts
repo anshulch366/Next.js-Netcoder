@@ -3,6 +3,7 @@ export interface LearningLesson {
   title: string;
   summary: string;
   content: string[];
+  contentLanguage?: string;
   example: string;
   examples?: { title: string; code: string; result?: string }[];
   section?: string;

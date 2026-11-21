@@ -4,6 +4,14 @@ import { courses } from "@/data/courses";
 import { lessonsFor } from "@/data/lessons";
 import CourseProgress from "@/components/courses/CourseProgress";
 import LessonList from "@/components/courses/LessonList";
+import { pageMetadata } from "@/app/site-metadata";
+
+export async function generateMetadata({ params }: PageProps<"/courses/[courseSlug]">) {
+  const { courseSlug } = await params;
+  const course = courses.find(item => item.slug === courseSlug);
+  if (!course) notFound();
+  return pageMetadata(`/courses/${course.slug}`, `${course.language} Course · ${course.title}`, course.description);
+}
 
 export function generateStaticParams() {
   return courses.map((course) => ({ courseSlug: course.slug }));

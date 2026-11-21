@@ -4,7 +4,13 @@ import Image from "next/image";
 import library from "@/components/resources/ResourceStudio.module.css";
 import styles from "../netcoder.module.css";
 
-export const metadata = { title: "Digital services" };
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/services",
+  "Web Development, UI/UX Design, Branding and Marketing",
+  "Explore Netcoder’s website development, UI/UX design, brand identity and digital marketing services, from prototypes and online stores to campaign reporting.",
+);
 
 const services = [
   { title: "Web Development", description: "Plan and build a responsive website, from its first page to the features your visitors use every day.", deliverables: ["Custom websites", "CMS integration", "Online stores"] },

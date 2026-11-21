@@ -6,7 +6,13 @@ import SubjectLogo from "@/components/courses/SubjectLogo";
 import library from "@/components/resources/ResourceStudio.module.css";
 import styles from "./catalog.module.css";
 
-export const metadata = { title: "Course catalog" };
+import { pageMetadata } from "@/app/site-metadata";
+
+export const metadata = pageMetadata(
+  "/courses",
+  "Coding Course Catalog and Practice Lessons",
+  "Find HTML and CSS tutorials, guided Python, JavaScript and SQL projects, worked examples and quizzes. Search by subject or topic to start a lesson.",
+);
 
 export default function CoursesPage() {
   const subjects = learningLanguages.map(({ id, label, category, description, lessons }) => ({
