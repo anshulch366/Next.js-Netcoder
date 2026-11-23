@@ -183,7 +183,7 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
 
             <section className={styles.exampleSection} aria-labelledby="example-title">
               <div className={styles.sectionHeading}>
-                <div><h3 id="example-title"><span className={styles.sectionIcon}>⌘</span> Worked examples</h3><p>{examples.length} practical patterns to try.</p></div>
+                <div><h3 id="example-title"><span className={styles.sectionIcon}>⌘</span> Worked examples</h3><p>{examples.length} practical {examples.length === 1 ? "pattern" : "patterns"} to try.</p></div>
               </div>
               <div className={styles.examplesList}>
                 {examples.map((example, index) => (
@@ -200,7 +200,7 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
             </section>
 
             <section className={styles.quizSection} aria-labelledby="quiz-title">
-              <div className={styles.quizHeading}><span className={styles.quizIcon}>?</span><div><p className={styles.sidebarEyebrow}>QUICK CHECK</p><h3 id="quiz-title">Test your understanding · {quizzes.length} questions</h3></div></div>
+              <div className={styles.quizHeading}><span className={styles.quizIcon}>?</span><div><p className={styles.sidebarEyebrow}>QUICK CHECK</p><h3 id="quiz-title">Test your understanding · {quizzes.length} {quizzes.length === 1 ? "question" : "questions"}</h3></div></div>
               {quizzes.map((quiz, quizIndex) => {
                 const choice = quizChoices[quizIndex] ?? null;
                 const submitted = submittedQuizzes[quizIndex] ?? false;
