@@ -84,9 +84,6 @@ export default function ResourcesView() {
               <Link href={`/resources?subject=${subject.id}`} className={s.enrollBtn} style={{ display: "inline-flex", alignItems: "center" }}>
                 Open Guide
               </Link>
-              <a href={subject.docs} target="_blank" rel="noreferrer" className={s.textActionMuted}>
-                Docs &rarr;
-              </a>
             </div>
           </article>
         ))}

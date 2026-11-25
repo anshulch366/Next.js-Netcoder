@@ -1,3 +1,6 @@
+import { sqlLessons } from "./sql-lessons";
+import { gitLessons } from "./git-lessons";
+
 export interface LearningLesson {
   id: string;
   title: string;
@@ -146,11 +149,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "Database",
     description: "Query, filter, combine, and summarize relational data.",
     docs: "https://www.sqlite.org/lang.html",
-    lessons: [
-      { id: "select", title: "SELECT and filtering", summary: "Retrieve only the columns and rows your question needs.", content: ["SELECT chooses columns from a table; FROM names the source. WHERE filters rows before the result is returned.", "Use ORDER BY for predictable sorting and LIMIT to cap results. Prefer explicit column names over SELECT * in application queries."], example: "SELECT name, score\nFROM learners\nWHERE score >= 80\nORDER BY score DESC\nLIMIT 10;", quiz: { question: "Which clause filters rows?", options: ["WHERE", "ORDER BY", "SELECT"], answer: 0, explanation: "WHERE specifies conditions that rows must satisfy." } },
-      { id: "joins", title: "Joining tables", summary: "Combine related records through matching key columns.", content: ["A JOIN combines rows from related tables. An INNER JOIN returns matching pairs; a LEFT JOIN preserves every row from the left table and fills unmatched right-side columns with NULL.", "Use table aliases to keep queries readable. Check whether join keys are unique to avoid accidentally multiplying rows."], example: "SELECT learners.name, courses.title\nFROM learners\nJOIN enrollments\n  ON enrollments.learner_id = learners.id\nJOIN courses\n  ON courses.id = enrollments.course_id;", quiz: { question: "Which join keeps all rows from its left table?", options: ["LEFT JOIN", "INNER JOIN", "CROSS JOIN"], answer: 0, explanation: "LEFT JOIN retains each left-side row, even without a match." } },
-      { id: "aggregates", title: "Aggregates and grouping", summary: "Summarize records with counts, averages, and groups.", content: ["Aggregate functions such as COUNT, SUM, AVG, MIN, and MAX calculate a value across rows. GROUP BY produces one result per distinct group.", "WHERE filters source rows before grouping; HAVING filters the grouped results. Be explicit about grouping columns to keep results understandable."], example: "SELECT course_id, COUNT(*) AS learner_count,\n       AVG(score) AS average_score\nFROM results\nGROUP BY course_id\nHAVING COUNT(*) >= 5\nORDER BY average_score DESC;", quiz: { question: "Which clause filters groups after aggregation?", options: ["HAVING", "WHERE", "FROM"], answer: 0, explanation: "HAVING applies conditions to grouped aggregate results." } },
-    ],
+    lessons: sqlLessons,
   },
   {
     id: "git",
@@ -158,11 +157,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "Workflow",
     description: "Track changes and collaborate confidently with version control.",
     docs: "https://git-scm.com/doc",
-    lessons: [
-      { id: "commits", title: "Commits and history", summary: "Save focused snapshots and inspect how a project changed.", content: ["A commit records a snapshot of staged changes with a message. Stage only the changes that belong together, then write a concise message describing the intent.", "Git history helps you compare versions and understand why code changed. Review the diff before committing, especially when working with generated files."], example: "git status\ngit add src/greeting.js\ngit diff --staged\ngit commit -m \"Add greeting message\"\ngit log --oneline -5", quiz: { question: "What does staging choose?", options: ["Which changes go into the next commit", "Which branch is deleted", "Which files are installed"], answer: 0, explanation: "The staging area selects changes for the next commit." } },
-      { id: "branches", title: "Branches and merging", summary: "Develop a change separately and bring it back safely.", content: ["A branch is a lightweight pointer to a line of development. Create a branch for a focused feature or fix so work can progress independently.", "Merging combines histories. If edits conflict, inspect both versions, resolve the file intentionally, and run tests before completing the merge."], example: "git switch -c feature/search\n# Make and commit the change\ngit add .\ngit commit -m \"Add resource search\"\n# Return to the base branch and merge\ngit switch main\ngit merge feature/search", quiz: { question: "Why create a feature branch?", options: ["To isolate work from the base branch", "To back up the entire computer", "To skip code review"], answer: 0, explanation: "Branches isolate changes while keeping the main line stable." } },
-      { id: "collaboration", title: "Remote collaboration", summary: "Share commits and synchronize with a shared repository.", content: ["A remote is a named reference to another repository, often hosted by a team service. Fetch updates your remote-tracking references without changing your working files.", "Push shares local commits; pull fetches and integrates updates. Review status and resolve conflicts carefully before pushing shared work."], example: "git remote -v\ngit fetch origin\ngit status\ngit pull --rebase origin main\ngit push -u origin feature/search", quiz: { question: "What does git push do?", options: ["Shares local commits with a remote", "Deletes all local branches", "Rewrites every file"], answer: 0, explanation: "Push sends commits from your local branch to the remote repository." } },
-    ],
+    lessons: gitLessons,
   },
 ];
 
