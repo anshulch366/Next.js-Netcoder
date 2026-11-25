@@ -40,6 +40,31 @@ import { pythonLessons } from "./python";
 import { javaLessons } from "./java";
 import { typescriptLessons } from "./typescript-lessons";
 import { reactLessons, ticTacToeLessons, thinkingReactLessons, reactInstallationLessons, creatingReactAppLessons, scratchReactLessons, existingProjectLessons, reactSetupLessons, reactTypeScriptLessons, reactCompilerLessons, reactCompilerIntroLessons, reactCompilerInstallLessons, reactCompilerAdoptionLessons, reactCompilerDebugLessons, describingUiLessons, firstComponentLessons, componentModulesLessons, jsxLessons, jsxCurlyLessons, propsLessons, conditionalLessons, renderingListsLessons, pureComponentsLessons, uiTreeLessons } from "./react-lessons";
+import { addingInteractivityLessons } from "./react-interactivity-lessons";
+import { respondingToEventsLessons } from "./react-event-lessons";
+import { stateMemoryLessons } from "./react-state-memory-lessons";
+import { renderCommitLessons } from "./react-render-commit-lessons";
+import { stateSnapshotLessons } from "./react-state-snapshot-lessons";
+import { queueUpdatesLessons } from "./react-queue-updates-lessons";
+import { objectStateLessons } from "./react-object-state-lessons";
+import { arrayStateLessons } from "./react-array-state-lessons";
+import { managingStateLessons } from "./react-managing-state-lessons";
+import { reactingToInputLessons } from "./react-input-state-lessons";
+import { stateStructureLessons } from "./react-state-structure-lessons";
+import { sharingStateLessons } from "./react-sharing-state-lessons";
+import { preservingStateLessons } from "./react-preserving-state-lessons";
+import { reducerLessons } from "./react-reducer-lessons";
+import { contextLessons } from "./react-context-lessons";
+import { reducerContextScaleLessons } from "./react-reducer-context-scale-lessons";
+import { escapeHatchesLessons } from "./react-escape-hatches-lessons";
+import { refsLessons } from "./react-refs-lessons";
+import { domRefsLessons } from "./react-dom-refs-lessons";
+import { effectsLessons } from "./react-effects-lessons";
+import { noEffectLessons } from "./react-no-effect-lessons";
+import { effectLifecycleLessons } from "./react-effect-lifecycle-lessons";
+import { separatingEventsEffectsLessons } from "./react-separating-events-effects-lessons";
+import { removeEffectDependencyLessons } from "./react-remove-effect-dependencies-lessons";
+import { customHookLessons } from "./react-custom-hooks-lessons";
 
 const coreLearningLanguages: LearningLanguage[] = [
   {
@@ -113,7 +138,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "UI Library",
     description: "Compose interactive interfaces from reusable components.",
     docs: "https://react.dev/learn",
-    lessons: [...reactLessons, ...reactInstallationLessons, ...creatingReactAppLessons, ...scratchReactLessons, ...existingProjectLessons, ...reactSetupLessons, ...reactTypeScriptLessons, ...reactCompilerLessons, ...reactCompilerIntroLessons, ...reactCompilerInstallLessons, ...reactCompilerAdoptionLessons, ...reactCompilerDebugLessons, ...describingUiLessons, ...firstComponentLessons, ...componentModulesLessons, ...jsxLessons, ...jsxCurlyLessons, ...propsLessons, ...conditionalLessons, ...renderingListsLessons, ...pureComponentsLessons, ...uiTreeLessons, ...ticTacToeLessons, ...thinkingReactLessons],
+    lessons: [...reactLessons, ...reactInstallationLessons, ...creatingReactAppLessons, ...scratchReactLessons, ...existingProjectLessons, ...reactSetupLessons, ...reactTypeScriptLessons, ...reactCompilerLessons, ...reactCompilerIntroLessons, ...reactCompilerInstallLessons, ...reactCompilerAdoptionLessons, ...reactCompilerDebugLessons, ...describingUiLessons, ...firstComponentLessons, ...componentModulesLessons, ...jsxLessons, ...jsxCurlyLessons, ...propsLessons, ...conditionalLessons, ...renderingListsLessons, ...pureComponentsLessons, ...uiTreeLessons, ...addingInteractivityLessons.filter(lesson => lesson.id !== "react-responding-to-events" && lesson.id !== "react-state-memory" && lesson.id !== "react-render-and-commit" && lesson.id !== "react-state-as-snapshot" && lesson.id !== "react-queue-state-updates" && lesson.id !== "react-updating-objects-in-state" && lesson.id !== "react-updating-arrays-in-state" && lesson.id !== "react-reacting-to-input-with-state"), ...respondingToEventsLessons, ...stateMemoryLessons, ...renderCommitLessons, ...stateSnapshotLessons, ...queueUpdatesLessons, ...objectStateLessons, ...arrayStateLessons, ...managingStateLessons.filter(lesson => lesson.id !== "react-choosing-state-structure" && lesson.id !== "react-sharing-state-between-components" && lesson.id !== "react-preserving-and-resetting-state" && lesson.id !== "react-extracting-state-logic-reducer" && lesson.id !== "react-passing-data-deeply-context" && lesson.id !== "react-scaling-up-reducer-context" && lesson.id !== "react-escape-hatches"), ...reactingToInputLessons, ...stateStructureLessons, ...sharingStateLessons, ...preservingStateLessons, ...reducerLessons, ...contextLessons, ...reducerContextScaleLessons, ...escapeHatchesLessons.filter(lesson => lesson.id !== "react-referencing-values-with-refs" && lesson.id !== "react-manipulating-dom-with-refs" && lesson.id !== "react-synchronizing-with-effects" && lesson.id !== "react-you-might-not-need-an-effect" && lesson.id !== "react-lifecycle-of-reactive-effects" && lesson.id !== "react-reusing-logic-with-custom-hooks"), ...refsLessons, ...domRefsLessons, ...effectsLessons.filter(lesson => lesson.id !== "react-lifecycle-of-reactive-effects" && lesson.id !== "react-separating-events-from-effects" && lesson.id !== "react-removing-effect-dependencies"), ...noEffectLessons, ...effectLifecycleLessons, ...separatingEventsEffectsLessons, ...removeEffectDependencyLessons, ...customHookLessons, ...ticTacToeLessons, ...thinkingReactLessons],
   },
   {
     id: "sql",
