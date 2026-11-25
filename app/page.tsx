@@ -1,4 +1,4 @@
-﻿import { PageLink as Link } from "@/components/layout/PageTransition";
+import { PageLink as Link } from "@/components/layout/PageTransition";
 import styles from "./home.module.css";
 
 import { pageMetadata } from "@/app/site-metadata";

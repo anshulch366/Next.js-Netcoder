@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navigation from "@/components/layout/Navigation";
-import { PageLink as Link } from "@/components/layout/PageTransition";
+import { PageLink } from "@/components/layout/PageTransition";
 import SocialLinks from "@/components/layout/SocialLinks";
 import LearningNav from "./LearningNav";
 import { campus, contact, industrial } from "./programs";
@@ -14,7 +15,7 @@ const footerGroups = [
 ];
 
 function Logo() {
-  return <Link href="/" aria-label="Netcoder Technology home"><Image src="/images/logo/logo.png" alt="" width={2534} height={1129} sizes="180px" /></Link>;
+  return <PageLink href="/" aria-label="Netcoder Technology home"><Image src="/images/logo/logo.png" alt="" width={2534} height={1129} sizes="180px" /></PageLink>;
 }
 
 export default function LearningLayout({ children }: { children: ReactNode }) {
@@ -23,7 +24,10 @@ export default function LearningLayout({ children }: { children: ReactNode }) {
       <header className={s.header}>
         <div className={s.logo}><Logo /></div>
         <LearningNav />
-        <Navigation />
+        <div className={s.headerActions}>
+          <Link href="/login" className={s.loginButton}>Login</Link>
+          <Navigation />
+        </div>
       </header>
       <main id="main" className={s.main}>{children}</main>
       <footer className={s.footer}>

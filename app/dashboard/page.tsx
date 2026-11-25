@@ -1,6 +1,12 @@
-export const metadata = {
-  title: "My Learning Dashboard",
-  description: "Review your course progress, completed lessons and next steps.",
+import type { Metadata } from "next";
+import DashboardHome from "@/components/lms/DashboardHome";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Netcoder Technology LMS",
+  description: "Your Netcoder student portal to explore courses, track learning, and stay updated.",
   robots: { index: false, follow: true },
 };
-export { Dashboard as default } from "@/app/MainPages";
+
+export default function DashboardPage() {
+  return <DashboardHome />;
+}

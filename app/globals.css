@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: dark;
   --ink: #fffaf7;
   --muted: #cbbdb8;
@@ -73,11 +73,7 @@ summary {
 }
 
 .site-frame[aria-busy="true"] {
-  filter: blur(4px);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .site-frame[aria-busy="true"] { transition: filter 90ms ease-out; }
+  cursor: progress;
 }
 
 .wrap {
@@ -120,7 +116,32 @@ header {
 }
 
 .home-logo-slot {
+  position: relative;
   display: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.header-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 1.15rem;
+  border-radius: 11px;
+  background: var(--orange);
+  color: #fff;
+  font: 600 .92rem/1 var(--body-font);
+  transition: background-color 140ms ease;
+}
+
+.header-login:hover {
+  background: #e94828;
+  text-decoration: none;
 }
 
 .wordmark:hover {

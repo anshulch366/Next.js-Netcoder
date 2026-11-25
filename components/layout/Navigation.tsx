@@ -13,6 +13,7 @@ const items = [
   { label: "Resources", href: "/resources" },
   { label: "Who We Are", href: "/who-we-are" },
   { label: "Services", href: "/services" },
+  { label: "LMS Login", href: "/login" },
 ];
 
 export default function Navigation() {

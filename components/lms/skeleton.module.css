@@ -1,0 +1,266 @@
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes skShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.sk {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ece9e6 25%, #f6f4f2 50%, #ece9e6 75%);
+  background-size: 200% 100%;
+  animation: skShimmer 1.35s ease-in-out infinite;
+}
+
+.skWarm {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #fbe4de 25%, #fff1ed 50%, #fbe4de 75%);
+  background-size: 200% 100%;
+  animation: skShimmer 1.35s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk,
+  .skWarm {
+    animation: none;
+    background-position: 0 0;
+  }
+}
+
+/* Text & control primitives matched to LMS component metrics */
+.pill {
+  height: 22px;
+  width: 108px;
+  border-radius: 999px;
+}
+
+.titleLg {
+  height: 30px;
+  width: min(320px, 68%);
+  border-radius: 8px;
+}
+
+.titleMd {
+  height: 22px;
+  width: min(240px, 72%);
+  border-radius: 7px;
+}
+
+.subtitle {
+  height: 15px;
+  width: min(440px, 86%);
+  margin-top: 8px;
+  border-radius: 6px;
+}
+
+.line {
+  height: 13px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.lineMed {
+  height: 13px;
+  width: 74%;
+  border-radius: 6px;
+}
+
+.lineShort {
+  height: 12px;
+  width: 46%;
+  border-radius: 6px;
+}
+
+.labelSm {
+  height: 10px;
+  width: 84px;
+  border-radius: 5px;
+}
+
+.btnPrimary {
+  height: 38px;
+  width: 146px;
+  border-radius: 8px;
+}
+
+.btnFull {
+  height: 40px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.btnSmall {
+  height: 34px;
+  width: 112px;
+  border-radius: 7px;
+}
+
+.inputBar {
+  height: 44px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.progressBar {
+  height: 6px;
+  width: 100%;
+  border-radius: 999px;
+}
+
+.statNum {
+  height: 26px;
+  width: 58px;
+  border-radius: 7px;
+}
+
+.iconBox {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.avatarLg {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.tileSq {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.bannerAspect {
+  width: 100%;
+  aspect-ratio: 16 / 6.2;
+  border-radius: 11px;
+}
+
+.exploreAspect {
+  width: 100%;
+  aspect-ratio: 16 / 9.2;
+  border-radius: 10px;
+}
+
+.heroThumbAspect {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+
+.tabsSk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.tabChip {
+  height: 32px;
+  width: 96px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.cardActionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.kpiFourGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stackGapSm {
+  display: grid;
+  gap: 8px;
+}
+
+.stackGapMd {
+  display: grid;
+  gap: 14px;
+}
+
+/* Shell Sidebar & Topbar Skeletons */
+.navSkItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+}
+
+.navSkIcon {
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.navSkLabel {
+  height: 13px;
+  width: 108px;
+  border-radius: 5px;
+}
+
+.brandSk {
+  width: 132px;
+  height: 34px;
+  border-radius: 8px;
+}
+
+.mobileBrandSk {
+  width: 148px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.mobileTabSk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 52px;
+}
+
+@media (max-width: 960px) {
+  .kpiFourGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .kpiFourGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

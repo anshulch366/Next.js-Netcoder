@@ -1,0 +1,321 @@
+@keyframes publicShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shimmerLight {
+  background: linear-gradient(90deg, #edeae7 25%, #f7f5f3 50%, #edeae7 75%);
+  background-size: 200% 100%;
+  animation: publicShimmer 1.35s linear infinite;
+}
+
+.shimmerAccent {
+  background: linear-gradient(90deg, #ffdcd3 25%, #fff0ec 50%, #ffdcd3 75%);
+  background-size: 200% 100%;
+  animation: publicShimmer 1.35s linear infinite;
+}
+
+.shimmerDark {
+  background: linear-gradient(90deg, #2d2320 25%, #3b2f2b 50%, #2d2320 75%);
+  background-size: 200% 100%;
+  animation: publicShimmer 1.35s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmerLight,
+  .shimmerAccent,
+  .shimmerDark {
+    animation: none;
+  }
+}
+
+/* Home skeleton matches home.module.css artboard card geometry */
+:global(html):has(.homeSkel) {
+  color-scheme: light;
+  background: #f9f9f8;
+}
+
+:global(body):has(.homeSkel) {
+  --unit: min(calc(100vw / 516), calc(100dvh / 366));
+  height: 100dvh;
+  min-height: 0;
+  overflow: clip;
+  padding-block: 4.1dvh 3.9dvh;
+  background: radial-gradient(ellipse 88% 65% at 50% 105%, #ff5532 38%, #ff977f 65%, transparent 100%), #f9f9f8;
+}
+
+:global(.site-frame):has(.homeSkel) {
+  width: min(86%, calc(550 * var(--unit)));
+  height: 100%;
+  min-height: 0;
+  margin-inline: auto;
+  border: 1px solid #d1cecb;
+  border-radius: calc(29 * var(--unit));
+  background: linear-gradient(180deg, #fff 0%, #fdfcfb 34%, #fcf6f2 70%, #f9e4da 100%);
+}
+
+:global(.site-frame):has(.homeSkel) :global(.wrap) {
+  width: 83.3%;
+}
+
+:global(.site-frame):has(.homeSkel) header {
+  border: 0;
+}
+
+:global(.site-frame):has(.homeSkel) footer,
+:global(.site-frame):has(.homeSkel) :global(.wordmark) {
+  display: none;
+}
+
+:global(.site-frame):has(.homeSkel) main {
+  display: grid;
+  align-content: center;
+  min-height: 0;
+  padding: 0;
+}
+
+.homeSkel {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+}
+
+.homeIntroSkel {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+.homeChoicesSkel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.homeCardSkel {
+  border: 1px solid #e1dedb;
+  border-radius: 20px;
+  background: #faf9f8;
+  padding: clamp(18px, 2.4vw, 28px);
+  min-height: clamp(220px, 34vh, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Light Studio container match for /courses, /services, /who-we-are, /resources, /blogs */
+:global(body):has(.studioSkel),
+:global(body):has(.blogSkel) {
+  color-scheme: light;
+  background: #f7f5f2;
+}
+
+:global(.site-frame):has(.studioSkel),
+:global(.site-frame):has(.blogSkel) {
+  color: #292521;
+  background: #ffffff;
+}
+
+:global(.site-frame):has(.studioSkel) header,
+:global(.site-frame):has(.blogSkel) header {
+  border-color: #eee8e2;
+  background: #ffffff;
+}
+
+:global(.site-frame):has(.studioSkel) :global(.menu-trigger),
+:global(.site-frame):has(.blogSkel) :global(.menu-trigger) {
+  color: #292521;
+  border-color: #e7ddd6;
+  background: #fff8f4;
+}
+
+.studioSkel,
+.blogSkel {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 20px 0 36px;
+  display: grid;
+  gap: 24px;
+}
+
+.heroSplitSkel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+  padding-block: clamp(18px, 4vw, 44px);
+}
+
+.heroStackSkel {
+  display: grid;
+  gap: 14px;
+}
+
+.cardBoxSkel {
+  border: 1px solid #eae5df;
+  border-radius: 16px;
+  background: #faf8f6;
+  padding: clamp(18px, 2.4vw, 28px);
+  display: grid;
+  gap: 12px;
+}
+
+.featureBoxSkel {
+  border: 1px solid #f3cebc;
+  border-radius: 16px;
+  background: #fff4ec;
+  padding: clamp(18px, 2.5vw, 30px);
+  min-height: 220px;
+  display: grid;
+  gap: 12px;
+  align-content: center;
+}
+
+.toolbarSkel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-block: 16px;
+  border-block: 1px solid #eae5df;
+}
+
+.gridThreeSkel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gridTwoSkel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.resourcesSplitSkel {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* Learning paper canvas match for /learning */
+.learningSkelWrap {
+  padding-block: clamp(28px, 5vw, 60px);
+  display: grid;
+  gap: clamp(24px, 4vw, 44px);
+}
+
+.learningHeroSkel {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.learningPanelSkel {
+  background: #ffffff;
+  border-radius: clamp(24px, 4vw, 48px);
+  padding: clamp(24px, 4vw, 56px);
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  gap: 18px;
+}
+
+.learningFormatPhotoSkel {
+  grid-row: span 2;
+  min-height: 300px;
+  border-radius: 26px;
+}
+
+.learningFormatCardSkel {
+  border: 1px solid #e6e6e6;
+  background: #f8f8f8;
+  border-radius: 24px;
+  padding: 22px;
+  min-height: 150px;
+  display: grid;
+  gap: 10px;
+}
+
+/* Shapes */
+.skelPill {
+  height: 28px;
+  border-radius: 999px;
+}
+
+.skelTitleLg {
+  height: clamp(36px, 4.8vw, 56px);
+  border-radius: 10px;
+}
+
+.skelTitleMd {
+  height: 28px;
+  border-radius: 8px;
+}
+
+.skelLine {
+  height: 14px;
+  border-radius: 6px;
+}
+
+.skelBtn {
+  height: 44px;
+  border-radius: 9px;
+}
+
+.skelBtnRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .gridThreeSkel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .learningPanelSkel {
+    grid-template-columns: 1fr 1fr;
+  }
+  .learningFormatPhotoSkel {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 200px;
+  }
+  .resourcesSplitSkel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .homeChoicesSkel,
+  .heroSplitSkel,
+  .gridThreeSkel,
+  .gridTwoSkel,
+  .learningPanelSkel {
+    grid-template-columns: 1fr;
+  }
+  .learningFormatPhotoSkel {
+    grid-column: span 1;
+  }
+  .homeCardSkel {
+    min-height: 140px;
+  }
+}

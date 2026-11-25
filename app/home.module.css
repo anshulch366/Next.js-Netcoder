@@ -1,4 +1,4 @@
-﻿:global(html):has(.home) {
+:global(html):has(.home) {
   color-scheme: light;
   background: #f9f9f8;
   overflow: clip;
@@ -55,6 +55,23 @@
   object-position: left center;
 }
 
+:global(.site-frame):has(.home) :global(.header-actions) {
+  gap: calc(5 * var(--unit));
+}
+:global(.site-frame):has(.home) :global(.header-login) {
+  height: calc(17 * var(--unit));
+  padding-inline: calc(8.5 * var(--unit));
+  border-radius: calc(4 * var(--unit));
+  background: var(--accent);
+  color: #fff;
+  font: 650 calc(5.8 * var(--unit))/1 var(--mono);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+:global(.site-frame):has(.home) :global(.header-login):hover {
+  filter: brightness(.95);
+  text-decoration: none;
+}
 :global(.site-frame):has(.home) :global(.menu-trigger) {
   width: calc(17 * var(--unit));
   height: calc(17 * var(--unit));
@@ -189,6 +206,8 @@
   :global(.site-frame):has(.home) :global(.wrap) { width: 89%; }
   :global(.site-frame):has(.home) :global(.bar) { padding-top: 1rem; }
   :global(.site-frame):has(.home) :global(.home-logo-slot) { height: 32px; }
+  :global(.site-frame):has(.home) :global(.header-actions) { gap: .5rem; }
+  :global(.site-frame):has(.home) :global(.header-login) { height: 40px; padding-inline: .9rem; border-radius: 8px; font-size: .78rem; }
   :global(.site-frame):has(.home) :global(.menu-trigger) { width: 40px; height: 40px; gap: 3px; border-radius: 8px; }
   :global(.site-frame):has(.home) :global(.menu-trigger) span { width: 15px; height: 1.5px; }
   :global(.site-frame):has(.home) :global(.menu-trigger) span:nth-child(2) { width: 11px; margin-left: 3px; }

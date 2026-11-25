@@ -17,12 +17,8 @@ export function PageTransition({ children }: { children: ReactNode }) {
   }, []);
 
   function navigate(action: () => void) {
-    const request = ++latestNavigation.current;
-    startTransition(async () => {
-      // Let the outgoing page paint even when the destination is already cached.
-      await new Promise<void>((resolve) => window.setTimeout(resolve, 140));
-      if (request === latestNavigation.current) startTransition(action);
-    });
+    latestNavigation.current++;
+    startTransition(action);
   }
 
   return (
