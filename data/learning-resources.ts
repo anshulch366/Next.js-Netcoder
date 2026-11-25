@@ -39,7 +39,7 @@ import { javascriptLessons } from "./javascript";
 import { pythonLessons } from "./python";
 import { javaLessons } from "./java";
 import { typescriptLessons } from "./typescript-lessons";
-import { reactLessons, ticTacToeLessons, thinkingReactLessons, reactInstallationLessons, creatingReactAppLessons, scratchReactLessons, existingProjectLessons, reactSetupLessons, reactTypeScriptLessons, reactCompilerLessons, reactCompilerIntroLessons, reactCompilerInstallLessons, reactCompilerAdoptionLessons, reactCompilerDebugLessons } from "./react-lessons";
+import { reactLessons, ticTacToeLessons, thinkingReactLessons, reactInstallationLessons, creatingReactAppLessons, scratchReactLessons, existingProjectLessons, reactSetupLessons, reactTypeScriptLessons, reactCompilerLessons, reactCompilerIntroLessons, reactCompilerInstallLessons, reactCompilerAdoptionLessons, reactCompilerDebugLessons, describingUiLessons, firstComponentLessons, componentModulesLessons, jsxLessons, jsxCurlyLessons, propsLessons, conditionalLessons, renderingListsLessons, pureComponentsLessons, uiTreeLessons } from "./react-lessons";
 
 const coreLearningLanguages: LearningLanguage[] = [
   {
@@ -113,7 +113,7 @@ const coreLearningLanguages: LearningLanguage[] = [
     category: "UI Library",
     description: "Compose interactive interfaces from reusable components.",
     docs: "https://react.dev/learn",
-    lessons: [...reactLessons, ...reactInstallationLessons, ...creatingReactAppLessons, ...scratchReactLessons, ...existingProjectLessons, ...reactSetupLessons, ...reactTypeScriptLessons, ...reactCompilerLessons, ...reactCompilerIntroLessons, ...reactCompilerInstallLessons, ...reactCompilerAdoptionLessons, ...reactCompilerDebugLessons, ...ticTacToeLessons, ...thinkingReactLessons],
+    lessons: [...reactLessons, ...reactInstallationLessons, ...creatingReactAppLessons, ...scratchReactLessons, ...existingProjectLessons, ...reactSetupLessons, ...reactTypeScriptLessons, ...reactCompilerLessons, ...reactCompilerIntroLessons, ...reactCompilerInstallLessons, ...reactCompilerAdoptionLessons, ...reactCompilerDebugLessons, ...describingUiLessons, ...firstComponentLessons, ...componentModulesLessons, ...jsxLessons, ...jsxCurlyLessons, ...propsLessons, ...conditionalLessons, ...renderingListsLessons, ...pureComponentsLessons, ...uiTreeLessons, ...ticTacToeLessons, ...thinkingReactLessons],
   },
   {
     id: "sql",

@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import ResourceStudio from "@/components/resources/ResourceStudio";
 import { learningLanguages } from "@/data/learning-resources";
 import { resourceHref } from "@/data/resource-navigation";
@@ -12,44 +11,28 @@ const navigation = learningLanguages.map(({ lessons, ...language }) => ({
   })),
 }));
 
-async function selection(searchParams: PageProps<"/resources">["searchParams"]) {
-  const { subject, lesson: id } = await searchParams;
-  const language = subject === undefined ? learningLanguages[0] : learningLanguages.find(item => item.id === subject);
-  if (!language) notFound();
-  const lesson = id === undefined ? language.lessons[0] : language.lessons.find(item => item.id === id);
-  if (!lesson) notFound();
-  return { language, lesson, isLibrary: subject === undefined && id === undefined };
-}
+export const metadata = pageMetadata(
+  "/resources",
+  "Coding Resource Library",
+  "Browse coding lessons by subject and chapter. Study worked examples, check your answers and explore HTML, CSS, JavaScript and more.",
+);
 
-export async function generateMetadata({ searchParams }: PageProps<"/resources">) {
-  const { language, lesson, isLibrary } = await selection(searchParams);
-  if (isLibrary) return pageMetadata("/resources", "Coding Resource Library", "Browse coding lessons by subject and chapter. Study worked examples, check your answers and explore HTML, CSS, JavaScript and more.");
-  const title = lesson.title + " · " + (lesson.section ?? language.label);
-  return pageMetadata(resourceHref(language.id, lesson.id), title, lesson.summary);
-}
-
-export default async function ResourcesPage({ searchParams }: PageProps<"/resources">) {
-  const { language, lesson, isLibrary } = await selection(searchParams);
+export default function ResourcesPage() {
+  const language = learningLanguages[0];
+  const lesson = language.lessons[0];
   const index = navigation.find(item => item.id === language.id)!;
-  const directory = isLibrary ? navigation.map(subject => {
+  const directory = navigation.map(subject => {
     const chapters = new Map<string, string>();
     for (const topic of subject.lessons) {
       const label = topic.section ?? subject.label;
       if (!chapters.has(label)) chapters.set(label, resourceHref(subject.id, topic.id));
     }
     return { subject: subject.label, chapters: Array.from(chapters, ([title, href]) => ({ title, href })) };
-  }) : undefined;
-  const structuredData = isLibrary ? {
+  });
+  const structuredData = {
     "@context": "https://schema.org", "@type": "CollectionPage",
     name: "Netcoder Learning Library", url: new URL("/resources", siteOrigin).href,
     about: subjects.map(subject => subject.label),
-  } : {
-    "@context": "https://schema.org", "@type": "LearningResource",
-    name: lesson.title, description: lesson.summary,
-    url: new URL(resourceHref(language.id, lesson.id), siteOrigin).href,
-    about: language.label, educationalLevel: lesson.level,
-    inLanguage: lesson.contentLanguage ?? "en", learningResourceType: "Lesson",
-    isPartOf: { "@type": "CollectionPage", url: new URL("/resources", siteOrigin).href },
   };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />

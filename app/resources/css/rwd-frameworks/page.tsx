@@ -1,0 +1,9 @@
+import ResourceLessonPage, { resourceLessonMetadata } from "@/components/resources/ResourceLessonPage";
+
+export function generateMetadata() {
+  return resourceLessonMetadata("css", "css-responsive-rwd-frameworks");
+}
+
+export default function Page() {
+  return <ResourceLessonPage subjectId={"css"} lessonId={"css-responsive-rwd-frameworks"} />;
+}

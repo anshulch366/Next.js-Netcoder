@@ -1,0 +1,9 @@
+import ResourceLessonPage, { resourceLessonMetadata } from "@/components/resources/ResourceLessonPage";
+
+export function generateMetadata() {
+  return resourceLessonMetadata("typescript", "type-inference");
+}
+
+export default function Page() {
+  return <ResourceLessonPage subjectId={"typescript"} lessonId={"type-inference"} />;
+}
