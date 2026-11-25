@@ -3,7 +3,7 @@ import { learningLanguages } from "@/data/learning-resources";
 import { resourceHref } from "@/data/resource-navigation";
 import { pageMetadata, siteOrigin } from "../site-metadata";
 
-const subjects = learningLanguages.map(({ id, label, lessons }) => ({ id, label, count: lessons.length }));
+const subjects = learningLanguages.map(({ id, label, lessons }) => ({ id, label, count: lessons.length, firstLessonId: lessons[0]?.id ?? "" }));
 const navigation = learningLanguages.map(({ lessons, ...language }) => ({
   ...language,
   lessons: lessons.map(({ id, title, section, level, examples }) => ({

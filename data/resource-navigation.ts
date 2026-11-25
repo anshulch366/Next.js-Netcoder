@@ -5,7 +5,7 @@ export type ResourceTopic = Pick<LearningLesson, "id" | "title" | "section" | "l
 };
 
 export type ResourceSubject = Omit<LearningLanguage, "lessons"> & { lessons: ResourceTopic[] };
-export type SubjectLink = Pick<LearningLanguage, "id" | "label"> & { count: number };
+export type SubjectLink = Pick<LearningLanguage, "id" | "label"> & { count: number; firstLessonId: string };
 
 function baseSlug(title: string, subject: string) {
   const withoutSubject = title.toLowerCase().startsWith(subject.toLowerCase())

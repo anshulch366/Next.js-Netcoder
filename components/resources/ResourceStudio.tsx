@@ -103,7 +103,7 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
             <Link
               className={`${styles.languageButton} ${language.id === item.id ? styles.languageActive : ""}`}
               key={item.id}
-              href={resourceHref(item.id)}
+              href={resourceHref(item.id, item.firstLessonId)}
               prefetch={false}
               aria-current={language.id === item.id ? "true" : undefined}
             >
