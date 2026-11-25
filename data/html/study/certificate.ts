@@ -7,7 +7,7 @@ export const certificate = chapter("HTML Cert", [
     level: "Beginner",
     summary: "Certificate ki taiyari mein apni markup decisions ko chhote practical sawaalon se check karo.",
     content: [
-      "Certification ki taiyari tab meaningful hai jab tum unfamiliar snippet padhkar browser ka behaviour predict kar sako. Structure, forms, accessibility aur media ke objectives ko roz ek chhote task se test karo. External W3Schools certificate ki exam details neeche diye reading link par milengi.",
+      "Certification ki taiyari tab meaningful hai jab tum unfamiliar snippet padhkar browser ka behaviour predict kar sako. Structure, forms, accessibility aur media ke objectives ko roz ek chhote task se test karo.",
       "Mock task mein bina notes dekhe email field ko label aur submit key do. Pehle result predict karo, phir keyboard aur dummy value se test karo. Galat prediction ke saamne reason likho aur agle revision mein wahi concept dobara try karo.",
     ],
     reading: { title: "W3Schools · HTML Certificate", url: "https://www.w3schools.com/html/html_exam.asp" },
