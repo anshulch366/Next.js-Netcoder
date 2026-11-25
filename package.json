@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "generate:resource-pages": "node scripts/generate-resource-pages.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",

@@ -159,10 +159,6 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
             })}
             {visibleLessons.length === 0 && <p className={styles.emptySearch}>No topics match “{topicSearch}”.</p>}
           </nav>
-          <a className={styles.docsCard} href={language.docs} target="_blank" rel="noreferrer">
-            <span className={styles.docsIcon} aria-hidden="true">↗</span>
-            <span><b>Official documentation</b><small>Go deeper with {language.label}</small></span>
-          </a>
         </aside>
 
         <section className={styles.lessonMain} aria-label={`${language.label} lesson`}>
@@ -228,14 +224,6 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
               })}
             </section>
 
-            {language.id === "html" && lesson.section && !lesson.reading && (
-              <p className={styles.furtherReading}>Further reading · <a href="https://www.w3schools.com/html/">W3Schools HTML tutorial</a> · <a href="https://html.spec.whatwg.org/multipage/indices.html">HTML Standard reference</a></p>
-            )}
-            {lesson.reading && (
-              <p className={styles.furtherReading}>Further reading · <a href={lesson.reading.url}>{lesson.reading.title}</a>
-                {lesson.section === "CSS Sass" && <> · <a href="https://sass-lang.com/documentation/">Sass documentation</a></>}
-              </p>
-            )}
             <div className={styles.lessonActions}>
               <button className={`${styles.completeButton} ${completedLessons.includes(lessonKey) ? styles.completedButton : ""}`} type="button" onClick={toggleCompleted}>{completedLessons.includes(lessonKey) ? "✓ Completed" : "Mark as complete"}</button>
               <div className={styles.stepActions}>
