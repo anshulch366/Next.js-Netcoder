@@ -1,9 +1,9 @@
 import ResourceLessonPage, { resourceLessonMetadata } from "@/components/resources/ResourceLessonPage";
 
 export function generateMetadata() {
-  return resourceLessonMetadata("c", "c-code-challenges");
+  return resourceLessonMetadata("c", "code-challenges");
 }
 
 export default function Page() {
-  return <ResourceLessonPage subjectId={"c"} lessonId={"c-code-challenges"} />;
+  return <ResourceLessonPage subjectId={"c"} lessonId={"code-challenges"} />;
 }

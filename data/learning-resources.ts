@@ -41,6 +41,8 @@ import { cssLessons } from "./css";
 import { javascriptLessons } from "./javascript";
 import { pythonLessons } from "./python";
 import { javaLessons } from "./java";
+import { cLessons } from "./c-lessons";
+import { awsLessons } from "./aws-lessons";
 import { typescriptLessons } from "./typescript-lessons";
 import { reactLessons, ticTacToeLessons, thinkingReactLessons, reactInstallationLessons, creatingReactAppLessons, scratchReactLessons, existingProjectLessons, reactSetupLessons, reactTypeScriptLessons, reactCompilerLessons, reactCompilerIntroLessons, reactCompilerInstallLessons, reactCompilerAdoptionLessons, reactCompilerDebugLessons, describingUiLessons, firstComponentLessons, componentModulesLessons, jsxLessons, jsxCurlyLessons, propsLessons, conditionalLessons, renderingListsLessons, pureComponentsLessons, uiTreeLessons } from "./react-lessons";
 import { addingInteractivityLessons } from "./react-interactivity-lessons";
@@ -124,6 +126,22 @@ const coreLearningLanguages: LearningLanguage[] = [
       { section: "Extra practice", level: "Beginner", id: "types", title: "Types and control flow", summary: "Declare values with types and make decisions with branches.", content: ["Java is statically typed: variables have declared types checked by the compiler. Primitive types include int and boolean; reference types include String and arrays.", "Use if/else for conditional paths and loops for repetition. Braces make control-flow boundaries visible and help prevent accidental logic errors."], example: "int temperature = 18;\nString advice;\n\nif (temperature < 20) {\n    advice = \"Bring a light jacket\";\n} else {\n    advice = \"A t-shirt should be fine\";\n}\n\nSystem.out.println(advice);", quiz: { question: "Which type represents true or false in Java?", options: ["boolean", "String", "double"], answer: 0, explanation: "boolean is Java's primitive type for true/false values." } },
       { section: "Extra practice", level: "Beginner", id: "collections", title: "Collections and generics", summary: "Store groups of typed values with collection classes.", content: ["The Collections Framework includes structures such as List, Set, and Map. Pick one based on ordering, uniqueness, and lookup needs.", "Generics express the element type, such as List<String>. This helps the compiler catch incompatible values and reduces manual casting."], example: "import java.util.ArrayList;\nimport java.util.List;\n\nList<String> topics = new ArrayList<>();\ntopics.add(\"Classes\");\ntopics.add(\"Collections\");\n\nfor (String topic : topics) {\n    System.out.println(topic);\n}", quiz: { question: "What does List<String> communicate?", options: ["The list contains strings", "The list is immutable", "The list is sorted"], answer: 0, explanation: "The generic type parameter describes the list's element type." } },
     ],
+  },
+  {
+    id: "c",
+    label: "C",
+    category: "Language",
+    description: "Learn C from first program and core syntax to pointers, memory, files, and data structures.",
+    docs: "https://en.cppreference.com/w/c",
+    lessons: cLessons,
+  },
+  {
+    id: "aws",
+    label: "AWS",
+    category: "Cloud Computing",
+    description: "Learn cloud concepts, AWS services, security, architecture, migration, and cost management.",
+    docs: "https://docs.aws.amazon.com/",
+    lessons: awsLessons,
   },
   {
     id: "typescript",
