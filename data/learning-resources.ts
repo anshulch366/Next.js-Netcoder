@@ -179,4 +179,11 @@ const coreLearningLanguages: LearningLanguage[] = [
   },
 ];
 
-export const learningLanguages: LearningLanguage[] = [...coreLearningLanguages, ...extendedLearningLanguages];
+const allLearningLanguages: LearningLanguage[] = [...coreLearningLanguages, ...extendedLearningLanguages];
+
+// Keep one navigation entry per subject. Prefer the first definition, which
+// lets core subjects stay canonical while newer extended resources take precedence
+// over older duplicates that may still be present in the extended catalog.
+export const learningLanguages: LearningLanguage[] = allLearningLanguages.filter(
+  (subject, index, all) => all.findIndex((candidate) => candidate.id === subject.id) === index,
+);

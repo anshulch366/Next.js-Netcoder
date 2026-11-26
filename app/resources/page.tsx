@@ -17,9 +17,16 @@ export const metadata = pageMetadata(
   "Browse coding lessons by subject and chapter. Study worked examples, check your answers and explore HTML, CSS, JavaScript and more.",
 );
 
-export default function ResourcesPage() {
-  const language = learningLanguages[0];
-  const lesson = language.lessons[0];
+export default async function ResourcesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const subjectId = typeof params.subject === "string" ? params.subject : undefined;
+  const requestedLessonId = typeof params.lesson === "string" ? params.lesson : undefined;
+  const language = learningLanguages.find(item => item.id === subjectId) ?? learningLanguages[0];
+  const lesson = language.lessons.find(item => item.id === requestedLessonId) ?? language.lessons[0];
   const index = navigation.find(item => item.id === language.id)!;
   const directory = navigation.map(subject => {
     const chapters = new Map<string, string>();
