@@ -8,9 +8,6 @@ import {
   getCourseTotalClasses,
   lmsCourses,
   type CourseCategory,
-  type CourseLevel,
-  type DurationBucket,
-  type PriceType,
 } from "@/data/lms-courses";
 import { enrollInCourse, unenrollCourse, useLmsSession } from "@/lib/lms-store";
 import s from "./lms.module.css";
@@ -22,9 +19,6 @@ const CATEGORIES: CourseCategory[] = [
   "Multimedia",
   "Programming",
 ];
-const LEVELS: CourseLevel[] = ["Beginner", "Intermediate", "Advanced"];
-const DURATIONS: DurationBucket[] = ["0-1 Hours", "1-5 Hours", "5-10 Hours", "10+ Hours"];
-const PRICES: PriceType[] = ["Free", "Paid"];
 
 const PAGE_SIZE = 6;
 
@@ -40,21 +34,15 @@ export default function ExploreCoursesView() {
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortMode>("recommended");
   const [categories, setCategories] = useState<CourseCategory[]>([]);
-  const [levels, setLevels] = useState<CourseLevel[]>([]);
-  const [durations, setDurations] = useState<DurationBucket[]>([]);
-  const [prices, setPrices] = useState<PriceType[]>([]);
   const [page, setPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const activeFilterCount = categories.length + levels.length + durations.length + prices.length;
+  const activeFilterCount = categories.length;
 
   const filteredCourses = useMemo(() => {
     const q = query.trim().toLowerCase();
     const list = lmsCourses.filter((course) => {
       if (categories.length > 0 && !categories.includes(course.category)) return false;
-      if (levels.length > 0 && !levels.includes(course.level)) return false;
-      if (durations.length > 0 && !durations.includes(course.durationBucket)) return false;
-      if (prices.length > 0 && !prices.includes(course.priceType)) return false;
       if (q) {
         const haystack = `${course.title} ${course.subtitle} ${course.category} ${course.level} ${course.skills.join(" ")}`.toLowerCase();
         if (!haystack.includes(q)) return false;
@@ -77,7 +65,7 @@ export default function ExploreCoursesView() {
           return a.recommendedRank - b.recommendedRank;
       }
     });
-  }, [query, sortBy, categories, levels, durations, prices]);
+  }, [query, sortBy, categories]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCourses.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -85,9 +73,6 @@ export default function ExploreCoursesView() {
 
   function clearFilters() {
     setCategories([]);
-    setLevels([]);
-    setDurations([]);
-    setPrices([]);
     setQuery("");
     setPage(1);
   }
@@ -201,56 +186,6 @@ export default function ExploreCoursesView() {
             ))}
           </div>
 
-          <div className={s.filterGroup}>
-            <h3>Level</h3>
-            {LEVELS.map((level) => (
-              <label key={level} className={s.filterOption}>
-                <input
-                  type="checkbox"
-                  checked={levels.includes(level)}
-                  onChange={() => {
-                    setLevels((prev) => toggleSelection(prev, level));
-                    setPage(1);
-                  }}
-                />
-                <span>{level}</span>
-              </label>
-            ))}
-          </div>
-
-          <div className={s.filterGroup}>
-            <h3>Duration</h3>
-            {DURATIONS.map((duration) => (
-              <label key={duration} className={s.filterOption}>
-                <input
-                  type="checkbox"
-                  checked={durations.includes(duration)}
-                  onChange={() => {
-                    setDurations((prev) => toggleSelection(prev, duration));
-                    setPage(1);
-                  }}
-                />
-                <span>{duration}</span>
-              </label>
-            ))}
-          </div>
-
-          <div className={s.filterGroup}>
-            <h3>Price</h3>
-            {PRICES.map((price) => (
-              <label key={price} className={s.filterOption}>
-                <input
-                  type="checkbox"
-                  checked={prices.includes(price)}
-                  onChange={() => {
-                    setPrices((prev) => toggleSelection(prev, price));
-                    setPage(1);
-                  }}
-                />
-                <span>{price}</span>
-              </label>
-            ))}
-          </div>
         </aside>
 
         <div>

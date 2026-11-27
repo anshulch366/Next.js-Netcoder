@@ -27,7 +27,6 @@ export default function CoursesPage() {
   return (
     <div className={library.studio}>
       <div className={library.kickerRow}>
-        <div className={library.libraryMark}><span aria-hidden="true">N</span><span>Netcoder <b>Course Catalog</b></span></div>
         <Link className={styles.libraryLink} href="/resources">Resource library</Link>
       </div>
       <section className={styles.hero}>

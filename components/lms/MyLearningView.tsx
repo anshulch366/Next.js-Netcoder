@@ -64,7 +64,7 @@ export default function MyLearningView() {
   }
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / My Learning</div>
 
       <div className={s.pageHeader}>

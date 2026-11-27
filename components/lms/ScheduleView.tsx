@@ -17,7 +17,7 @@ export default function ScheduleView() {
   );
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Schedule</div>
 
       <div className={s.pageHeader}>

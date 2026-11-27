@@ -42,7 +42,7 @@ function LessonView({ subjects, language, lesson, directory }: StudioProps) {
   const progress = Math.round((completedLessons.length / totalLessons) * 100);
 
   function topicHref(id: string) {
-    return resourceHref(language.id, id) + "#lesson-title";
+    return resourceHref(language.id, id);
   }
 
   useEffect(() => {

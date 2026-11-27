@@ -21,7 +21,7 @@ export default function AssignmentsView() {
   );
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Assignments</div>
 
       <div className={s.pageHeader}>

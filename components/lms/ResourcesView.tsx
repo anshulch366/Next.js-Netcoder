@@ -28,7 +28,7 @@ export default function ResourcesView() {
   }, [query, selectedCategory]);
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Resources</div>
 
       <div className={s.pageHeader}>

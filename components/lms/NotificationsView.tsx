@@ -12,7 +12,7 @@ export default function NotificationsView() {
   const items = session.account.notifications.filter((n) => (filter === "unread" ? !n.read : true));
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Notifications</div>
 
       <div className={s.pageHeader}>

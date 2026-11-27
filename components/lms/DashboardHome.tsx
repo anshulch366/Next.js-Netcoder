@@ -48,7 +48,7 @@ export default function DashboardHome() {
     .filter((item): item is NonNullable<typeof item> => item !== null);
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Home / Dashboard</div>
 
       <div className={s.pageHeader}>
@@ -59,14 +59,24 @@ export default function DashboardHome() {
       </div>
 
       <section className={s.heroBanner} aria-labelledby="hero-cta-heading">
-        <span className={s.softPill}>Get Started</span>
-        <h2 id="hero-cta-heading">Find The Right Course For You</h2>
-        <p>
-          Explore courses, discover new skills and find the right learning path for your goals.
-        </p>
-        <Link href="/dashboard/explore" className={`${s.primaryBtn} ${s.primaryBtnFull}`}>
-          Explore Courses
-        </Link>
+        <div className={s.heroBannerContent}>
+          <span className={s.softPill}>Get Started</span>
+          <h2 id="hero-cta-heading">Find The Right Course For You</h2>
+          <p>
+            Explore courses, discover new skills and find the right learning path for your goals.
+          </p>
+          <Link href="/dashboard/explore" className={s.primaryBtn}>
+            Explore Courses
+          </Link>
+        </div>
+        <div className={s.heroBannerImage}>
+          <Image
+            src="/images/Learning/Find your way to learn..png"
+            alt="Student exploring a new way to learn"
+            fill
+            sizes="(max-width: 680px) 100vw, 320px"
+          />
+        </div>
       </section>
 
       {selectedCourses.length > 0 && (

@@ -12,7 +12,7 @@ export default function CertificatesView() {
   const [previewCert, setPreviewCert] = useState<LmsCertificate | null>(null);
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Certificates</div>
 
       <div className={s.pageHeader}>

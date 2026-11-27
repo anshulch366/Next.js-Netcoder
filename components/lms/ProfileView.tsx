@@ -81,7 +81,7 @@ export default function ProfileView() {
   }
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / My Profile</div>
 
       <div className={s.pageHeader}>

@@ -36,7 +36,7 @@ export default function SettingsView() {
   }
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Settings</div>
 
       <div className={s.pageHeader}>
