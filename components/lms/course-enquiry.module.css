@@ -10,6 +10,8 @@
 .heroFacts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .heroFacts span { padding: 10px 13px; border: 1px solid #f2d9d1; border-radius: 10px; background: #fff; font-size: .8rem; color: #655e59; }
 .heroFacts strong { color: #24201f; }
+.heroPhoto { position: relative; width: 100%; aspect-ratio: 16 / 9; margin-top: 28px; border-radius: 16px; overflow: hidden; background: #f7ded3; }
+.heroPhoto img, .approachPhoto img { object-fit: cover; }
 .formCard { padding: clamp(24px, 3vw, 36px); border-radius: 19px; background: #fff; box-shadow: 0 20px 55px rgba(86, 48, 32, .11); border: 1px solid #f1e7e2; }
 .formCard h2 { margin: 9px 0 5px; font-size: 1.55rem; line-height: 1.2; }
 .formCard > p, .confirmation p { margin: 0 0 21px; color: #6d6560; font-size: .9rem; line-height: 1.55; }
@@ -24,6 +26,10 @@
 .error { margin: 0; color: #ad2f19; font-size: .82rem; }
 .confirmation { text-align: center; padding-block: 28px; }
 .confirmIcon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: #fff0eb; color: #e94d2b; font-size: 1.5rem; font-weight: 700; }
+.highlights { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.highlights > div { display: grid; gap: 3px; padding: 18px 22px; border: 1px solid #eee3dd; border-radius: 13px; background: #fff; }
+.highlights strong { font-size: 1.35rem; color: #22201e; }
+.highlights span { color: #786f69; font-size: .78rem; }
 .overview { padding-block: clamp(42px, 6vw, 76px); }
 .sectionIntro { max-width: 660px; margin-bottom: 26px; }
 .sectionIntro h2, .detailPanel h2 { margin: 9px 0; font-size: clamp(1.65rem, 2.7vw, 2.35rem); letter-spacing: -.035em; }
@@ -34,11 +40,35 @@
 .overviewGrid article p { margin: 0; color: #68605b; font-size: .88rem; line-height: 1.6; }
 .overviewGrid ul { margin: 0; padding-left: 18px; color: #68605b; font-size: .87rem; line-height: 1.8; }
 .overviewGrid li::marker { color: #ff5532; }
+.learningApproach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(28px, 5vw, 70px); padding: 24px 0 clamp(55px, 7vw, 85px); }
+.approachPhoto { position: relative; width: 100%; min-height: 340px; height: 100%; border-radius: 19px; overflow: hidden; background: #fff2ec; }
+.approachCopy h2 { max-width: 15ch; margin: 12px 0 16px; font-size: clamp(2rem, 3.5vw, 3.25rem); letter-spacing: -.045em; line-height: 1.12; }
+.approachCopy p, .approachCopy li { color: #68605b; line-height: 1.7; }
+.approachCopy ul { padding-left: 20px; margin: 18px 0 0; }
+.approachCopy li { margin-bottom: 8px; }
+.approachCopy li::marker { color: #ff5532; }
+.curriculum { padding: clamp(30px, 5vw, 55px); margin-bottom: clamp(45px, 6vw, 75px); border: 1px solid #f1e3dc; border-radius: 22px; background: #fff8f4; }
+.curriculumList { display: grid; gap: 11px; }
+.curriculumModule { border: 1px solid #eadfd9; border-radius: 12px; background: #fff; overflow: hidden; }
+.curriculumModule summary { display: flex; align-items: center; gap: 16px; padding: 18px 20px; cursor: pointer; list-style: none; }
+.curriculumModule summary::-webkit-details-marker { display: none; }
+.curriculumModule summary::after { content: "+"; margin-left: 4px; color: #e94d2b; font-size: 1.25rem; }
+.curriculumModule[open] summary::after { content: "−"; }
+.moduleIndex { flex: none; color: #ec5030; font-size: .9rem; font-weight: 800; }
+.curriculumModule summary strong { flex: 1; min-width: 0; font-size: .92rem; }
+.lessonCount { color: #817770; font-size: .75rem; white-space: nowrap; }
+.curriculumModule ul { margin: 0; padding: 0 20px 15px 53px; list-style: none; }
+.curriculumModule li { padding: 12px 0; border-top: 1px solid #f0e8e3; font-size: .86rem; }
+.curriculumModule li span { font-weight: 650; }
+.curriculumModule li small { float: right; color: #8c817a; }
+.curriculumModule li p { clear: both; margin: 4px 0 0; color: #766c65; line-height: 1.5; }
 .detailGrid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; padding-bottom: 40px; }
 .detailPanel { background: #fffaf7; }
 .moduleList { display: grid; gap: 10px; margin-top: 22px; }
 .moduleList > div { display: flex; gap: 14px; align-items: baseline; padding-top: 10px; border-top: 1px solid #eee1da; font-size: .87rem; }
 .moduleList span { color: #ec5030; font-weight: 800; }
+.toolTags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+.toolTags span { padding: 9px 13px; border: 1px solid #f5cfc5; border-radius: 999px; background: #fff; color: #b54227; font-size: .81rem; font-weight: 650; }
 .textLink { display: inline-block; margin-top: 12px; color: #e94d2b; font-size: .9rem; font-weight: 700; }
-@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .hero h1 { max-width: 16ch; } .overviewGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 650px) { .hero { padding: 22px; gap: 25px; } .hero h1 { font-size: 2.55rem; } .overviewGrid, .detailGrid { grid-template-columns: 1fr; } .heroFacts span { flex: 1 1 45%; } }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .hero h1 { max-width: 16ch; } .overviewGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .learningApproach { grid-template-columns: 1fr; } .approachPhoto { min-height: 280px; } }
+@media (max-width: 650px) { .hero { padding: 22px; gap: 25px; } .hero h1 { font-size: 2.55rem; } .highlights, .overviewGrid, .detailGrid { grid-template-columns: 1fr 1fr; } .detailGrid { grid-template-columns: 1fr; } .heroFacts span { flex: 1 1 45%; } .curriculum { padding: 20px; } .curriculumModule summary { gap: 9px; padding: 15px 12px; } .curriculumModule ul { padding-left: 35px; } .lessonCount { display: none; } }

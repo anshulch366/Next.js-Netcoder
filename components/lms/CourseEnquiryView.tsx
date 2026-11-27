@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState, type FormEvent } from "react";
 import { courseEnquiryInfo } from "@/data/course-enquiry";
 import { getCourseTotalClasses, type LmsCourse } from "@/data/lms-courses";
@@ -57,6 +58,9 @@ export default function CourseEnquiryView({ course }: { course: LmsCourse }) {
             <span><strong>{getCourseTotalClasses(course)}</strong> classes</span>
             <span><strong>{course.level}</strong> level</span>
           </div>
+          <div className={s.heroPhoto}>
+            <Image src="/images/courses/learning-studio.png" alt="Learners collaborating around a laptop in a training studio" fill sizes="(max-width: 900px) 100vw, 560px" />
+          </div>
         </div>
 
         <div className={s.formCard}>
@@ -86,6 +90,13 @@ export default function CourseEnquiryView({ course }: { course: LmsCourse }) {
         </div>
       </section>
 
+      <section className={s.highlights} aria-label="Program highlights">
+        <div><strong>{course.modules.length}</strong><span>Focused modules</span></div>
+        <div><strong>{getCourseTotalClasses(course)}</strong><span>Practical classes</span></div>
+        <div><strong>{course.skills.length}</strong><span>Core skills</span></div>
+        <div><strong>{course.level}</strong><span>Starting level</span></div>
+      </section>
+
       <section className={s.overview} aria-labelledby="overview-title">
         <div className={s.sectionIntro}>
           <span className={s.eyebrow}>THE COURSE AT A GLANCE</span>
@@ -99,16 +110,44 @@ export default function CourseEnquiryView({ course }: { course: LmsCourse }) {
         </div>
       </section>
 
+      <section className={s.learningApproach} aria-labelledby="approach-title">
+        <div className={s.approachPhoto}>
+          <Image src="/images/courses/project-workshop.png" alt="Learners planning a hands-on project together" fill sizes="(max-width: 900px) 100vw, 520px" />
+        </div>
+        <div className={s.approachCopy}>
+          <span className={s.eyebrow}>LEARN BY DOING</span>
+          <h2 id="approach-title">Learn the idea. Try it. Make it yours.</h2>
+          <p>{course.description}</p>
+          <ul>
+            <li>Follow a structured path through {course.modules.length} modules.</li>
+            <li>Practice the topics with the lessons in your LMS workspace.</li>
+            <li>Track your classes and revisit skills as you progress.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className={s.curriculum} aria-labelledby="curriculum-title">
+        <div className={s.sectionIntro}>
+          <span className={s.eyebrow}>CURRICULUM</span>
+          <h2 id="curriculum-title">What you will study</h2>
+          <p>A closer look at the modules and lessons included in {course.title}.</p>
+        </div>
+        <div className={s.curriculumList}>
+          {course.modules.map((module, index) => (
+            <details key={module.id} className={s.curriculumModule} open={index === 0}>
+              <summary><span className={s.moduleIndex}>{String(index + 1).padStart(2, "0")}</span><strong>{module.title}</strong><span className={s.lessonCount}>{module.lessons.length} lessons</span></summary>
+              <ul>{module.lessons.map((lesson) => <li key={lesson.id}><span>{lesson.title}</span><small>{lesson.duration}</small><p>{lesson.summary}</p></li>)}</ul>
+            </details>
+          ))}
+        </div>
+      </section>
+
       <section className={s.detailGrid}>
         <div className={s.detailPanel}>
-          <span className={s.eyebrow}>WHAT YOU'LL DO</span>
-          <h2>From ideas to practice</h2>
-          <p>{course.description}</p>
-          <div className={s.moduleList}>
-            {course.modules.map((module, index) => (
-              <div key={module.id}><span>{String(index + 1).padStart(2, "0")}</span><strong>{module.title}</strong></div>
-            ))}
-          </div>
+          <span className={s.eyebrow}>TOOLS & METHODS</span>
+          <h2>Get familiar with the toolkit</h2>
+          <p>These are the tools and methods connected to this learning path.</p>
+          <div className={s.toolTags}>{info.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>
         </div>
         <div className={s.detailPanel}>
           <span className={s.eyebrow}>WHAT'S NEXT</span>
