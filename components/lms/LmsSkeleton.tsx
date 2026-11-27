@@ -81,39 +81,24 @@ export function DashboardHomeSkeleton() {
 
 export function ExploreSkeleton() {
   return (
-    <div role="status" aria-busy="true" aria-label="Loading course catalog">
+    <div className={s.pageWidth} role="status" aria-busy="true" aria-label="Loading course catalog">
       <span className={k.srOnly}>Loading course catalog...</span>
       <SkeletonHeader breadcrumb="Dashboard / Explore Courses" />
 
       <span className={`${k.sk} ${k.inputBar}`} aria-hidden="true" />
 
-      <div className={s.mobileFilterBar} aria-hidden="true">
-        <span className={`${k.sk} ${k.btnSmall}`} style={{ width: 88, flexShrink: 0 }} />
-        <div className={s.mobileCategoryChips}>
-          {[0, 1, 2, 3].map((i) => (
+      <div className={s.categoryNav} aria-hidden="true">
+        <div className={s.categoryNavHeader}>
+          <span className={`${k.sk} ${k.lineMed}`} style={{ width: 128 }} />
+        </div>
+        <div className={s.categoryNavLinks}>
+          {[0, 1, 2, 3, 4, 5].map((i) => (
             <span key={i} className={`${k.sk} ${k.tabChip}`} />
           ))}
         </div>
       </div>
 
       <div className={s.exploreLayout} aria-hidden="true">
-        <div className={s.filterPanel}>
-          <div className={s.filterHeader}>
-            <span className={`${k.sk} ${k.labelSm}`} style={{ height: 14 }} />
-            <span className={`${k.sk} ${k.labelSm}`} style={{ width: 42 }} />
-          </div>
-          {[0, 1, 2].map((grp) => (
-            <div key={grp} className={s.filterGroup}>
-              <span className={`${k.sk} ${k.lineMed}`} style={{ height: 15, marginBottom: 10 }} />
-              <div className={k.stackGapSm}>
-                <span className={`${k.sk} ${k.line}`} style={{ width: "86%" }} />
-                <span className={`${k.sk} ${k.line}`} style={{ width: "72%" }} />
-                <span className={`${k.sk} ${k.line}`} style={{ width: "80%" }} />
-              </div>
-            </div>
-          ))}
-        </div>
-
         <div>
           <div className={s.sectionBar}>
             <span className={`${k.sk} ${k.lineMed}`} style={{ width: 180 }} />

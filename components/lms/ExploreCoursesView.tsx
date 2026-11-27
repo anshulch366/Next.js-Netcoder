@@ -24,10 +24,6 @@ const PAGE_SIZE = 6;
 
 type SortMode = "recommended" | "classes" | "duration-asc" | "free-first" | "title";
 
-function toggleSelection<T>(items: T[], item: T): T[] {
-  return items.includes(item) ? items.filter((entry) => entry !== item) : [...items, item];
-}
-
 export default function ExploreCoursesView() {
   const session = useLmsSession();
 
@@ -35,9 +31,6 @@ export default function ExploreCoursesView() {
   const [sortBy, setSortBy] = useState<SortMode>("recommended");
   const [categories, setCategories] = useState<CourseCategory[]>([]);
   const [page, setPage] = useState(1);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-
-  const activeFilterCount = categories.length;
 
   const filteredCourses = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -78,7 +71,7 @@ export default function ExploreCoursesView() {
   }
 
   return (
-    <div>
+    <div className={s.pageWidth}>
       <div className={s.breadcrumbBar}>Dashboard / Explore Courses</div>
 
       <div className={s.pageHeader}>
@@ -101,20 +94,23 @@ export default function ExploreCoursesView() {
         />
       </label>
 
-      <div className={s.mobileFilterBar}>
-        <button
-          type="button"
-          className={s.secondaryBtn}
-          aria-expanded={mobileFiltersOpen}
-          onClick={() => setMobileFiltersOpen((prev) => !prev)}
-        >
-          Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
-        </button>
-
-        <div className={s.mobileCategoryChips}>
+      <section className={s.categoryNav} aria-label="Course filters">
+        <div className={s.categoryNavHeader}>
+          <div>
+            <strong>Filter courses</strong>
+            <span className={s.categoryNavLabel}>Category</span>
+          </div>
+          {categories.length > 0 && (
+            <button type="button" className={s.inlineActionLink} onClick={() => { setCategories([]); setPage(1); }}>
+              Clear filter
+            </button>
+          )}
+        </div>
+        <div className={s.categoryNavLinks} role="group" aria-label="Category">
           <button
             type="button"
             className={`${s.pillTab} ${categories.length === 0 ? s.pillTabActive : ""}`}
+            aria-pressed={categories.length === 0}
             onClick={() => {
               setCategories([]);
               setPage(1);
@@ -129,8 +125,9 @@ export default function ExploreCoursesView() {
                 key={cat}
                 type="button"
                 className={`${s.pillTab} ${active ? s.pillTabActive : ""}`}
+                aria-pressed={active}
                 onClick={() => {
-                  setCategories((prev) => toggleSelection(prev, cat));
+                  setCategories([cat]);
                   setPage(1);
                 }}
               >
@@ -139,7 +136,7 @@ export default function ExploreCoursesView() {
             );
           })}
         </div>
-      </div>
+      </section>
 
       <div className={s.sectionBar}>
         <h2 className={s.sectionHeading}>Popular Courses</h2>
@@ -158,36 +155,6 @@ export default function ExploreCoursesView() {
       </div>
 
       <div className={s.exploreLayout}>
-        <aside
-          className={`${s.filterPanel} ${mobileFiltersOpen ? s.filterPanelMobileOpen : ""}`}
-          aria-label="Course filters"
-        >
-          <div className={s.filterHeader}>
-            <strong>Filters</strong>
-            <button type="button" className={s.inlineActionLink} onClick={clearFilters}>
-              Clear
-            </button>
-          </div>
-
-          <div className={s.filterGroup}>
-            <h3>Category</h3>
-            {CATEGORIES.map((category) => (
-              <label key={category} className={s.filterOption}>
-                <input
-                  type="checkbox"
-                  checked={categories.includes(category)}
-                  onChange={() => {
-                    setCategories((prev) => toggleSelection(prev, category));
-                    setPage(1);
-                  }}
-                />
-                <span>{category}</span>
-              </label>
-            ))}
-          </div>
-
-        </aside>
-
         <div>
           {visibleCourses.length === 0 ? (
             <div className={s.emptyState}>

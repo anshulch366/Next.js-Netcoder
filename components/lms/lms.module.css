@@ -801,65 +801,66 @@
 
 /* Explore Courses */
 .exploreLayout {
+  min-width: 0;
+}
+
+.categoryNav {
   display: grid;
-  grid-template-columns: 204px minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-
-.filterPanel {
-  border: 1px solid var(--lms-border);
+  gap: 12px;
+  border: 1px solid #f5cfc5;
   border-radius: 14px;
-  background: var(--lms-panel);
-  padding: 14px;
+  background: var(--lms-accent-tint);
+  padding: 16px 18px;
+  margin-bottom: 22px;
 }
 
-.filterHeader {
+.categoryNavHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: 12px;
 }
 
-.filterHeader strong {
-  font-size: 0.88rem;
+.categoryNavHeader > div {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.categoryNavHeader strong {
   color: var(--lms-ink);
+  font-size: 0.93rem;
 }
 
-.filterGroup {
-  padding-top: 12px;
-  margin-top: 12px;
-  border-top: 1px solid #eceae8;
+.categoryNavLabel {
+  flex: none;
+  font-size: 0.78rem;
+  color: var(--lms-muted);
 }
 
-.filterGroup:first-of-type {
-  padding-top: 0;
-  margin-top: 0;
-  border-top: 0;
-}
-
-.filterGroup h3 {
-  font-family: var(--body-font);
-  font-size: 0.9rem;
-  font-weight: 700;
-  margin: 0 0 8px;
-}
-
-.filterOption {
+.categoryNavLinks {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 3px 0;
-  font-size: 0.8rem;
-  color: var(--lms-muted);
-  cursor: pointer;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.filterOption input {
-  width: 14px;
-  height: 14px;
-  accent-color: var(--lms-accent);
-  cursor: pointer;
+.categoryNavLinks::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryNavLinks .pillTab {
+  flex: none;
+  background: #fff;
+  border: 1px solid var(--lms-border);
+}
+
+.categoryNavLinks .pillTabActive {
+  background: var(--lms-accent);
+  border-color: var(--lms-accent);
+  color: #fff;
 }
 
 .exploreGrid {
@@ -872,10 +873,16 @@
   border: 1px solid var(--lms-border);
   border-radius: 15px;
   background: var(--lms-panel);
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.exploreCard:hover {
+  border-color: #f2c4b8;
+  transform: translateY(-2px);
 }
 
 .exploreBannerWrap {
@@ -1200,10 +1207,6 @@
 }
 
 .mobileTopBrand {
-  display: none;
-}
-
-.mobileFilterBar {
   display: none;
 }
 
@@ -1799,41 +1802,8 @@
     box-shadow: none;
   }
 
-  .mobileFilterBar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-
-  .mobileCategoryChips {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-block: 2px;
-  }
-
-  .mobileCategoryChips::-webkit-scrollbar {
-    display: none;
-  }
-
-  .mobileCategoryChips .pillTab {
-    flex-shrink: 0;
-  }
-
-  .filterPanel {
-    display: none;
-  }
-
-  .filterPanelMobileOpen {
-    display: block;
-  }
-
   .profileGrid,
   .playerGrid,
-  .exploreLayout,
   .courseHeroSplit,
   .aboutGrid {
     grid-template-columns: 1fr;
