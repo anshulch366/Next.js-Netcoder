@@ -1,0 +1,44 @@
+.page { max-width: 1180px; margin-inline: auto; color: #211f1e; }
+.breadcrumb { display: flex; gap: 10px; align-items: center; margin: 0 0 18px; font-size: .8rem; color: #77716d; }
+.breadcrumb a { color: #e84b29; font-weight: 600; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(28px, 5vw, 60px); border-radius: 24px; background: linear-gradient(125deg, #fff7f3 0%, #fff 62%); border: 1px solid #f4dfd8; }
+.heroCopy { min-width: 0; }
+.eyebrow, .formKicker, .cardNumber { color: #e94d2b; font-size: .75rem; font-weight: 800; letter-spacing: .11em; }
+.hero h1 { max-width: 12ch; margin: 16px 0; font-size: clamp(2.5rem, 5vw, 4.9rem); line-height: 1.04; letter-spacing: -.055em; }
+.hero h1 em { color: #ff5532; font-style: normal; }
+.heroCopy > p { max-width: 55ch; font-size: 1.02rem; line-height: 1.7; color: #5e5854; }
+.heroFacts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.heroFacts span { padding: 10px 13px; border: 1px solid #f2d9d1; border-radius: 10px; background: #fff; font-size: .8rem; color: #655e59; }
+.heroFacts strong { color: #24201f; }
+.formCard { padding: clamp(24px, 3vw, 36px); border-radius: 19px; background: #fff; box-shadow: 0 20px 55px rgba(86, 48, 32, .11); border: 1px solid #f1e7e2; }
+.formCard h2 { margin: 9px 0 5px; font-size: 1.55rem; line-height: 1.2; }
+.formCard > p, .confirmation p { margin: 0 0 21px; color: #6d6560; font-size: .9rem; line-height: 1.55; }
+.form { display: grid; gap: 13px; }
+.form label { display: grid; gap: 6px; color: #38322e; font-size: .82rem; font-weight: 700; }
+.form label span { color: #8f8781; font-weight: 400; }
+.form input { width: 100%; min-height: 44px; border: 1px solid #ded9d5; border-radius: 9px; background: #fff; padding: 10px 12px; color: #211f1e; font: inherit; font-weight: 400; }
+.form input:focus { outline: 2px solid #ff5532; outline-offset: 1px; }
+.submitButton { display: inline-flex; justify-content: center; align-items: center; width: 100%; min-height: 46px; padding: 11px 18px; border: 0; border-radius: 9px; background: #ff5532; color: #fff; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+.submitButton:hover { background: #e94a29; color: #fff; }
+.formCard .formNote { margin: 13px 0 0; font-size: .73rem; color: #8c847e; text-align: center; }
+.error { margin: 0; color: #ad2f19; font-size: .82rem; }
+.confirmation { text-align: center; padding-block: 28px; }
+.confirmIcon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: #fff0eb; color: #e94d2b; font-size: 1.5rem; font-weight: 700; }
+.overview { padding-block: clamp(42px, 6vw, 76px); }
+.sectionIntro { max-width: 660px; margin-bottom: 26px; }
+.sectionIntro h2, .detailPanel h2 { margin: 9px 0; font-size: clamp(1.65rem, 2.7vw, 2.35rem); letter-spacing: -.035em; }
+.sectionIntro p, .detailPanel p { color: #68605b; line-height: 1.65; }
+.overviewGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.overviewGrid article, .detailPanel { padding: clamp(21px, 2.5vw, 30px); border: 1px solid #ebe5e1; border-radius: 16px; background: #fff; }
+.overviewGrid article h3 { margin: 15px 0 9px; font-size: 1.1rem; }
+.overviewGrid article p { margin: 0; color: #68605b; font-size: .88rem; line-height: 1.6; }
+.overviewGrid ul { margin: 0; padding-left: 18px; color: #68605b; font-size: .87rem; line-height: 1.8; }
+.overviewGrid li::marker { color: #ff5532; }
+.detailGrid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; padding-bottom: 40px; }
+.detailPanel { background: #fffaf7; }
+.moduleList { display: grid; gap: 10px; margin-top: 22px; }
+.moduleList > div { display: flex; gap: 14px; align-items: baseline; padding-top: 10px; border-top: 1px solid #eee1da; font-size: .87rem; }
+.moduleList span { color: #ec5030; font-weight: 800; }
+.textLink { display: inline-block; margin-top: 12px; color: #e94d2b; font-size: .9rem; font-weight: 700; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .hero h1 { max-width: 16ch; } .overviewGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) { .hero { padding: 22px; gap: 25px; } .hero h1 { font-size: 2.55rem; } .overviewGrid, .detailGrid { grid-template-columns: 1fr; } .heroFacts span { flex: 1 1 45%; } }

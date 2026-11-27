@@ -9,7 +9,7 @@ import {
   lmsCourses,
   type CourseCategory,
 } from "@/data/lms-courses";
-import { enrollInCourse, unenrollCourse, useLmsSession } from "@/lib/lms-store";
+import { unenrollCourse, useLmsSession } from "@/lib/lms-store";
 import s from "./lms.module.css";
 
 const CATEGORIES: CourseCategory[] = [
@@ -207,13 +207,9 @@ export default function ExploreCoursesView() {
                           Selected &check;
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          className={s.enrollBtn}
-                          onClick={() => enrollInCourse(course.id)}
-                        >
+                        <Link href={`/dashboard/courses/${course.id}/enroll`} className={s.enrollBtn}>
                           Select Course
-                        </button>
+                        </Link>
                       )}
                       <Link href={`/dashboard/courses/${course.id}`} className={s.textActionMuted}>
                         About Course &rarr;

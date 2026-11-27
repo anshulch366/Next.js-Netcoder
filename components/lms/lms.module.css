@@ -932,7 +932,7 @@
 }
 
 .enrollBtn {
-  height: 34px;
+  min-height: 34px;
   padding: 0 13px;
   border: 0;
   border-radius: 7px;
@@ -940,6 +940,9 @@
   color: #ffffff;
   font-size: 0.78rem;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .enrollBtn:hover {

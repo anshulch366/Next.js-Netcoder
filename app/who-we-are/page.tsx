@@ -17,7 +17,7 @@ export default function WhoWeArePage() {
       <section className={styles.hero} aria-labelledby="about-title">
         <div>
           <p className={styles.eyebrow}>Who we are</p>
-          <h1 id="about-title">We are <span>Netcoder.</span></h1>
+          <h1 id="about-title">We are <span>Netcoder</span></h1>
           <p className={styles.intro}>
             We teach the skills behind websites, brands and digital products.
             We also put those skills to work for businesses, right here in Dharamshala.

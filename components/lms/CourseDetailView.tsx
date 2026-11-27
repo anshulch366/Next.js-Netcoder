@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import { AwardIcon, CalendarIcon, CheckSquareIcon, ClockIcon } from "@/components/lms/Icons";
 import { getCourseProgramSessions, type LmsCourse } from "@/data/lms-courses";
 import {
-  enrollInCourse,
   getCourseAttendanceStats,
   setAllCourseAttendance,
   toggleClassAttendance,
@@ -58,13 +57,9 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
               {!enrolled ? (
-                <button
-                  type="button"
-                  className={s.primaryBtn}
-                  onClick={() => enrollInCourse(course.id)}
-                >
+                <Link href={`/dashboard/courses/${course.id}/enroll`} className={s.primaryBtn}>
                   Select Course
-                </button>
+                </Link>
               ) : (
                 <>
                   <span className={`${s.statusBadge} ${s.badgeGreen}`}>
@@ -232,13 +227,9 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
             <p className={s.pageSubtitle}>
               Select {course.title} to add it to My Learning, unlock its schedule and assignments, and mark class attendance.
             </p>
-            <button
-              type="button"
-              className={s.primaryBtn}
-              onClick={() => enrollInCourse(course.id)}
-            >
+            <Link href={`/dashboard/courses/${course.id}/enroll`} className={s.primaryBtn}>
               Select Course
-            </button>
+            </Link>
           </div>
         ) : (
           <div className={s.moduleGrid}>
