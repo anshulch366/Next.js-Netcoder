@@ -20,9 +20,12 @@
 
 .authShell {
   min-height: 100svh;
+  max-width: 1500px;
+  margin-inline: auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 24px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 80px;
   padding: 18px;
   background: #ffffff;
   color: #1f1f1e;
@@ -30,15 +33,15 @@
 
 .mediaPanel {
   position: relative;
-  min-height: calc(100svh - 36px);
-  border-radius: 32px;
+  height: min(600px, calc(100svh - 36px));
+  border-radius: 28px;
   overflow: hidden;
   background: #ff4724;
 }
 
 .mediaImage {
   object-fit: cover;
-  object-position: center 42%;
+  object-position: center;
 }
 
 .formColumn {
@@ -391,6 +394,7 @@
 @media (max-width: 960px) {
   .authShell {
     grid-template-columns: 1fr;
+    gap: 20px;
     padding: 16px;
   }
 

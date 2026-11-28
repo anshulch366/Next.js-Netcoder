@@ -124,8 +124,8 @@ export default function AuthView({ mode }: AuthViewProps) {
     <div className={styles.authShell}>
       <div className={styles.mediaPanel}>
         <Image
-          src="/images/auth/hero-headphones.webp"
-          alt="Student listening with studio headphones in warm orange lighting"
+          src={isSignup ? "/images/auth/hero-headphones.webp" : "/images/Learning/What Makes a Good Logo.png"}
+          alt={isSignup ? "Student listening with studio headphones" : "Creative portrait from the Netcoder design learning guide"}
           fill
           priority
           sizes="(max-width: 960px) 100vw, 46vw"
