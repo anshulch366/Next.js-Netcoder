@@ -46,6 +46,7 @@ export default function LmsShell({ children }: { children: ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
+  const [expandedNavGroups, setExpandedNavGroups] = useState<Record<string, boolean>>({ Learning: true });
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -115,6 +116,13 @@ export default function LmsShell({ children }: { children: ReactNode }) {
     return pathname === href || pathname.startsWith(href + "/");
   }
 
+  useEffect(() => {
+    const activeGroup = navGroups.find((group) => group.items.some((item) => isActive(item.href)));
+    if (activeGroup) {
+      setExpandedNavGroups((groups) => ({ ...groups, [activeGroup.title]: true }));
+    }
+  }, [pathname]);
+
   const mobileTabs = [
     { label: "Home", href: "/dashboard", icon: DashboardIcon },
     { label: "Explore", href: "/dashboard/explore", icon: CompassIcon },
@@ -164,28 +172,39 @@ export default function LmsShell({ children }: { children: ReactNode }) {
         <nav className={s.navScroll} aria-label="Student portal menu">
           {navGroups.map((group) => (
             <div key={group.title} className={s.navGroup}>
-              <p className={s.navGroupLabel}>{group.title}</p>
-              <ul className={s.navList}>
-                {group.items.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.href);
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={`${s.navLink} ${active ? s.navLinkActive : ""}`}
-                        aria-current={active ? "page" : undefined}
-                      >
-                        <Icon className={s.navIcon} />
-                        <span>{item.label}</span>
-                        {item.badge !== undefined && item.badge > 0 && (
-                          <span className={s.navBadge}>{item.badge}</span>
-                        )}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+              <button
+                type="button"
+                className={s.navGroupLabel}
+                aria-expanded={Boolean(expandedNavGroups[group.title])}
+                aria-controls={`nav-group-${group.title.toLowerCase().replaceAll(" ", "-")}`}
+                onClick={() => setExpandedNavGroups((groups) => ({ ...groups, [group.title]: !groups[group.title] }))}
+              >
+                <span>{group.title}</span>
+                <span className={`${s.navChevron} ${expandedNavGroups[group.title] ? s.navChevronOpen : ""}`} aria-hidden="true">⌄</span>
+              </button>
+              {expandedNavGroups[group.title] && (
+                <ul className={s.navList} id={`nav-group-${group.title.toLowerCase().replaceAll(" ", "-")}`}>
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    const active = isActive(item.href);
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className={`${s.navLink} ${active ? s.navLinkActive : ""}`}
+                          aria-current={active ? "page" : undefined}
+                        >
+                          <Icon className={s.navIcon} />
+                          <span>{item.label}</span>
+                          {item.badge !== undefined && item.badge > 0 && (
+                            <span className={s.navBadge}>{item.badge}</span>
+                          )}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
           ))}
         </nav>

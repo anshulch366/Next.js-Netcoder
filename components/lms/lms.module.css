@@ -119,12 +119,36 @@
 }
 
 .navGroupLabel {
-  margin: 0 0 6px 10px;
+  width: 100%;
+  margin: 0 0 6px;
+  padding: 0 8px 0 10px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--lms-soft-muted);
+  text-align: left;
+  cursor: pointer;
+}
+
+.navGroupLabel:hover {
+  color: var(--lms-ink);
+}
+
+.navChevron {
+  font-size: 1rem;
+  line-height: 1;
+  transform: rotate(-90deg);
+  transition: transform 160ms ease;
+}
+
+.navChevronOpen {
+  transform: rotate(0deg);
 }
 
 .navList {

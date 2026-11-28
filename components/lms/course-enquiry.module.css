@@ -1,10 +1,11 @@
-.page { max-width: 1180px; margin-inline: auto; color: #211f1e; }
+.page { width: 100%; max-width: 1350px; margin-inline: auto; color: #211f1e; }
 .breadcrumb { display: flex; gap: 10px; align-items: center; margin: 0 0 18px; font-size: .8rem; color: #77716d; }
 .breadcrumb a { color: #e84b29; font-weight: 600; }
-.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(28px, 5vw, 60px); border-radius: 24px; background: linear-gradient(125deg, #fff7f3 0%, #fff 62%); border: 1px solid #f4dfd8; }
-.heroCopy { min-width: 0; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: clamp(28px, 5vw, 72px); align-items: start; padding: clamp(28px, 5vw, 60px); border-radius: 24px; background: linear-gradient(125deg, #fff7f3 0%, #fff 62%); border: 1px solid #f4dfd8; }
+.heroCopy { align-self: start; min-width: 0; }
+.formCard { grid-column: 2; grid-row: 1; align-self: center; margin-top: 0; }
 .eyebrow, .formKicker, .cardNumber { color: #e94d2b; font-size: .75rem; font-weight: 800; letter-spacing: .11em; }
-.hero h1 { max-width: 12ch; margin: 16px 0; font-size: clamp(2.5rem, 5vw, 4.9rem); line-height: 1.04; letter-spacing: -.055em; }
+.hero h1 { max-width: 14ch; margin: 16px 0; font-size: clamp(2.2rem, 3.8vw, 3.8rem); line-height: 1.06; letter-spacing: -.05em; }
 .hero h1 em { color: #ff5532; font-style: normal; }
 .heroCopy > p { max-width: 55ch; font-size: 1.02rem; line-height: 1.7; color: #5e5854; }
 .heroFacts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
@@ -70,5 +71,5 @@
 .toolTags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
 .toolTags span { padding: 9px 13px; border: 1px solid #f5cfc5; border-radius: 999px; background: #fff; color: #b54227; font-size: .81rem; font-weight: 650; }
 .textLink { display: inline-block; margin-top: 12px; color: #e94d2b; font-size: .9rem; font-weight: 700; }
-@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .hero h1 { max-width: 16ch; } .overviewGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .learningApproach { grid-template-columns: 1fr; } .approachPhoto { min-height: 280px; } }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .heroCopy { grid-column: auto; } .heroPhoto, .formCard { grid-column: auto; grid-row: auto; align-self: stretch; } .formCard { margin-top: 0; } .hero h1 { max-width: 16ch; } .overviewGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .learningApproach { grid-template-columns: 1fr; } .approachPhoto { min-height: 280px; } }
 @media (max-width: 650px) { .hero { padding: 22px; gap: 25px; } .hero h1 { font-size: 2.55rem; } .highlights, .overviewGrid, .detailGrid { grid-template-columns: 1fr 1fr; } .detailGrid { grid-template-columns: 1fr; } .heroFacts span { flex: 1 1 45%; } .curriculum { padding: 20px; } .curriculumModule summary { gap: 9px; padding: 15px 12px; } .curriculumModule ul { padding-left: 35px; } .lessonCount { display: none; } }
