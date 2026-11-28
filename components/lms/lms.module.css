@@ -1342,7 +1342,7 @@
 
 .profileGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
@@ -1350,6 +1350,22 @@
 .profileCol {
   display: grid;
   gap: 16px;
+}
+
+.profileDetailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.profileAttendance {
+  margin-top: 18px;
+  width: min(100%, 900px);
+  margin-inline: auto;
+}
+
+.metricsGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .infoCard {
@@ -1818,6 +1834,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .aboutGrid > section:nth-child(2) .stackList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1910,6 +1930,7 @@
   }
 
   .profileGrid,
+  .profileDetailsGrid,
   .playerGrid,
   .courseHeroSplit,
   .aboutGrid {
@@ -1999,6 +2020,10 @@
   }
 
   .aboutGrid > section:nth-child(3) .moduleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid {
     grid-template-columns: 1fr;
   }
 

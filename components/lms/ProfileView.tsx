@@ -186,6 +186,7 @@ export default function ProfileView() {
             </div>
           </section>
 
+          <div className={s.profileDetailsGrid}>
           <section className={s.infoCard} aria-labelledby="education-info-heading">
             <div className={s.infoCardHeader}>
               <h3 id="education-info-heading">Educational Details</h3>
@@ -331,6 +332,7 @@ export default function ProfileView() {
               )}
             </div>
           </section>
+          </div>
 
           {errorMsg && <div className={s.errorNotice}>{errorMsg}</div>}
           {savedMsg && <div className={s.savedNotice}>{savedMsg}</div>}
@@ -388,51 +390,51 @@ export default function ProfileView() {
             </div>
           </section>
 
-          <section aria-labelledby="learning-progress-heading">
-            <h2 id="learning-progress-heading" className={s.sectionHeading} style={{ marginBottom: 12 }}>
-              Class Attendance
-            </h2>
-            <div className={s.progressSummaryCard}>
-              <div>
+        </div>
+      </div>
+      <section className={s.profileAttendance} aria-labelledby="learning-progress-heading">
+        <h2 id="learning-progress-heading" className={s.sectionHeading} style={{ marginBottom: 12 }}>
+          Class Attendance
+        </h2>
+        <div className={s.progressSummaryCard}>
+          <div>
+            <div className={s.progressHeader}>
+              <span style={{ fontWeight: 700, color: "#1c1b1a" }}>Overall Attendance</span>
+              <strong>
+                {totalAttendedClasses} / {totalScheduledClasses} ({overallPercent}%)
+              </strong>
+            </div>
+            <div className={s.progressTrack}>
+              <div className={s.progressFill} style={{ width: `${overallPercent}%` }} />
+            </div>
+          </div>
+
+          {selectedEntries.length === 0 ? (
+            <div style={{ paddingTop: 4 }}>
+              <p style={{ margin: "0 0 10px", fontSize: "0.84rem" }}>
+                No courses selected yet. Choose a program in Explore Courses to start tracking attendance.
+              </p>
+              <Link href="/dashboard/explore" className={s.inlineActionLink}>
+                Explore Courses &rarr;
+              </Link>
+            </div>
+          ) : (
+            selectedEntries.map(({ course, attendance }) => (
+              <div key={course.id} className={s.progressCourseItem}>
                 <div className={s.progressHeader}>
-                  <span style={{ fontWeight: 700, color: "#1c1b1a" }}>Overall Attendance</span>
+                  <span>{course.title}</span>
                   <strong>
-                    {totalAttendedClasses} / {totalScheduledClasses} ({overallPercent}%)
+                    {attendance.attended} / {attendance.totalClasses} Classes
                   </strong>
                 </div>
                 <div className={s.progressTrack}>
-                  <div className={s.progressFill} style={{ width: `${overallPercent}%` }} />
+                  <div className={s.progressFill} style={{ width: `${attendance.percent}%` }} />
                 </div>
               </div>
-
-              {selectedEntries.length === 0 ? (
-                <div style={{ paddingTop: 4 }}>
-                  <p style={{ margin: "0 0 10px", fontSize: "0.84rem" }}>
-                    No courses selected yet. Choose a program in Explore Courses to start tracking attendance.
-                  </p>
-                  <Link href="/dashboard/explore" className={s.inlineActionLink}>
-                    Explore Courses &rarr;
-                  </Link>
-                </div>
-              ) : (
-                selectedEntries.map(({ course, attendance }) => (
-                  <div key={course.id} className={s.progressCourseItem}>
-                    <div className={s.progressHeader}>
-                      <span>{course.title}</span>
-                      <strong>
-                        {attendance.attended} / {attendance.totalClasses} Classes
-                      </strong>
-                    </div>
-                    <div className={s.progressTrack}>
-                      <div className={s.progressFill} style={{ width: `${attendance.percent}%` }} />
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </section>
+            ))
+          )}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
