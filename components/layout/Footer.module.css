@@ -13,14 +13,14 @@
 .eyebrow { margin: 0 0 .45rem; color: #e65030; font: 700 .68rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
 .heading h2 { color: #292521; font: 650 clamp(1.35rem, 2.6vw, 1.85rem)/1.2 var(--body-font), "Segoe UI", sans-serif; letter-spacing: -.045em; }
 .heading p { max-width: 620px; margin: .55rem 0 0; color: #77706a; font-size: .88rem; line-height: 1.65; }
-.contactButton { display: inline-flex; min-height: 42px; flex: 0 0 auto; align-items: center; justify-content: center; gap: .55rem; padding: 0 1rem; border: 1px solid #ef5736; border-radius: 6px; background: #ef5736; color: #fff !important; font-size: .82rem; font-weight: 650; text-decoration: none !important; transition: background .15s, transform .15s; }
+.contactButton { display: inline-flex; min-height: 42px; flex: 0 0 auto; align-items: center; justify-content: center; gap: .55rem; padding: 0 1rem; border: 1px solid #FF5532; border-radius: 6px; background: #FF5532; color: #fff !important; font-size: .82rem; font-weight: 650; text-decoration: none !important; transition: background .15s, transform .15s; }
 .contactButton:hover { transform: translateY(-1px); background: #d9482b; }
 .columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; padding: 1.5rem 0 2.25rem; border-top: 1px solid #f0ebe7; }
 .column h3 { margin: 0 0 .9rem; color: #292521; font: 700 .72rem/1.4 var(--mono); letter-spacing: .045em; text-transform: uppercase; }
 .column ul { display: grid; gap: .53rem; margin: 0; padding: 0; list-style: none; }
 .column a { color: #655e58; font-size: .8rem; line-height: 1.45; text-decoration: none; transition: color .15s; }
 .column a:hover { color: #df4e30; text-decoration: underline; text-underline-offset: .2em; }
-.bottom { background: #ff5635; color: #fff; }
+.bottom { background: #FF5532; color: #fff; }
 .bottomInner { display: flex; min-height: 58px; align-items: center; justify-content: space-between; gap: 1rem; }
 .copyright { margin: 0; color: #fff !important; font-size: .78rem; font-weight: 500; }
 .copyright a { color: inherit; font-weight: 700; text-decoration: none; }

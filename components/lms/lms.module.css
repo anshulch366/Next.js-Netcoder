@@ -671,6 +671,16 @@
   margin-bottom: 24px;
 }
 
+/* Course detail uses a single full-width split layout inside the hero. */
+.courseDetailHero {
+  display: block;
+}
+
+.courseDetailHero .courseHeroSplit {
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  width: 100%;
+}
+
 .heroBannerContent {
   min-width: 0;
 }
@@ -1394,9 +1404,35 @@
 
 .aboutGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "about"
+    "curriculum"
+    "attendance";
   gap: 18px;
   align-items: start;
+}
+
+.aboutGrid > section:nth-child(1) {
+  grid-area: about;
+}
+
+.aboutGrid > section:nth-child(2) {
+  grid-area: curriculum;
+}
+
+.aboutGrid > section:nth-child(2) .stackList {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.aboutGrid > section:nth-child(3) {
+  grid-area: attendance;
+  min-width: 0;
+}
+
+.aboutGrid > section:nth-child(3) .moduleGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .skillsWrap {
@@ -1781,6 +1817,14 @@
   .exploreGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .aboutGrid > section:nth-child(2) .stackList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aboutGrid > section:nth-child(3) .moduleGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 960px) {
@@ -1871,6 +1915,25 @@
   .aboutGrid {
     grid-template-columns: 1fr;
   }
+
+  .aboutGrid {
+    grid-template-areas:
+      "about"
+      "curriculum"
+      "attendance";
+  }
+
+  .aboutGrid > section:nth-child(2) {
+    grid-row: auto;
+  }
+
+  .aboutGrid > section:nth-child(2) .stackList {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutGrid > section:nth-child(3) .moduleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -1932,6 +1995,10 @@
   .learningGrid,
   .exploreGrid,
   .moduleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutGrid > section:nth-child(3) .moduleGrid {
     grid-template-columns: 1fr;
   }
 

@@ -32,7 +32,7 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
         <Link href="/dashboard/explore">Explore Courses</Link> / {course.title}
       </div>
 
-      <section className={s.heroBanner} style={{ display: "grid", gap: 16 }}>
+      <section className={`${s.heroBanner} ${s.courseDetailHero}`}>
         <div className={s.courseHeroSplit}>
           <div>
             <span className={s.softPill}>
@@ -164,9 +164,7 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
             ))}
           </div>
         </section>
-      </div>
-
-      <section className={s.infoCard} style={{ marginTop: 18 }} aria-labelledby="attendance-tracker-heading">
+      <section className={s.infoCard} aria-labelledby="attendance-tracker-heading">
         <div className={s.sectionBar}>
           <div>
             <h2 id="attendance-tracker-heading" className={s.sectionHeading}>
@@ -263,6 +261,7 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
           </div>
         )}
       </section>
+      </div>
     </div>
   );
 }
