@@ -790,6 +790,19 @@ export function getCourseScheduleSessions(course: LmsCourse): ScheduleSession[] 
       status: "Upcoming",
       rsvped: false,
     },
+    {
+      id: `sch-${course.id}-3`,
+      courseId: course.id,
+      day: "Wednesday",
+      dateLabel: "Weekly Practice",
+      time: "03:30 PM - 04:30 PM",
+      title: `${course.title} Practice Session`,
+      courseTitle: course.title,
+      instructor: course.instructor,
+      mode: "Mentor Review",
+      status: "Upcoming",
+      rsvped: false,
+    },
   ];
 }
 
@@ -833,6 +846,16 @@ export function getCourseAssignments(course: LmsCourse): LmsAssignment[] {
       dueDate: "14 Days",
       status: "Pending",
       brief: `Complete a portfolio-ready exercise demonstrating ${secondarySkill.toLowerCase()} in ${course.title}.`,
+    },
+    {
+      id: `asg-${course.id}-3`,
+      title: `${course.shortCategory} Portfolio Review`,
+      courseId: course.id,
+      courseTitle: course.title,
+      moduleLabel: modTwo,
+      dueDate: "21 Days",
+      status: "Pending",
+      brief: `Prepare a short portfolio piece from ${course.title} and submit it for mentor feedback.`,
     },
   ];
 }

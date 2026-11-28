@@ -630,7 +630,7 @@
 /* Shared content width */
 .pageWidth {
   width: 100%;
-  max-width: 1120px;
+  max-width: 1400px;
   margin-inline: auto;
 }
 
@@ -701,6 +701,12 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 26px;
+}
+
+.exploreFeaturedGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: start;
+  gap: 24px;
 }
 
 .previewCard {
@@ -1029,8 +1035,9 @@
 
 .learningGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 520px));
+  justify-content: start;
+  gap: 24px;
 }
 
 .learningCard {
@@ -1515,6 +1522,17 @@
   gap: 14px;
 }
 
+.scheduleGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.assignmentGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
 .moduleCard {
   border: 1px solid var(--lms-border);
   border-radius: 14px;
@@ -1530,6 +1548,20 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
+}
+
+.resourceLanguageTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.resourceLanguageLogo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .moduleCard h3 {

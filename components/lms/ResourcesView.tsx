@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { BookIcon, SearchIcon } from "@/components/lms/Icons";
 import { learningLanguages } from "@/data/learning-resources";
@@ -70,7 +71,16 @@ export default function ResourcesView() {
         {visibleSubjects.map((subject) => (
           <article key={subject.id} className={s.moduleCard}>
             <div className={s.moduleCardHeader}>
-              <h3>{subject.label}</h3>
+              <div className={s.resourceLanguageTitle}>
+                <Image
+                  src={`/images/subjects/${subject.id}.svg`}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className={s.resourceLanguageLogo}
+                />
+                <h3>{subject.label}</h3>
+              </div>
               <span className={`${s.statusBadge} ${s.badgeOrange}`}>{subject.category}</span>
             </div>
             <p style={{ margin: 0, fontSize: "0.84rem" }}>{subject.description}</p>

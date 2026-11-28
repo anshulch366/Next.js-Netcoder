@@ -7,7 +7,7 @@ import { lmsCourses } from "@/data/lms-courses";
 import { getCourseAttendanceStats, useLmsSession } from "@/lib/lms-store";
 import s from "./lms.module.css";
 
-const featuredCourses = lmsCourses.slice(0, 2);
+const featuredCourses = lmsCourses.slice(0, 3);
 
 const onboardingSteps = [
   {
@@ -136,7 +136,7 @@ export default function DashboardHome() {
           </Link>
         </div>
 
-        <div className={s.featuredGrid}>
+        <div className={`${s.featuredGrid} ${s.exploreFeaturedGrid}`}>
           {featuredCourses.map((course) => (
             <article key={course.id} className={s.previewCard}>
               <div className={s.cardBannerWrap}>

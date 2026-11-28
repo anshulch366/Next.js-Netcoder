@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CalendarIcon } from "@/components/lms/Icons";
+import { getCourseAssignments, lmsCourses } from "@/data/lms-courses";
 import { submitStudentAssignment, useLmsSession } from "@/lib/lms-store";
 import s from "./lms.module.css";
 
@@ -13,10 +14,16 @@ export default function AssignmentsView() {
   const [filter, setFilter] = useState<AssignmentFilter>("all");
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const pendingCount = session.account.assignments.filter((a) => a.status === "Pending").length;
-  const submittedCount = session.account.assignments.filter((a) => a.status === "Submitted").length;
+  const assignments = session.account.assignments;
+  const demoCourse = lmsCourses.find((course) => course.id === assignments[0]?.courseId);
+  const extraAssignment = demoCourse ? getCourseAssignments(demoCourse)[2] : null;
+  const allAssignments = extraAssignment && !assignments.some((item) => item.id === extraAssignment.id)
+    ? [...assignments, extraAssignment]
+    : assignments;
+  const pendingCount = allAssignments.filter((a) => a.status === "Pending").length;
+  const submittedCount = allAssignments.filter((a) => a.status === "Submitted").length;
 
-  const visible = session.account.assignments.filter((a) =>
+  const visible = allAssignments.filter((a) =>
     filter === "all" ? true : a.status === filter,
   );
 
@@ -41,7 +48,7 @@ export default function AssignmentsView() {
           className={`${s.pillTab} ${filter === "all" ? s.pillTabActive : ""}`}
           onClick={() => setFilter("all")}
         >
-          All ({session.account.assignments.length})
+          All ({allAssignments.length})
         </button>
         <button
           type="button"
@@ -74,7 +81,7 @@ export default function AssignmentsView() {
           </Link>
         </div>
       ) : (
-        <div className={s.moduleGrid}>
+        <div className={`${s.moduleGrid} ${s.assignmentGrid}`}>
           {visible.map((item) => (
             <article key={item.id} className={s.moduleCard}>
               <div className={s.moduleCardHeader}>
