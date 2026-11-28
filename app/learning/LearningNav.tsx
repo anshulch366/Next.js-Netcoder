@@ -11,6 +11,12 @@ const online = [
   { title: "SQL", href: "/courses/sql" },
 ];
 
+const campusGroups = [
+  { title: "Design & Multimedia Courses", links: campus.filter(item => ["Graphic Design", "UI/UX Design"].includes(item.title)) },
+  { title: "CMS & Web Technologies Courses", links: campus.filter(item => ["Full-Stack Development", "Python Course"].includes(item.title)) },
+  { title: "Professional Training Courses", links: campus.filter(item => ["Digital Marketing", "Data Science", "Ethical Hacking", "Cyber Security", "Data Analytics"].includes(item.title)) },
+];
+
 export default function LearningNav() {
   const nav = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -35,12 +41,22 @@ export default function LearningNav() {
       }
     }}>
       <a href={industrial}>Industrial Training</a>
-      {[{ title: "Online Courses", links: online }, { title: "On-Campus Courses", links: campus.filter(item => !item.href.startsWith("/")) }].map(group => (
-        <details name="program-menu" key={group.title}>
-          <summary>{group.title}</summary>
-          <div>{group.links.map(item => <a href={item.href} key={item.href}>{item.title}</a>)}</div>
-        </details>
-      ))}
+      <details name="program-menu" className={s.onlineMenu}>
+        <summary>Online Courses</summary>
+        <div className={s.dropdownPanel}>
+          <h2>Online Professional Courses</h2>
+          <div className={s.onlineLinks}>{online.map(item => <a href={item.href} key={item.href}>{item.title}</a>)}</div>
+        </div>
+      </details>
+      <details name="program-menu" className={s.campusMenu}>
+        <summary>On-Campus Courses</summary>
+        <div className={s.dropdownPanel}>
+          {campusGroups.map(group => <section className={s.courseGroup} key={group.title}>
+            <h2>{group.title}</h2>
+            {group.links.map(item => <a href={item.href} key={item.href}>{item.title}</a>)}
+          </section>)}
+        </div>
+      </details>
     </nav>
   );
 }

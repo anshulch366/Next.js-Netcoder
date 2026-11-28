@@ -5,13 +5,13 @@ import { pageMetadata } from "@/app/site-metadata";
 import s from "./home.module.css";
 export const metadata = pageMetadata("/", "Learn, Create & Build | Netcoder Technology", "Explore professional digital services and practical learning at Netcoder Technology, Dharamshala.");
 const paths = [
-  { label: "FOR BUSINESSES & BRANDS", title: <>Bring your<br />next idea to life.</>, text: "Thoughtful design and dependable development for your next website, brand or digital experience.", tags: ["Web development", "UI/UX design", "Branding", "Digital marketing"], href: "/services", action: "Explore Services", icon: "</>" },
   { label: "FOR LEARNERS & PROFESSIONALS", title: <>Build skills.<br />Find your direction.</>, text: "Learn by doing. Explore professional courses, work on practical projects and take your next step with guidance.", tags: ["Professional courses", "Industrial training", "Hands-on projects"], href: "/learning", action: "Explore Learning", icon: "Aa" },
+  { label: "FOR BUSINESSES & BRANDS", title: <>Bring your<br />next idea to life.</>, text: "Thoughtful design and dependable development for your next website, brand or digital experience.", tags: ["Web development", "UI/UX design", "Branding", "Digital marketing"], href: "/services", action: "Explore Services", icon: "</>" },
 ];
 export default function Home() { return <div className={s.home}>
   <header className={s.header}>
-    <Link href="/" aria-label="Netcoder Technology home"><Image src="/images/logo/logo.png" alt="Netcoder Technology" width={154} height={62} priority /></Link>
-    <div className={s.headerActions}><Link className={s.login} href="/login">Student login</Link><Navigation /></div>
+    <Link href="/" aria-label="Netcoder Technology home"><Image src="/images/logo/logo.png" alt="Netcoder Technology" width={154} height={62} /></Link>
+    <div className={s.headerActions}><Navigation /></div>
   </header>
   <main id="main" className={s.main}>
     <section className={s.hero}><div><p className={s.eyebrow}>NETCODER TECHNOLOGY · DHARAMSHALA</p><h1>Good ideas.<br />Great skills.<br /><span>Real possibilities.</span></h1></div><div className={s.intro}><span className={s.symbol} aria-hidden="true">✳</span><p>For the business you’re building.<br />For the future you’re working towards.</p><p className={s.muted}>We bring design, technology and practical learning together. Choose where you want to begin.</p></div></section>

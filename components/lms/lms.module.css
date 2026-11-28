@@ -728,9 +728,13 @@
 }
 
 .exploreFeaturedGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  justify-content: start;
-  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 430px));
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.dashboardExploreCard .cardBannerWrap {
+  aspect-ratio: 16 / 9.2;
 }
 
 .previewCard {

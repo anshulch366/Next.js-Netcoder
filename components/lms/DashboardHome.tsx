@@ -138,13 +138,12 @@ export default function DashboardHome() {
 
         <div className={`${s.featuredGrid} ${s.exploreFeaturedGrid}`}>
           {featuredCourses.map((course) => (
-            <article key={course.id} className={s.previewCard}>
+            <article key={course.id} className={`${s.previewCard} ${s.dashboardExploreCard}`}>
               <div className={s.cardBannerWrap}>
                 <Image
                   src={course.banner}
                   alt={course.title}
                   fill
-                  priority
                   sizes="(max-width: 680px) 100vw, 480px"
                   className={s.cardBannerImg}
                 />

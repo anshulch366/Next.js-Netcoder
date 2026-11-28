@@ -29,7 +29,7 @@ export default function WhoWeArePage() {
         </div>
         <div className={styles.art}>
           <Image src="/images/about/netcoder-creative.webp" alt="" width={800} height={987}
-            sizes="(max-width: 720px) 66vw, 360px" loading="eager" />
+            sizes="(max-width: 720px) 66vw, 360px" />
         </div>
       </section>
       <section className={styles.work} aria-labelledby="work-title">

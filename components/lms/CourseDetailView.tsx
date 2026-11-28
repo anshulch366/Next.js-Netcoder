@@ -93,7 +93,6 @@ export default function CourseDetailView({ course }: { course: LmsCourse }) {
               src={course.banner}
               alt={course.title}
               fill
-              priority
               sizes="(max-width: 960px) 100vw, 380px"
               className={s.cardBannerImg}
             />
