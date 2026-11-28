@@ -52,7 +52,7 @@ export interface LmsCourse {
   externalFieldGuideHref?: string;
 }
 
-const BANNER = "/images/courses/headphones-banner.webp";
+const BANNER = "/images/courses/learning-studio.png";
 
 function buildModules(
   courseSlug: string,
@@ -89,7 +89,7 @@ export const lmsCourses: LmsCourse[] = [
     durationBucket: "5-10 Hours",
     priceType: "Paid",
     priceLabel: "₹2,499",
-    banner: BANNER,
+    banner: "/images/Learning/What Makes a Good Logo.png",
     instructor: "Meera Thakur",
     recommendedRank: 1,
     defaultModuleLabel: "Module 04 · Typography",
@@ -143,7 +143,7 @@ export const lmsCourses: LmsCourse[] = [
     durationBucket: "5-10 Hours",
     priceType: "Paid",
     priceLabel: "₹2,999",
-    banner: BANNER,
+    banner: "/images/courses/project-workshop.png",
     instructor: "Rohan Katoch",
     recommendedRank: 2,
     defaultModuleLabel: "Module 02 · CSS Fundamentals",
