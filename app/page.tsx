@@ -1,59 +1,21 @@
+import Image from "next/image";
+import Navigation from "@/components/layout/Navigation";
 import { PageLink as Link } from "@/components/layout/PageTransition";
-import styles from "./home.module.css";
-
 import { pageMetadata } from "@/app/site-metadata";
-
-export const metadata = pageMetadata(
-  "/",
-  "Coding Courses, Industrial Training and Digital Services",
-  "Explore Netcoder’s coding courses and hands-on training, or find a team for web development, UI/UX, branding and digital marketing.",
-);
-
+import s from "./home.module.css";
+export const metadata = pageMetadata("/", "Learn, Create & Build | Netcoder Technology", "Explore professional digital services and practical learning at Netcoder Technology, Dharamshala.");
 const paths = [
-  {
-    title: "Want to Learn",
-    description: "Build practical skills through industry-focused courses, hands-on projects, and real-world training.",
-    items: ["Professional Courses", "Industrial Training", "Hands-On Projects", "Career-Focused Learning"],
-    href: "/learning",
-    action: "Explore Learning",
-  },
-  {
-    title: "Want to Build",
-    description: "Turn ideas into digital experiences with design, development, branding, and digital solutions.",
-    items: ["Web Development", "UI/UX Design", "Branding", "Digital Marketing"],
-    href: "/services",
-    action: "Explore Services",
-  },
+  { label: "FOR BUSINESSES & BRANDS", title: <>Bring your<br />next idea to life.</>, text: "Thoughtful design and dependable development for your next website, brand or digital experience.", tags: ["Web development", "UI/UX design", "Branding", "Digital marketing"], href: "/services", action: "Explore Services", icon: "</>" },
+  { label: "FOR LEARNERS & PROFESSIONALS", title: <>Build skills.<br />Find your direction.</>, text: "Learn by doing. Explore professional courses, work on practical projects and take your next step with guidance.", tags: ["Professional courses", "Industrial training", "Hands-on projects"], href: "/learning", action: "Explore Learning", icon: "Aa" },
 ];
-
-export default function Home() {
-  return (
-    <div className={styles.home}>
-      <section className={styles.intro} aria-labelledby="home-title">
-        <span className={styles.welcome}>Welcome To Netcoder Technology</span>
-        <h1 id="home-title">What Brings You <span>Here Today?</span></h1>
-        <p>Choose Your Path And Discover What Netcoder Can Help You Learn Or Build.</p>
-      </section>
-      <div className={styles.choices}>
-        {paths.map((path) => (
-          <article className={styles.card} key={path.href}>
-            <h2>{path.title}</h2>
-            <p className={styles.description}>{path.description}</p>
-            <div className={styles.features}>
-              <h3>What You’ll Find:</h3>
-              <ul>{path.items.map((item) => <li key={item}>{item}</li>)}</ul>
-            </div>
-            <button type="button" className={styles.detailsButton} popoverTarget={`details-${path.href.slice(1)}`}>What you’ll find</button>
-            <div popover="auto" id={`details-${path.href.slice(1)}`} className={styles.popover} aria-label={path.title} role="dialog">
-              <h2>{path.title}</h2>
-              <p>{path.description}</p>
-              <ul>{path.items.map((item) => <li key={item}>{item}</li>)}</ul>
-              <button type="button" popoverTarget={`details-${path.href.slice(1)}`} popoverTargetAction="hide">Close</button>
-            </div>
-            <Link className={styles.action} href={path.href}>{path.action}</Link>
-          </article>
-        ))}
-      </div>
-    </div>
-  );
-}
+export default function Home() { return <div className={s.home}>
+  <header className={s.header}>
+    <Link href="/" aria-label="Netcoder Technology home"><Image src="/images/logo/logo.png" alt="Netcoder Technology" width={154} height={62} priority /></Link>
+    <div className={s.headerActions}><Link className={s.login} href="/login">Student login</Link><Navigation /></div>
+  </header>
+  <main id="main" className={s.main}>
+    <section className={s.hero}><div><p className={s.eyebrow}>NETCODER TECHNOLOGY · DHARAMSHALA</p><h1>Good ideas.<br />Great skills.<br /><span>Real possibilities.</span></h1></div><div className={s.intro}><span className={s.symbol} aria-hidden="true">✳</span><p>For the business you’re building.<br />For the future you’re working towards.</p><p className={s.muted}>We bring design, technology and practical learning together. Choose where you want to begin.</p></div></section>
+    <section className={s.paths} aria-label="Explore Netcoder">{paths.map((path, index) => <article className={`${s.path} ${index === 0 ? s.services : s.learning}`} key={path.href}><div className={s.pathTop}><span>{path.label}</span><span className={s.icon} aria-hidden="true">{path.icon}</span></div><h2>{path.title}</h2><p>{path.text}</p><ul>{path.tags.map(tag => <li key={tag}>{tag}</li>)}</ul><Link className={s.action} href={path.href}>{path.action}</Link></article>)}</section>
+    <section className={s.approach}><p className={s.eyebrow}>THE NETCODER APPROACH</p><h2>Built around people.<br />Focused on the work.</h2><div><h3>Ideas into practice</h3><p>From a first lesson to a finished website, we believe the best way forward is to make something useful.</p></div><div><h3>Clarity at every step</h3><p>A learning path that makes sense. A digital solution with a purpose. Start with what matters to you.</p></div></section>
+  </main><footer className={s.footer}><strong>Netcoder Technology</strong><span>Technology. Creativity. Possibility.</span><Link href="/who-we-are">Get to know us</Link></footer>
+</div>; }

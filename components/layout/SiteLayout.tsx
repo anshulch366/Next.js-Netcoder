@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 export default function SiteLayout({ header, footer, children }: { header: ReactNode; footer: ReactNode; children: ReactNode }) {
   const pathname = usePathname();
   if (
+    pathname === "/" ||
     pathname === "/login" ||
     pathname === "/signup" ||
     pathname === "/create-account" ||
